@@ -36,11 +36,6 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        int[] arr = {0, 1, 0, 1, 0};
-        int[] new_arr = heapsort(arr);
-        int len = arr.length;
-        for (int i = 0; i < len; i++) {
-            System.out.println(new_arr[i]);
-        }
+
     }
 }
