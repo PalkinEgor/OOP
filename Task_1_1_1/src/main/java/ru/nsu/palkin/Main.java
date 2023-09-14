@@ -2,21 +2,21 @@ package ru.nsu.palkin;
 
 public class Main {
     public static void heapify(int[] arr, int len, int i) {
-        int largest = i;
-        int left = i * 2 + 1;
-        int right = i * 2 + 2;
-        if (left < len && arr[left] > arr[largest]) {
-            largest = left;
+        int largest_index = i;
+        int left_child_index = i * 2 + 1;
+        int right_child_index = i * 2 + 2;
+        if (left_child_index < len && arr[left_child_index] > arr[largest_index]) {
+            largest_index = left_child_index;
         }
-        if (right < len && arr[right] > arr[largest]) {
-            largest = right;
+        if (right_child_index < len && arr[right_child_index] > arr[largest_index]) {
+            largest_index = right_child_index;
         }
-        if (largest != i) {
-            int tmp = arr[largest];
-            arr[largest] = arr[i];
+        if (largest_index != i) {
+            int tmp = arr[largest_index];
+            arr[largest_index] = arr[i];
             arr[i] = tmp;
 
-            heapify(arr, len, largest);
+            heapify(arr, len, largest_index);
         }
     }
 
