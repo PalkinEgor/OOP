@@ -1,6 +1,13 @@
 package ru.nsu.palkin;
 
 public class Main {
+    /**
+     * Функция просеивания элемента вниз.
+     *
+     * @param arr - массив по которому просеивается элемент
+     * @param len - длина массива arr
+     * @param i   - индекс просеиваемого элемента
+     */
     public static void heapify(int[] arr, int len, int i) {
         int largestIndex = i;
         int leftChildIndex = i * 2 + 1;
@@ -20,6 +27,12 @@ public class Main {
         }
     }
 
+    /**
+     * Функция сортировки массива
+     *
+     * @param arr - сортируемый массив
+     * @return возвращает отсортированный массив
+     */
     public static int[] heapsort(int[] arr) {
         int len = arr.length;
         for (int i = len / 2 - 1; i >= 0; i--) {
