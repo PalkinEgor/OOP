@@ -4,6 +4,9 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Класс с тестами.
+ */
 public class MainTest {
     @Test
     public void plusTest() {
@@ -17,6 +20,20 @@ public class MainTest {
         Polynomial p1 = new Polynomial(new double[]{4, 3, 6, 7});
         Polynomial p2 = new Polynomial(new int[]{3, 2, 8});
         assertEquals("7.0x^3 - 2.0x^2 + x + 1.0", p1.minus(p2).toStr());
+    }
+
+    @Test
+    public void minus2Test() {
+        Polynomial p1 = new Polynomial(new double[]{1, 2, 3, 4});
+        Polynomial p2 = new Polynomial(new double[]{1, 2, 3, 4});
+        assertEquals("0", p1.minus(p2).toStr());
+    }
+
+    @Test
+    public void minus3Test() {
+        Polynomial p1 = new Polynomial(new double[]{2, 3, 4, 5});
+        Polynomial p2 = new Polynomial(new double[]{1, 3, 4, 4});
+        assertEquals("x^3 + 1.0", p1.minus(p2).toStr());
     }
 
     @Test
