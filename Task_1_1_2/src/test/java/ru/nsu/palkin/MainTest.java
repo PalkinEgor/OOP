@@ -103,4 +103,12 @@ public class MainTest {
         Polynomial p2 = new Polynomial(new int[]{3, 2, 8});
         assertEquals("7.0x^3 - 2.0x^2 + x + 1.0", p1.minus(p2).toString());
     }
+
+    @Test
+    public void exampleTest() {
+        Polynomial p1 = new Polynomial(new double[]{4, 3, 6, 7});
+        Polynomial p2 = new Polynomial(new int[]{3, 2, 8});
+        Polynomial p3 = new Polynomial(new double[]{6, 19, 6, 7});
+        assertEquals(p1.plus(p2.differentiate(1)), p3);
+    }
 }

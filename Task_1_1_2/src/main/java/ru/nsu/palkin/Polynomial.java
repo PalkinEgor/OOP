@@ -177,53 +177,61 @@ public class Polynomial {
         if (length == 1 && body[0] == 0) {
             return "0";
         }
-        String result = "";
+        StringBuilder result = new StringBuilder();
         for (int i = length - 1; i >= 0; i--) {
             if (body[i] != 0) {
                 if (i != length - 1) {
                     if (body[i] > 0) {
-                        result = result + " + ";
+                        result.append(" + ");
                     } else {
-                        result = result + " - ";
+                        result.append(" - ");
                     }
                 }
                 if (i == 1) {
                     if (body[i] > 0) {
                         if (body[i] == 1) {
-                            result = result + "x";
+                            result.append("x");
                         } else {
-                            result = result + body[i] + "x";
+                            result.append(body[i]).append("x");
                         }
                     } else {
                         if (body[i] == -1) {
-                            result = result + "x";
+                            result.append("x");
                         } else {
-                            result = result + Math.abs(body[i]) + "x";
+                            result.append(Math.abs(body[i])).append("x");
                         }
                     }
                 } else if (i == 0) {
                     if (body[i] > 0) {
-                        result = result + body[i];
+                        result.append(body[i]);
                     } else {
-                        result = result + Math.abs(body[i]);
+                        result.append(Math.abs(body[i]));
                     }
                 } else {
                     if (body[i] > 0) {
                         if (body[i] == 1) {
-                            result = result + "x^" + i;
+                            result.append("x^").append(i);
                         } else {
-                            result = result + body[i] + "x^" + i;
+                            result.append(body[i]).append("x^").append(i);
                         }
                     } else {
                         if (body[i] == -1) {
-                            result = result + "x^" + i;
+                            result.append("x^").append(i);
                         } else {
-                            result = result + Math.abs(body[i]) + "x^" + i;
+                            result.append(Math.abs(body[i])).append("x^").append(i);
                         }
                     }
                 }
             }
         }
+        return result.toString();
+    }
+
+    @Override
+    public int hashCode() {
+        int result = 17;
+        result = 31 * result + Arrays.hashCode(body);
+        result = 31 * result + length;
         return result;
     }
 }
