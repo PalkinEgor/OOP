@@ -1,8 +1,9 @@
 package ru.nsu.palkin;
 
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
 
 /**
  * Класс с тестами.
@@ -74,5 +75,26 @@ public class MainTest {
         Polynomial p1 = new Polynomial(new int[]{4, 3, 6, 7});
         Polynomial p2 = new Polynomial(new int[]{1, 2, 3});
         assertNotEquals(p1, p2);
+    }
+
+    @Test
+    public void toStringMinusTest() {
+        Polynomial p1 = new Polynomial(new double[]{2, 3, 4, 5});
+        Polynomial p2 = new Polynomial(new double[]{1, 3, 4, 4});
+        assertEquals("x^3 + 1.0", p1.minus(p2).toString());
+    }
+
+    @Test
+    public void toStringPlusTest() {
+        Polynomial p1 = new Polynomial(new int[]{4, 3, 6, 7});
+        Polynomial p2 = new Polynomial(new int[]{3, 2, 8});
+        assertEquals("7.0x^3 + 14.0x^2 + 5.0x + 7.0", p1.plus(p2).toString());
+    }
+
+    @Test
+    public void toStringZeroTest(){
+        Polynomial p1 = new Polynomial(new double[]{1, 2, 3, 4});
+        Polynomial p2 = new Polynomial(new double[]{1, 2, 3, 4});
+        assertEquals("0", p1.minus(p2).toString());
     }
 }
