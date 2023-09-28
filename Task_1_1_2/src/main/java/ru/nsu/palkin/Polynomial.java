@@ -1,5 +1,7 @@
 package ru.nsu.palkin;
 
+import java.util.Arrays;
+
 /**
  * Класс полинома.
  */
@@ -43,24 +45,29 @@ public class Polynomial {
      * @return возвращает полином полученный из суммы двух
      */
     Polynomial plus(Polynomial a) {
-        Polynomial result;
+        int tmpLen;
+        double[] tmpArr;
         if (length < a.length) {
-            result = new Polynomial(new double[a.length]);
+            tmpLen = a.length;
+            tmpArr = new double[tmpLen];
             for (int i = 0; i < length; i++) {
-                result.body[i] = body[i] + a.body[i];
+                tmpArr[i] = body[i] + a.body[i];
             }
-            System.arraycopy(a.body, length, result.body, length, a.length - length);
+            System.arraycopy(a.body, length, tmpArr, length, tmpLen - length);
         } else {
-            result = new Polynomial(new double[length]);
+            tmpLen = length;
+            tmpArr = new double[tmpLen];
             for (int i = 0; i < a.length; i++) {
-                result.body[i] = body[i] + a.body[i];
+                tmpArr[i] = body[i] + a.body[i];
             }
-            System.arraycopy(body, a.length, result.body, a.length, length - a.length);
+            System.arraycopy(body, a.length, tmpArr, a.length, tmpLen - a.length);
         }
-        while (result.body[result.length - 1] == 0 && result.length != 1) {
-            result.length--;
+        while (tmpArr[tmpLen - 1] == 0 && tmpLen != 1) {
+            tmpLen--;
         }
-        return result;
+        double[] arrRes = new double[tmpLen];
+        System.arraycopy(tmpArr, 0, arrRes, 0, tmpLen);
+        return new Polynomial(arrRes);
     }
 
     /**
@@ -109,18 +116,19 @@ public class Polynomial {
         if (x >= length) {
             return new Polynomial(new double[]{0});
         } else {
-            Polynomial result = new Polynomial(new double[length]);
             double[] tmp = body.clone();
+            double[] tmp2 = new double[length];
             int tmpLen = length;
             for (int i = 0; i < x; i++) {
                 for (int j = 1; j < tmpLen; j++) {
-                    result.body[j - 1] = tmp[j] * j;
+                    tmp2[j - 1] = tmp[j] * j;
                 }
-                tmp = result.body.clone();
+                tmp = tmp2.clone();
                 tmpLen--;
             }
-            result.length = tmpLen;
-            return result;
+            double[] resArr = new double[tmpLen];
+            System.arraycopy(tmp2, 0, resArr, 0, tmpLen);
+            return new Polynomial(resArr);
         }
     }
 
@@ -143,19 +151,20 @@ public class Polynomial {
     /**
      * Функция проверки полиномов на совпадение.
      *
-     * @param a - полином с которым сравниваем текущий
+     * @param obj - объект с которым сравниваем текущий
      * @return возвращает значение true или false
      */
-    boolean equality(Polynomial a) {
-        if (length != a.length) {
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        if (obj == null || obj.getClass() != this.getClass()) {
             return false;
         }
-        for (int i = 0; i < length; i++) {
-            if (body[i] != a.body[i]) {
-                return false;
-            }
-        }
-        return true;
+        Polynomial a = (Polynomial) obj;
+        return a.length == length && Arrays.equals(a.body, body);
     }
 
     /**
@@ -163,7 +172,8 @@ public class Polynomial {
      *
      * @return возвращает строковое представление полинома
      */
-    String toStr() {
+    @Override
+    public String toString() {
         if (length == 1 && body[0] == 0) {
             return "0";
         }
