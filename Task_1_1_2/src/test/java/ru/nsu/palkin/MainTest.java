@@ -111,4 +111,18 @@ public class MainTest {
         Polynomial p3 = new Polynomial(new double[]{6, 19, 6, 7});
         assertEquals(p1.plus(p2.differentiate(1)), p3);
     }
+
+    @Test
+    public void evaluateExampleTest() {
+        Polynomial p1 = new Polynomial(new double[]{4, 3, 6, 7});
+        Polynomial p2 = new Polynomial(new int[]{3, 2, 8});
+        assertEquals(3510, p1.times(p2).evaluate(2));
+    }
+
+    @Test
+    public void differentiateExtremeTest() {
+        Polynomial p1 = new Polynomial(new double[]{4, 3, 6, 7});
+        Polynomial p2 = new Polynomial(new double[]{0});
+        assertEquals(p1.differentiate(10), p2);
+    }
 }
