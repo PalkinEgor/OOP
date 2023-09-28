@@ -25,7 +25,6 @@ public class MainTest {
         assertEquals(p1.minus(p2), p3);
     }
 
-    //need fix
     @Test
     public void minusZeroTest() {
         Polynomial p1 = new Polynomial(new double[]{1, 2, 3, 4});
@@ -78,7 +77,7 @@ public class MainTest {
     }
 
     @Test
-    public void toStringMinusTest() {
+    public void toStringInnerZeroTest() {
         Polynomial p1 = new Polynomial(new double[]{2, 3, 4, 5});
         Polynomial p2 = new Polynomial(new double[]{1, 3, 4, 4});
         assertEquals("x^3 + 1.0", p1.minus(p2).toString());
@@ -92,9 +91,16 @@ public class MainTest {
     }
 
     @Test
-    public void toStringZeroTest(){
+    public void toStringZeroTest() {
         Polynomial p1 = new Polynomial(new double[]{1, 2, 3, 4});
         Polynomial p2 = new Polynomial(new double[]{1, 2, 3, 4});
         assertEquals("0", p1.minus(p2).toString());
+    }
+
+    @Test
+    public void toStringMinusTest() {
+        Polynomial p1 = new Polynomial(new double[]{4, 3, 6, 7});
+        Polynomial p2 = new Polynomial(new int[]{3, 2, 8});
+        assertEquals("7.0x^3 - 2.0x^2 + x + 1.0", p1.minus(p2).toString());
     }
 }
