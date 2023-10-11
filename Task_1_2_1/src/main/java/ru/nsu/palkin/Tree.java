@@ -1,6 +1,11 @@
 package ru.nsu.palkin;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Deque;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 public class Tree<T> implements Iterable<Tree<T>> {
     private T root;
@@ -78,22 +83,22 @@ public class Tree<T> implements Iterable<Tree<T>> {
     @Override
     public Iterator<Tree<T>> iterator() {
         if (iterator == 0) {
-            return new bfsTreeIterator(this);
+            return new BFSTreeIterator(this);
         }
-        return new dfsTreeIterator(this);
+        return new DFSTreeIterator(this);
     }
 
-    private class bfsTreeIterator implements Iterator<Tree<T>> {
-        private Deque<Tree<T>> d;
+    private class BFSTreeIterator implements Iterator<Tree<T>> {
+        private Deque<Tree<T>> deque;
 
-        bfsTreeIterator(Tree<T> tree) {
-            this.d = new LinkedList<>();
-            this.d.addLast(tree);
+        BFSTreeIterator(Tree<T> tree) {
+            this.deque = new LinkedList<>();
+            this.deque.addLast(tree);
         }
 
         @Override
         public boolean hasNext() {
-            return !this.d.isEmpty();
+            return !this.deque.isEmpty();
         }
 
         @Override
@@ -101,26 +106,26 @@ public class Tree<T> implements Iterable<Tree<T>> {
             if (!hasNext()) {
                 throw new NoSuchElementException();
             }
-            Tree<T> tree = d.pollFirst();
+            Tree<T> tree = deque.pollFirst();
             int len = tree.childrens.size();
             for (int i = 0; i < len; i++) {
-                d.addLast(tree.childrens.get(i));
+                deque.addLast(tree.childrens.get(i));
             }
             return tree;
         }
     }
 
-    private class dfsTreeIterator implements Iterator<Tree<T>> {
-        private Deque<Tree<T>> d;
+    private class DFSTreeIterator implements Iterator<Tree<T>> {
+        private Deque<Tree<T>> deque;
 
-        dfsTreeIterator(Tree<T> tree) {
-            this.d = new LinkedList<>();
-            this.d.addLast(tree);
+        DFSTreeIterator(Tree<T> tree) {
+            this.deque = new LinkedList<>();
+            this.deque.addLast(tree);
         }
 
         @Override
         public boolean hasNext() {
-            return !this.d.isEmpty();
+            return !this.deque.isEmpty();
         }
 
         @Override
@@ -128,10 +133,10 @@ public class Tree<T> implements Iterable<Tree<T>> {
             if (!hasNext()) {
                 throw new NoSuchElementException();
             }
-            Tree<T> tree = d.pollFirst();
+            Tree<T> tree = deque.pollFirst();
             int len = tree.childrens.size();
             for (int i = 0; i < len; i++) {
-                d.addFirst(tree.childrens.get(i));
+                deque.addFirst(tree.childrens.get(i));
             }
             return tree;
         }
