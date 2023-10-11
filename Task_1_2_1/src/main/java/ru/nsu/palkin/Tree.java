@@ -2,10 +2,10 @@ package ru.nsu.palkin;
 
 import java.util.ArrayList;
 import java.util.Deque;
-import java.util.LinkedList;
-import java.util.Queue;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.NoSuchElementException;
+import java.util.Queue;
 
 public class Tree<T> implements Iterable<Tree<T>> {
     private T root;
@@ -83,15 +83,15 @@ public class Tree<T> implements Iterable<Tree<T>> {
     @Override
     public Iterator<Tree<T>> iterator() {
         if (iterator == 0) {
-            return new BFSTreeIterator(this);
+            return new BfsTreeIterator(this);
         }
-        return new DFSTreeIterator(this);
+        return new DfsTreeIterator(this);
     }
 
-    private class BFSTreeIterator implements Iterator<Tree<T>> {
+    private class BfsTreeIterator implements Iterator<Tree<T>> {
         private Deque<Tree<T>> deque;
 
-        BFSTreeIterator(Tree<T> tree) {
+        BfsTreeIterator(Tree<T> tree) {
             this.deque = new LinkedList<>();
             this.deque.addLast(tree);
         }
@@ -115,10 +115,10 @@ public class Tree<T> implements Iterable<Tree<T>> {
         }
     }
 
-    private class DFSTreeIterator implements Iterator<Tree<T>> {
+    private class DfsTreeIterator implements Iterator<Tree<T>> {
         private Deque<Tree<T>> deque;
 
-        DFSTreeIterator(Tree<T> tree) {
+        DfsTreeIterator(Tree<T> tree) {
             this.deque = new LinkedList<>();
             this.deque.addLast(tree);
         }
