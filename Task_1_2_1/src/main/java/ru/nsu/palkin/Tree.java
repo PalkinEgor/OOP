@@ -1,34 +1,23 @@
 package ru.nsu.palkin;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Stack;
+import java.util.*;
 
-public class Tree<T> {
-    private int colored;
+public class Tree<T> implements Iterable<Tree<T>> {
     private T root;
     private Tree<T> parent;
     private ArrayList<Tree<T>> childrens;
-    private ArrayList<Tree<T>> bfsList;
-    private ArrayList<Tree<T>> dfsList;
+    public int iterator;
 
     Tree(T value) {
         this.root = value;
         this.childrens = new ArrayList<>();
         this.parent = null;
-        this.bfsList = new ArrayList<>();
-        this.dfsList = new ArrayList<>();
-        this.colored = 0;
-        BFS(this);
-        DFS(this);
+        this.iterator = 0;
     }
 
     Tree<T> addChild(Tree<T> tree) {
         tree.parent = this;
         this.childrens.add(tree);
-        BFS(this);
-        DFS(this);
         return tree;
     }
 
@@ -36,63 +25,20 @@ public class Tree<T> {
         Tree<T> currentTree = new Tree<>(value);
         currentTree.parent = this;
         this.childrens.add(currentTree);
-        BFS(this);
-        DFS(this);
         return currentTree;
     }
 
     void remove() {
         if (this.parent != null) {
             this.parent.childrens.remove(this);
-            BFS(this.parent);
-            DFS(this.parent);
         } else {
             this.root = null;
             this.childrens = null;
-            this.dfsList = null;
-            this.bfsList = null;
         }
     }
 
-    void DFS(Tree<T> t) {
-        this.dfsList.clear();
-        resetColored(t);
-        Stack<Tree<T>> s = new Stack<>();
-        s.push(t);
-        t.colored = 1;
-        while (!s.isEmpty()) {
-            Tree<T> p = s.peek();
-            int len = p.childrens.size();
-            int flag = 0;
-            for (int i = 0; i < len; i++) {
-                if (p.childrens.get(i).colored == 0) {
-                    p.childrens.get(i).colored = 1;
-                    s.push(p.childrens.get(i));
-                    flag = 1;
-                    break;
-                }
-            }
-            if (flag == 0) {
-                System.out.println("!");
-                this.dfsList.add(s.peek());
-                s.pop();
-            }
-        }
-    }
-
-    void BFS(Tree<T> t) {
-        this.bfsList.clear();
-        Queue<Tree<T>> q = new LinkedList<>();
-        q.add(t);
-        while (!q.isEmpty()) {
-            Tree<T> tmp = q.element();
-            q.remove();
-            this.bfsList.add(tmp);
-            int len = tmp.childrens.size();
-            for (int i = 0; i < len; i++) {
-                q.add(tmp.childrens.get(i));
-            }
-        }
+    T getRoot() {
+        return this.root;
     }
 
     @Override
@@ -129,23 +75,65 @@ public class Tree<T> {
         return true;
     }
 
-    private void resetColored(Tree<T> tree) {
-        int len = tree.childrens.size();
-        tree.colored = 0;
-        for (int i = 0; i < len; i++) {
-            resetColored(tree.childrens.get(i));
+    @Override
+    public Iterator<Tree<T>> iterator() {
+        if (iterator == 0) {
+            return new bfsTreeIterator(this);
+        }
+        return new dfsTreeIterator(this);
+    }
+
+    private class bfsTreeIterator implements Iterator<Tree<T>> {
+        private Deque<Tree<T>> d;
+
+        bfsTreeIterator(Tree<T> tree) {
+            this.d = new LinkedList<>();
+            this.d.addLast(tree);
+        }
+
+        @Override
+        public boolean hasNext() {
+            return !this.d.isEmpty();
+        }
+
+        @Override
+        public Tree<T> next() {
+            if (!hasNext()) {
+                throw new NoSuchElementException();
+            }
+            Tree<T> tree = d.pollFirst();
+            int len = tree.childrens.size();
+            for (int i = 0; i < len; i++) {
+                d.addLast(tree.childrens.get(i));
+            }
+            return tree;
         }
     }
 
-    public ArrayList<Tree<T>> getBfsList() {
-        return this.bfsList;
-    }
+    private class dfsTreeIterator implements Iterator<Tree<T>> {
+        private Deque<Tree<T>> d;
 
-    public ArrayList<Tree<T>> getDfsList() {
-        return this.dfsList;
-    }
+        dfsTreeIterator(Tree<T> tree) {
+            this.d = new LinkedList<>();
+            this.d.addLast(tree);
+        }
 
-    public T getRoot() {
-        return this.root;
+        @Override
+        public boolean hasNext() {
+            return !this.d.isEmpty();
+        }
+
+        @Override
+        public Tree<T> next() {
+            if (!hasNext()) {
+                throw new NoSuchElementException();
+            }
+            Tree<T> tree = d.pollFirst();
+            int len = tree.childrens.size();
+            for (int i = 0; i < len; i++) {
+                d.addFirst(tree.childrens.get(i));
+            }
+            return tree;
+        }
     }
 }
