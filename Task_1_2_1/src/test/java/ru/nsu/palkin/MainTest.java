@@ -1,10 +1,15 @@
 package ru.nsu.palkin;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-
 import org.junit.jupiter.api.Test;
 
+import java.util.ConcurrentModificationException;
+import java.util.Objects;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+/**
+ * Класс с тестами.
+ */
 public class MainTest {
     @Test
     public void equalsTrueTest() {
@@ -96,7 +101,7 @@ public class MainTest {
         subtree.addChild("D");
         tree.addChild(subtree);
         b.remove();
-        tree.iterator = 1;
+        tree.iterator = true;
 
         String answer = "R1R2DCA";
         String result = "";
@@ -105,5 +110,25 @@ public class MainTest {
         }
 
         assertEquals(answer, result);
+    }
+
+    @Test
+    public void concurrentModificationExceptionTest() {
+        Tree<String> tree = new Tree<>("R1");
+        var a = tree.addChild("A");
+        var b = a.addChild("B");
+        Tree<String> subtree = new Tree<>("R2");
+        subtree.addChild("C");
+        subtree.addChild("D");
+        tree.addChild(subtree);
+        b.remove();
+
+        assertThrows(ConcurrentModificationException.class, () -> {
+            for (Tree<String> x : tree) {
+                if (Objects.equals(x.getRoot(), "R2")) {
+                    x.remove();
+                }
+            }
+        });
     }
 }

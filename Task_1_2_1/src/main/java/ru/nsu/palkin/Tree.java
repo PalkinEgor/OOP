@@ -1,51 +1,114 @@
 package ru.nsu.palkin;
 
-import java.util.ArrayList;
-import java.util.Deque;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.NoSuchElementException;
-import java.util.Queue;
+import java.util.*;
 
+/**
+ * Класс дерева.
+ *
+ * @param <T> - тип значений в узлах дерева
+ */
 public class Tree<T> implements Iterable<Tree<T>> {
+    /**
+     * Значение в корне дерева.
+     */
     private T root;
+    /**
+     * Родитель узла.
+     */
     private Tree<T> parent;
+    /**
+     * Список детей узла.
+     */
     private ArrayList<Tree<T>> childrens;
-    public int iterator;
+    /**
+     * Флаг для выбора итератора.
+     */
+    public boolean iterator;
+    /**
+     * Реальный счетчик изменений в дереве.
+     */
+    private int modificationCount;
 
+    /**
+     * Конструктор класса.
+     *
+     * @param value - значение в корне дерева
+     */
     Tree(T value) {
         this.root = value;
         this.childrens = new ArrayList<>();
         this.parent = null;
-        this.iterator = 0;
+        this.iterator = false;
+        this.modificationCount = 0;
     }
 
+    /**
+     * Добавление ребенка.
+     *
+     * @param tree - значение добовляемого ребенка
+     * @return возвращает поддерево где ребенок является корнем
+     */
     Tree<T> addChild(Tree<T> tree) {
         tree.parent = this;
         this.childrens.add(tree);
+        updateModificationCount(tree);
         return tree;
     }
 
+    /**
+     * Добавление ребенка.
+     *
+     * @param value - значение добовляемого ребенка
+     * @return возвращает поддерево где ребенок является корнем
+     */
     Tree<T> addChild(T value) {
-        Tree<T> currentTree = new Tree<>(value);
-        currentTree.parent = this;
-        this.childrens.add(currentTree);
-        return currentTree;
+        Tree<T> tree = new Tree<>(value);
+        tree.parent = this;
+        this.childrens.add(tree);
+        updateModificationCount(tree);
+        return tree;
     }
 
+    /**
+     * Удаление элемента или поддерева.
+     */
     void remove() {
         if (this.parent != null) {
             this.parent.childrens.remove(this);
+            updateModificationCount(this.parent);
         } else {
             this.root = null;
             this.childrens = null;
         }
     }
 
+    /**
+     * Обновление реального счетчика изменений в дереве.
+     *
+     * @param tree - дерево у которого необходимо счетчик обновить
+     */
+    void updateModificationCount(Tree<T> tree) {
+        tree.modificationCount = tree.modificationCount + 1;
+        if (tree.parent != null) {
+            updateModificationCount(tree.parent);
+        }
+    }
+
+    /**
+     * Возвращает значение в корне дерева.
+     *
+     * @return возвращает значение в корне дерева
+     */
     T getRoot() {
         return this.root;
     }
 
+    /**
+     * Переопределенный метод equals.
+     *
+     * @param obj - объект с которым сравниваем текущий
+     * @return возвращает значение true или false
+     */
     @Override
     public boolean equals(Object obj) {
         if (obj == this) {
@@ -80,27 +143,66 @@ public class Tree<T> implements Iterable<Tree<T>> {
         return true;
     }
 
+    /**
+     * Переопределенный метод iterator.
+     *
+     * @return возвращает объект итератора
+     */
     @Override
     public Iterator<Tree<T>> iterator() {
-        if (iterator == 0) {
-            return new BfsTreeIterator(this);
+        if (iterator) {
+            return new DfsTreeIterator(this);
         }
-        return new DfsTreeIterator(this);
+        return new BfsTreeIterator(this);
     }
 
+    /**
+     * Класс BFS итератора.
+     */
     private class BfsTreeIterator implements Iterator<Tree<T>> {
+        /**
+         * Очередь обхода дерева.
+         */
         private Deque<Tree<T>> deque;
+        /**
+         * Счетчик ожидаемого количесвта изменений.
+         */
+        private int expectedModificationCount;
+        /**
+         * Корень откуда начинается обход.
+         */
+        private Tree<T> root;
 
+        /**
+         * Конструктор класса.
+         *
+         * @param tree - дерево с которого начинается обход
+         */
         BfsTreeIterator(Tree<T> tree) {
             this.deque = new LinkedList<>();
             this.deque.addLast(tree);
+            this.expectedModificationCount = tree.modificationCount;
+            this.root = tree;
         }
 
+        /**
+         * Переопределенный метод hasNext.
+         *
+         * @return возвращает значение true или false
+         */
         @Override
         public boolean hasNext() {
+            if (this.root.modificationCount != expectedModificationCount) {
+                throw new ConcurrentModificationException();
+            }
             return !this.deque.isEmpty();
         }
 
+        /**
+         * Переопределенный метод next.
+         *
+         * @return возвращает следующий элемент дерева в порядке обхода
+         */
         @Override
         public Tree<T> next() {
             if (!hasNext()) {
@@ -115,19 +217,45 @@ public class Tree<T> implements Iterable<Tree<T>> {
         }
     }
 
+    /**
+     * Класс DFS итератора.
+     */
     private class DfsTreeIterator implements Iterator<Tree<T>> {
+        /**
+         * Очередь обхода дерева.
+         */
         private Deque<Tree<T>> deque;
+        /**
+         * Счетчик ожидаемого количесвта изменений.
+         */
+        private int expectedModificationCount;
 
+        /**
+         * Конструктор класса.
+         *
+         * @param tree - дерево с которого начинается обход
+         */
         DfsTreeIterator(Tree<T> tree) {
             this.deque = new LinkedList<>();
             this.deque.addLast(tree);
+            this.expectedModificationCount = tree.modificationCount;
         }
 
+        /**
+         * Переопределенный метод hasNext.
+         *
+         * @return - возвращает значение true или false
+         */
         @Override
         public boolean hasNext() {
             return !this.deque.isEmpty();
         }
 
+        /**
+         * Переопределенный метод next.
+         *
+         * @return возвращает следующий элемент дерева в порядке обхода
+         */
         @Override
         public Tree<T> next() {
             if (!hasNext()) {
