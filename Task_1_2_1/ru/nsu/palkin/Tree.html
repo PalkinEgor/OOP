@@ -130,6 +130,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <ul class="blockList">
 <li class="blockList">
 <dl>
+<dt><span class="paramLabel">Type Parameters:</span></dt>
+<dd><code>T</code> - - тип значений в узлах дерева</dd>
+</dl>
+<dl>
 <dt>All Implemented Interfaces:</dt>
 <dd><code>java.lang.Iterable&lt;<a href="Tree.html" title="class in ru.nsu.palkin">Tree</a>&lt;T&gt;&gt;</code></dd>
 </dl>
@@ -137,6 +141,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <pre>public class <span class="typeNameLabel">Tree&lt;T&gt;</span>
 extends java.lang.Object
 implements java.lang.Iterable&lt;<a href="Tree.html" title="class in ru.nsu.palkin">Tree</a>&lt;T&gt;&gt;</pre>
+<div class="block">Класс дерева.</div>
 </li>
 </ul>
 </div>
@@ -158,9 +163,11 @@ implements java.lang.Iterable&lt;<a href="Tree.html" title="class in ru.nsu.palk
 <th class="colLast" scope="col">Description</th>
 </tr>
 <tr class="altColor">
-<td class="colFirst"><code>int</code></td>
+<td class="colFirst"><code>boolean</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#iterator">iterator</a></span></code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Флаг для выбора итератора.</div>
+</td>
 </tr>
 </table>
 </li>
@@ -183,12 +190,16 @@ implements java.lang.Iterable&lt;<a href="Tree.html" title="class in ru.nsu.palk
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>boolean</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#equals(java.lang.Object)">equals</a></span>&#8203;(java.lang.Object&nbsp;obj)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Переопределенный метод equals.</div>
+</td>
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code>java.util.Iterator&lt;<a href="Tree.html" title="class in ru.nsu.palkin">Tree</a>&lt;<a href="Tree.html" title="type parameter in Tree">T</a>&gt;&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#iterator()">iterator</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Переопределенный метод iterator.</div>
+</td>
 </tr>
 </table>
 <ul class="blockList">
@@ -227,7 +238,8 @@ implements java.lang.Iterable&lt;<a href="Tree.html" title="class in ru.nsu.palk
 <ul class="blockListLast">
 <li class="blockList">
 <h4>iterator</h4>
-<pre>public&nbsp;int iterator</pre>
+<pre>public&nbsp;boolean iterator</pre>
+<div class="block">Флаг для выбора итератора.</div>
 </li>
 </ul>
 </li>
@@ -247,9 +259,14 @@ implements java.lang.Iterable&lt;<a href="Tree.html" title="class in ru.nsu.palk
 <li class="blockList">
 <h4>equals</h4>
 <pre class="methodSignature">public&nbsp;boolean&nbsp;equals&#8203;(java.lang.Object&nbsp;obj)</pre>
+<div class="block">Переопределенный метод equals.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
 <dd><code>equals</code>&nbsp;in class&nbsp;<code>java.lang.Object</code></dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>obj</code> - - объект с которым сравниваем текущий</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>возвращает значение true или false</dd>
 </dl>
 </li>
 </ul>
@@ -260,9 +277,12 @@ implements java.lang.Iterable&lt;<a href="Tree.html" title="class in ru.nsu.palk
 <li class="blockList">
 <h4>iterator</h4>
 <pre class="methodSignature">public&nbsp;java.util.Iterator&lt;<a href="Tree.html" title="class in ru.nsu.palkin">Tree</a>&lt;<a href="Tree.html" title="type parameter in Tree">T</a>&gt;&gt;&nbsp;iterator()</pre>
+<div class="block">Переопределенный метод iterator.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
 <dd><code>iterator</code>&nbsp;in interface&nbsp;<code>java.lang.Iterable&lt;<a href="Tree.html" title="type parameter in Tree">T</a>&gt;</code></dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>возвращает объект итератора</dd>
 </dl>
 </li>
 </ul>
