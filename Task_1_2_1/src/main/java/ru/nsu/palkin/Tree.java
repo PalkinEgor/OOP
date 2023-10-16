@@ -111,6 +111,9 @@ public class Tree<T> implements Iterable<Tree<T>> {
 
     /**
      * Переопределенный метод equals.
+     * Равными считаюстя деревья, у которых на каждом уровне обхода BFS
+     * равное количесвто вершин, с одинаковыми именами и
+     * одинаковыми родителями соответственно
      *
      * @param obj - объект с которым сравниваем текущий
      * @return возвращает значение true или false
@@ -195,6 +198,8 @@ public class Tree<T> implements Iterable<Tree<T>> {
          * Переопределенный метод hasNext.
          *
          * @return возвращает значение true или false
+         * @throws ConcurrentModificationException если произошло изменение дерева
+         *                                         во время итерации
          */
         @Override
         public boolean hasNext() {
@@ -208,6 +213,7 @@ public class Tree<T> implements Iterable<Tree<T>> {
          * Переопределенный метод next.
          *
          * @return возвращает следующий элемент дерева в порядке обхода
+         * @throws NoSuchElementException если все элементы дерева были пройдены
          */
         @Override
         public Tree<T> next() {
@@ -236,6 +242,8 @@ public class Tree<T> implements Iterable<Tree<T>> {
          */
         private int expectedModificationCount;
 
+        private Tree<T> root;
+
         /**
          * Конструктор класса.
          *
@@ -245,15 +253,21 @@ public class Tree<T> implements Iterable<Tree<T>> {
             this.deque = new LinkedList<>();
             this.deque.addLast(tree);
             this.expectedModificationCount = tree.modificationCount;
+            this.root = tree;
         }
 
         /**
          * Переопределенный метод hasNext.
          *
          * @return - возвращает значение true или false
+         * @throws ConcurrentModificationException если произошло изменение дерева
+         *                                         во время итерации
          */
         @Override
         public boolean hasNext() {
+            if (this.root.modificationCount != expectedModificationCount) {
+                throw new ConcurrentModificationException();
+            }
             return !this.deque.isEmpty();
         }
 
@@ -261,6 +275,7 @@ public class Tree<T> implements Iterable<Tree<T>> {
          * Переопределенный метод next.
          *
          * @return возвращает следующий элемент дерева в порядке обхода
+         * @throws NoSuchElementException если все элементы дерева были пройдены
          */
         @Override
         public Tree<T> next() {

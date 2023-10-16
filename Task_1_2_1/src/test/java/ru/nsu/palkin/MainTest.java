@@ -133,4 +133,19 @@ public class MainTest {
             }
         });
     }
+
+    @Test
+    public void removeTest() {
+        Tree<String> tree1 = new Tree<>("A");
+        tree1.addChild("B");
+        var c = tree1.addChild("C");
+        c.addChild("D");
+        c.addChild("E");
+        c.remove();
+
+        Tree<String> tree2 = new Tree<>("A");
+        tree2.addChild("B");
+
+        assertEquals(tree1, tree2);
+    }
 }
