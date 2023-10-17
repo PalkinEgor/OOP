@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.ConcurrentModificationException;
 import java.util.Objects;
-
 import org.junit.jupiter.api.Test;
 
 /**
@@ -19,10 +18,10 @@ public class MainTest {
         var a = tree.addChild("A");
         var b = a.addChild("B");
         Tree<String> subtree = new Tree<>("R2");
+        b.remove();
         subtree.addChild("C");
         subtree.addChild("D");
         tree.addChild(subtree);
-        b.remove();
 
         Tree<String> tree1 = new Tree<>("R1");
         tree1.addChild("A");
@@ -39,10 +38,10 @@ public class MainTest {
         var a = tree.addChild("A");
         var b = a.addChild("B");
         Tree<String> subtree = new Tree<>("R2");
+        b.remove();
         subtree.addChild("C");
         subtree.addChild("D");
         tree.addChild(subtree);
-        b.remove();
 
         Tree<String> tree1 = new Tree<>("R1");
         tree1.addChild("A");
@@ -59,10 +58,10 @@ public class MainTest {
         var a = tree.addChild("A");
         var b = a.addChild("B");
         Tree<String> subtree = new Tree<>("R2");
+        b.remove();
         subtree.addChild("C");
         subtree.addChild("D");
         tree.addChild(subtree);
-        b.remove();
 
         Tree<String> tree1 = new Tree<>("R1");
         var a1 = tree1.addChild("A");
@@ -79,10 +78,10 @@ public class MainTest {
         var a = tree.addChild("A");
         var b = a.addChild("B");
         Tree<String> subtree = new Tree<>("R2");
+        b.remove();
         subtree.addChild("C");
         subtree.addChild("D");
         tree.addChild(subtree);
-        b.remove();
 
         String answer = "R1AR2CD";
         String result = "";
@@ -99,10 +98,10 @@ public class MainTest {
         var a = tree.addChild("A");
         var b = a.addChild("B");
         Tree<String> subtree = new Tree<>("R2");
+        b.remove();
         subtree.addChild("C");
         subtree.addChild("D");
         tree.addChild(subtree);
-        b.remove();
         tree.iterator = true;
 
         String answer = "R1R2DCA";
@@ -120,10 +119,10 @@ public class MainTest {
         var a = tree.addChild("A");
         var b = a.addChild("B");
         Tree<String> subtree = new Tree<>("R2");
+        b.remove();
         subtree.addChild("C");
         subtree.addChild("D");
         tree.addChild(subtree);
-        b.remove();
 
         assertThrows(ConcurrentModificationException.class, () -> {
             for (Tree<String> x : tree) {
