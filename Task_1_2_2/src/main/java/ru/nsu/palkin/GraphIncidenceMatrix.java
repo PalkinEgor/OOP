@@ -83,7 +83,8 @@ public class GraphIncidenceMatrix<T> implements Graphable<T> {
             for (int i = 0; i < this.edgesList.size(); i++) {
                 int count = 0;
                 for (int j = 0; j < len1; j++) {
-                    if (this.graph.get(j).get(i).status == 1 || this.graph.get(j).get(i).status == -1) {
+                    if (this.graph.get(j).get(i).status == 1 ||
+                            this.graph.get(j).get(i).status == -1) {
                         count++;
                     }
                     if (this.graph.get(j).get(i).status == 2) {
@@ -138,7 +139,8 @@ public class GraphIncidenceMatrix<T> implements Graphable<T> {
      */
     @Override
     public void addEdge(Edge<T> edge) {
-        if (this.verticesList.contains(edge.src) && this.verticesList.contains(edge.dest) && !this.edgesList.contains(edge)) {
+        if (this.verticesList.contains(edge.src) && this.verticesList.contains(edge.dest)
+                && !this.edgesList.contains(edge)) {
             int len = this.verticesList.size();
             for (int i = 0; i < len; i++) {
                 T src = edge.src;
@@ -250,15 +252,19 @@ public class GraphIncidenceMatrix<T> implements Graphable<T> {
         for (int i = 0; i < len; i++) {
             if (i != len - 1) {
                 if (map.get(i).distance != inf) {
-                    result.append(map.get(i).vertice).append("(").append(map.get(i).distance).append("), ");
+                    result.append(map.get(i).vertice).append("(").
+                            append(map.get(i).distance).append("), ");
                 } else {
-                    result.append(map.get(i).vertice).append("(").append("infinity").append("), ");
+                    result.append(map.get(i).vertice).append("(").
+                            append("infinity").append("), ");
                 }
             } else {
                 if (map.get(i).distance != inf) {
-                    result.append(map.get(i).vertice).append("(").append(map.get(i).distance).append(")]");
+                    result.append(map.get(i).vertice).append("(").
+                            append(map.get(i).distance).append(")]");
                 } else {
-                    result.append(map.get(i).vertice).append("(").append("infinity").append(")]");
+                    result.append(map.get(i).vertice).append("(").
+                            append("infinity").append(")]");
                 }
             }
         }

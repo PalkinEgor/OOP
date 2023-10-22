@@ -178,15 +178,19 @@ public class GraphAdjacencyMatrix<T> implements Graphable<T> {
         for (int i = 0; i < len; i++) {
             if (i != len - 1) {
                 if (map.get(i).distance != inf) {
-                    result.append(map.get(i).vertice).append("(").append(map.get(i).distance).append("), ");
+                    result.append(map.get(i).vertice).append("(").
+                            append(map.get(i).distance).append("), ");
                 } else {
-                    result.append(map.get(i).vertice).append("(").append("infinity").append("), ");
+                    result.append(map.get(i).vertice).append("(").
+                            append("infinity").append("), ");
                 }
             } else {
                 if (map.get(i).distance != inf) {
-                    result.append(map.get(i).vertice).append("(").append(map.get(i).distance).append(")]");
+                    result.append(map.get(i).vertice).append("(").
+                            append(map.get(i).distance).append(")]");
                 } else {
-                    result.append(map.get(i).vertice).append("(").append("infinity").append(")]");
+                    result.append(map.get(i).vertice).append("(").
+                            append("infinity").append(")]");
                 }
             }
         }

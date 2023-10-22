@@ -1,5 +1,10 @@
 package ru.nsu.palkin;
 
+/**
+ * Interface Graphable.
+ *
+ * @param <T> - type of object
+ */
 public interface Graphable<T> {
     void addVertice(T vert);
 

@@ -1,6 +1,7 @@
 package ru.nsu.palkin;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.util.ArrayList;
 import org.junit.jupiter.api.Test;
 
@@ -27,7 +28,8 @@ public class MainTest {
         graph.addEdge(new Edge<>("A", "F", 10));
         graph.removeEdge(new Edge<>("A", "B", 10));
         graph.removeVertice("D");
-        graph.changeEdge(new Edge<>("A", "F", 10), new Edge<>("A", "F", 11));
+        graph.changeEdge(new Edge<>("A", "F", 10),
+                new Edge<>("A", "F", 11));
         graph.changeVertice("C", "D");
 
         String expectedResult = "[A(0), F(11), D(30), B(infinity)]";
@@ -54,7 +56,8 @@ public class MainTest {
         graph.addEdge(new Edge<>("A", "F", 10));
         graph.removeEdge(new Edge<>("A", "B", 10));
         graph.removeVertice("D");
-        graph.changeEdge(new Edge<>("A", "F", 10), new Edge<>("A", "F", 11));
+        graph.changeEdge(new Edge<>("A", "F", 10),
+                new Edge<>("A", "F", 11));
         graph.changeVertice("C", "D");
 
         String expectedResult = "[A(0), F(11), D(30), B(infinity)]";
@@ -81,7 +84,8 @@ public class MainTest {
         graph.addEdge(new Edge<>("A", "F", 10));
         graph.removeEdge(new Edge<>("A", "B", 10));
         graph.removeVertice("D");
-        graph.changeEdge(new Edge<>("A", "F", 10), new Edge<>("A", "F", 11));
+        graph.changeEdge(new Edge<>("A", "F", 10),
+                new Edge<>("A", "F", 11));
         graph.changeVertice("C", "D");
 
         String expectedResult = "[A(0), F(11), D(30), B(infinity)]";
