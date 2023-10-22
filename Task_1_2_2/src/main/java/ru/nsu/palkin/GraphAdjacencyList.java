@@ -4,12 +4,22 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 
+/**
+ * Class GraphAdjacencyList.
+ *
+ * @param <T> - objects in vertices
+ */
 public class GraphAdjacencyList<T> implements Graphable<T> {
-
     private ArrayList<ArrayList<VerticeDistance<T>>> graph;
     private ArrayList<T> verticesList;
-    private static final int inf = 2147483647;
+    private static final int inf = Integer.MAX_VALUE;
 
+    /**
+     * Class constructor.
+     *
+     * @param vertices - list of vertices
+     * @param edges    - list of edges
+     */
     GraphAdjacencyList(ArrayList<T> vertices, ArrayList<Edge<T>> edges) {
         this.verticesList = vertices;
         this.graph = new ArrayList<>();
@@ -28,6 +38,11 @@ public class GraphAdjacencyList<T> implements Graphable<T> {
         }
     }
 
+    /**
+     * Add a vertice to the graph.
+     *
+     * @param vert - vertice
+     */
     @Override
     public void addVertice(T vert) {
         if (!this.verticesList.contains(vert)) {
@@ -37,6 +52,11 @@ public class GraphAdjacencyList<T> implements Graphable<T> {
         }
     }
 
+    /**
+     * Remove a vertice from the graph.
+     *
+     * @param vert - vertice
+     */
     @Override
     public void removeVertice(T vert) {
         if (this.verticesList.contains(vert)) {
@@ -54,6 +74,12 @@ public class GraphAdjacencyList<T> implements Graphable<T> {
         }
     }
 
+    /**
+     * Rename a vertice in the graph.
+     *
+     * @param oldVert - old name
+     * @param newVert - new name
+     */
     @Override
     public void changeVertice(T oldVert, T newVert) {
         if (this.verticesList.contains(oldVert)) {
@@ -70,6 +96,11 @@ public class GraphAdjacencyList<T> implements Graphable<T> {
         }
     }
 
+    /**
+     * Add an edge to the graph.
+     *
+     * @param edge - edge
+     */
     @Override
     public void addEdge(Edge<T> edge) {
         if (this.verticesList.contains(edge.src) && this.verticesList.contains(edge.dest)) {
@@ -78,6 +109,11 @@ public class GraphAdjacencyList<T> implements Graphable<T> {
         }
     }
 
+    /**
+     * Remove an edge from the graph.
+     *
+     * @param edge - edge
+     */
     @Override
     public void removeEdge(Edge<T> edge) {
         if (this.verticesList.contains(edge.src) && this.verticesList.contains(edge.dest)) {
@@ -92,6 +128,12 @@ public class GraphAdjacencyList<T> implements Graphable<T> {
         }
     }
 
+    /**
+     * Change weight of the edge.
+     *
+     * @param oldEdge - old weight
+     * @param newEdge - new weight
+     */
     @Override
     public void changeEdge(Edge<T> oldEdge, Edge<T> newEdge) {
         if (this.verticesList.contains(oldEdge.src) && this.verticesList.contains(oldEdge.dest)) {
@@ -106,6 +148,12 @@ public class GraphAdjacencyList<T> implements Graphable<T> {
         }
     }
 
+    /**
+     * Find the shortest paths from a vertice.
+     *
+     * @param vert - vertice
+     * @return string with distances
+     */
     @Override
     public StringBuilder shortestPaths(T vert) {
         int len = verticesList.size();
@@ -158,15 +206,32 @@ public class GraphAdjacencyList<T> implements Graphable<T> {
         return result;
     }
 
+    /**
+     * Class with vertice and distance.
+     *
+     * @param <T> - objects in vertices
+     */
     private class VerticeDistance<T> implements Comparable<VerticeDistance> {
         private T vertice;
         private int distance;
 
+        /**
+         * Class constructor.
+         *
+         * @param vertice  - vertice
+         * @param distance - distance
+         */
         VerticeDistance(T vertice, int distance) {
             this.vertice = vertice;
             this.distance = distance;
         }
 
+        /**
+         * Comparator.
+         *
+         * @param verticeDistance - object verticeDistance
+         * @return distance difference
+         */
         @Override
         public int compareTo(VerticeDistance verticeDistance) {
             return this.distance - verticeDistance.distance;

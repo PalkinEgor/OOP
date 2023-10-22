@@ -1,11 +1,12 @@
 package ru.nsu.palkin;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import java.util.ArrayList;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
+/**
+ * Class with tests.
+ */
 public class MainTest {
     @Test
     public void graphAdjacencyMatrixTest() {

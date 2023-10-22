@@ -4,13 +4,23 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 
+/**
+ * Class GraphIncidenceMatrix.
+ *
+ * @param <T> - objects in vertices
+ */
 public class GraphIncidenceMatrix<T> implements Graphable<T> {
-
     private ArrayList<ArrayList<EdgeStatus<T>>> graph;
     private ArrayList<T> verticesList;
     private ArrayList<Edge<T>> edgesList;
-    private static final int inf = 2147483647;
+    private static final int inf = Integer.MAX_VALUE;
 
+    /**
+     * Class constructor.
+     *
+     * @param vertices - list of vertices
+     * @param edges    - list of edges
+     */
     GraphIncidenceMatrix(ArrayList<T> vertices, ArrayList<Edge<T>> edges) {
         this.verticesList = vertices;
         this.edgesList = edges;
@@ -37,6 +47,11 @@ public class GraphIncidenceMatrix<T> implements Graphable<T> {
         }
     }
 
+    /**
+     * Add a vertice to the graph.
+     *
+     * @param vert - vertice
+     */
     @Override
     public void addVertice(T vert) {
         if (!this.verticesList.contains(vert)) {
@@ -50,6 +65,11 @@ public class GraphIncidenceMatrix<T> implements Graphable<T> {
         }
     }
 
+    /**
+     * Remove a vertice from the graph.
+     *
+     * @param vert - vertice
+     */
     @Override
     public void removeVertice(T vert) {
         if (this.verticesList.contains(vert)) {
@@ -80,6 +100,12 @@ public class GraphIncidenceMatrix<T> implements Graphable<T> {
         }
     }
 
+    /**
+     * Rename a vertice from the graph.
+     *
+     * @param oldVert - old name
+     * @param newVert - new name
+     */
     @Override
     public void changeVertice(T oldVert, T newVert) {
         if (this.verticesList.contains(oldVert)) {
@@ -105,6 +131,11 @@ public class GraphIncidenceMatrix<T> implements Graphable<T> {
         }
     }
 
+    /**
+     * Add an edge to the graph.
+     *
+     * @param edge - edge
+     */
     @Override
     public void addEdge(Edge<T> edge) {
         if (this.verticesList.contains(edge.src) && this.verticesList.contains(edge.dest) && !this.edgesList.contains(edge)) {
@@ -130,6 +161,11 @@ public class GraphIncidenceMatrix<T> implements Graphable<T> {
         }
     }
 
+    /**
+     * Remove an edge from the graph.
+     *
+     * @param edge - edge
+     */
     @Override
     public void removeEdge(Edge<T> edge) {
         if (this.edgesList.contains(edge)) {
@@ -142,6 +178,12 @@ public class GraphIncidenceMatrix<T> implements Graphable<T> {
         }
     }
 
+    /**
+     * Change weight of the edge.
+     *
+     * @param oldEdge - old weight
+     * @param newEdge - new weight
+     */
     @Override
     public void changeEdge(Edge<T> oldEdge, Edge<T> newEdge) {
         if (this.edgesList.contains(oldEdge)) {
@@ -162,6 +204,12 @@ public class GraphIncidenceMatrix<T> implements Graphable<T> {
         }
     }
 
+    /**
+     * Find the shortest paths from a vertice.
+     *
+     * @param vert - vertice
+     * @return string with distances
+     */
     @Override
     public StringBuilder shortestPaths(T vert) {
         int len = this.verticesList.size();
@@ -217,25 +265,53 @@ public class GraphIncidenceMatrix<T> implements Graphable<T> {
         return result;
     }
 
+    /**
+     * Class with edge and status(-1, 1, 0, 2).
+     *
+     * @param <T> - objects in edges
+     */
     private class EdgeStatus<T> {
         private int status;
         private Edge<T> edge;
 
+        /**
+         * Class constructor.
+         *
+         * @param status - status
+         * @param edge   - edge
+         */
         EdgeStatus(int status, Edge<T> edge) {
             this.status = status;
             this.edge = edge;
         }
     }
 
+    /**
+     * Class with vertice and distance.
+     *
+     * @param <T> - objects in vertices
+     */
     private class VerticesDistance<T> implements Comparable<VerticesDistance> {
         private T vertice;
         private int distance;
 
+        /**
+         * Class constructor.
+         *
+         * @param vertice  - vertice
+         * @param distance - distance
+         */
         VerticesDistance(T vertice, int distance) {
             this.vertice = vertice;
             this.distance = distance;
         }
 
+        /**
+         * Comparator.
+         *
+         * @param verticesDistance - object verticeDistance
+         * @return distance difference
+         */
         @Override
         public int compareTo(VerticesDistance verticesDistance) {
             return this.distance - verticesDistance.distance;
