@@ -12,14 +12,14 @@ import java.util.Collections;
 public abstract class Graph<T> {
     protected ArrayList<Vertex<T>> vertexList;
     protected ArrayList<Edge<T>> edgeList;
-    protected static final int inf = Integer.MAX_VALUE;
+    protected static final int INF = Integer.MAX_VALUE;
 
     /**
      * Add vertex to the graph.
      *
      * @param vertex - vertex
      */
-    public abstract void addVertex(Vertex<T> vertex);
+    public abstract int addVertex(Vertex<T> vertex);
 
     /**
      * Remove vertex from the graph.
@@ -68,7 +68,7 @@ public abstract class Graph<T> {
         ArrayList<Edge<T>> result = new ArrayList<>();
         int len = this.edgeList.size();
         for (int i = 0; i < len; i++) {
-            if (this.edgeList.get(i).src.equals(vertex)) {
+            if (this.edgeList.get(i).getSrc().equals(vertex)) {
                 result.add(this.edgeList.get(i));
             }
         }
@@ -79,12 +79,12 @@ public abstract class Graph<T> {
      * Get the shortest paths from the vertex.
      *
      * @param vertex - vertex
-     * @return string with vertexes and path length for each vertex
+     * @return list of vertexes
      */
-    public StringBuilder shortestPath(Vertex<T> vertex) {
+    public ArrayList<Vertex<T>> shortestPath(Vertex<T> vertex) {
         int vertexLen = this.vertexList.size();
         int[] distance = new int[vertexLen];
-        Arrays.fill(distance, inf);
+        Arrays.fill(distance, INF);
         distance[this.vertexList.indexOf(vertex)] = 0;
         boolean[] mark = new boolean[vertexLen];
         Arrays.fill(mark, false);
@@ -96,7 +96,7 @@ public abstract class Graph<T> {
                     shortest = j;
                 }
             }
-            if (distance[shortest] == inf) {
+            if (distance[shortest] == INF) {
                 break;
             }
             mark[shortest] = true;
@@ -105,36 +105,23 @@ public abstract class Graph<T> {
             int edgeLen = adjacentEdge.size();
             for (int j = 0; j < edgeLen; j++) {
                 Edge<T> cur = adjacentEdge.get(j);
-                if (distance[shortest] + cur.weight < distance[this.vertexList.indexOf(cur.dest)]) {
-                    distance[this.vertexList.indexOf(cur.dest)] = distance[shortest] + cur.weight;
+                if (distance[shortest] + cur.getWeight()
+                        < distance[this.vertexList.indexOf(cur.getDest())]) {
+                    distance[this.vertexList.indexOf(cur.getDest())]
+                            = distance[shortest] + cur.getWeight();
                 }
             }
         }
 
-        ArrayList<VertexDistance<T>> map = new ArrayList<>();
+        ArrayList<VertexDistance<T>> sortArray = new ArrayList<>();
         for (int i = 0; i < vertexLen; i++) {
-            map.add(new VertexDistance<>(this.vertexList.get(i), distance[i]));
+            sortArray.add(new VertexDistance<>(this.vertexList.get(i), distance[i]));
         }
-        Collections.sort(map);
-        StringBuilder result = new StringBuilder("[");
-        for (int i = 0; i < vertexLen; i++) {
-            if (i != vertexLen - 1) {
-                if (map.get(i).distance != inf) {
-                    result.append(map.get(i).vertex.object).append("(")
-                            .append(map.get(i).distance).append("), ");
-                } else {
-                    result.append(map.get(i).vertex.object).append("(")
-                            .append("infinity").append("), ");
-                }
-            } else {
-                if (map.get(i).distance != inf) {
-                    result.append(map.get(i).vertex.object).append("(")
-                            .append(map.get(i).distance).append(")]");
-                } else {
-                    result.append(map.get(i).vertex.object).append("(")
-                            .append("infinity").append(")]");
-                }
-            }
+        Collections.sort(sortArray);
+        ArrayList<Vertex<T>> result = new ArrayList<>();
+        int len = sortArray.size();
+        for (int i = 0; i < len; i++) {
+            result.add(sortArray.get(i).vertex);
         }
         return result;
     }

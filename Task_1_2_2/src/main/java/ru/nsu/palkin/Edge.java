@@ -6,9 +6,9 @@ package ru.nsu.palkin;
  * @param <T> - type of edge
  */
 public class Edge<T> {
-    public Vertex<T> src;
-    public Vertex<T> dest;
-    public int weight;
+    private Vertex<T> src;
+    private Vertex<T> dest;
+    private int weight;
 
     /**
      * Class constructor.
@@ -24,7 +24,62 @@ public class Edge<T> {
     }
 
     /**
+     * getter for first vertex.
+     *
+     * @return first vertex
+     */
+    Vertex<T> getSrc() {
+        return this.src;
+    }
+
+    /**
+     * setter for first vertex.
+     *
+     * @param src - new first vertex
+     */
+    void setSrc(Vertex<T> src) {
+        this.src = src;
+    }
+
+    /**
+     * getter for second vertex.
+     *
+     * @return second vertex
+     */
+    Vertex<T> getDest() {
+        return this.dest;
+    }
+
+    /**
+     * setter for second vertex.
+     *
+     * @param dest - new second vertex
+     */
+    void setDest(Vertex<T> dest) {
+        this.dest = dest;
+    }
+
+    /**
+     * getter for weight
+     *
+     * @return weight
+     */
+    int getWeight() {
+        return this.weight;
+    }
+
+    /**
+     * setter for weight
+     *
+     * @param weight - new weight
+     */
+    void setWeight(int weight) {
+        this.weight = weight;
+    }
+
+    /**
      * Override equals method.
+     * Edges are called the same if they have same first vertex, second vertex and weight
      *
      * @param obj - object
      * @return true or false
@@ -40,5 +95,19 @@ public class Edge<T> {
         Edge<Vertex<T>> edge = (Edge<Vertex<T>>) obj;
         return ((this.src.equals(edge.src)) && (this.dest.equals(edge.dest))
                 && (this.weight == edge.weight));
+    }
+
+    /**
+     * Override hashCode method.
+     *
+     * @return hash
+     */
+    @Override
+    public int hashCode() {
+        int result = 17;
+        result = 31 * result + this.src.hashCode();
+        result = 17 * result + this.dest.hashCode();
+        result = result + this.weight;
+        return result;
     }
 }

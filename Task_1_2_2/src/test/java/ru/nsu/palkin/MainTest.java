@@ -1,8 +1,12 @@
 package ru.nsu.palkin;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
+
 import org.junit.jupiter.api.Test;
 
 /**
@@ -12,16 +16,23 @@ public class MainTest {
     @Test
     public void graphAdjacencyMatrixTest() {
         ArrayList<Vertex<String>> vertices = new ArrayList<>();
-        vertices.add(new Vertex<>("A"));
-        vertices.add(new Vertex<>("B"));
-        vertices.add(new Vertex<>("C"));
-        vertices.add(new Vertex<>("D"));
         ArrayList<Edge<String>> edges = new ArrayList<>();
-        edges.add(new Edge<>(new Vertex<>("A"), new Vertex<>("B"), 10));
-        edges.add(new Edge<>(new Vertex<>("B"), new Vertex<>("C"), 15));
-        edges.add(new Edge<>(new Vertex<>("A"), new Vertex<>("C"), 30));
-        edges.add(new Edge<>(new Vertex<>("C"), new Vertex<>("D"), 20));
-        edges.add(new Edge<>(new Vertex<>("D"), new Vertex<>("A"), 25));
+        try {
+            FileReader fr = new FileReader("src\\main\\resources\\data.txt");
+            BufferedReader br = new BufferedReader(fr);
+            int vertexLen = Integer.parseInt(br.readLine());
+            for (int i = 0; i < vertexLen; i++) {
+                String cur = br.readLine();
+                vertices.add(new Vertex<>(cur));
+            }
+            int edgeLen = Integer.parseInt(br.readLine());
+            for (int i = 0; i < edgeLen; i++) {
+                String[] curArr = br.readLine().split(" ");
+                edges.add(new Edge<>(new Vertex<>(curArr[0]), new Vertex<>(curArr[1]), Integer.parseInt(curArr[2])));
+            }
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
 
         GraphAdjacencyMatrix<String> graph = new GraphAdjacencyMatrix<>(vertices, edges);
         graph.addVertex(new Vertex<>("F"));
@@ -32,24 +43,35 @@ public class MainTest {
                 new Edge<>(new Vertex<>("A"), new Vertex<>("F"), 11));
         graph.changeVertex(new Vertex<>("C"), new Vertex<>("D"));
 
-        StringBuilder result = graph.shortestPath(new Vertex<>("A"));
-        String expectedResult = "[A(0), F(11), D(30), B(infinity)]";
-        assertEquals(expectedResult, result.toString());
+        ArrayList<Vertex<String>> result = graph.shortestPath(new Vertex<>("A"));
+        ArrayList<Vertex<String>> expectedResult = new ArrayList<>();
+        expectedResult.add(new Vertex<>("A"));
+        expectedResult.add(new Vertex<>("F"));
+        expectedResult.add(new Vertex<>("D"));
+        expectedResult.add(new Vertex<>("B"));
+        assertArrayEquals(result.toArray(), expectedResult.toArray());
     }
 
     @Test
     public void graphAdjacencyListTest() {
         ArrayList<Vertex<String>> vertices = new ArrayList<>();
-        vertices.add(new Vertex<>("A"));
-        vertices.add(new Vertex<>("B"));
-        vertices.add(new Vertex<>("C"));
-        vertices.add(new Vertex<>("D"));
         ArrayList<Edge<String>> edges = new ArrayList<>();
-        edges.add(new Edge<>(new Vertex<>("A"), new Vertex<>("B"), 10));
-        edges.add(new Edge<>(new Vertex<>("B"), new Vertex<>("C"), 15));
-        edges.add(new Edge<>(new Vertex<>("A"), new Vertex<>("C"), 30));
-        edges.add(new Edge<>(new Vertex<>("C"), new Vertex<>("D"), 20));
-        edges.add(new Edge<>(new Vertex<>("D"), new Vertex<>("A"), 25));
+        try {
+            FileReader fr = new FileReader("src\\main\\resources\\data.txt");
+            BufferedReader br = new BufferedReader(fr);
+            int vertexLen = Integer.parseInt(br.readLine());
+            for (int i = 0; i < vertexLen; i++) {
+                String cur = br.readLine();
+                vertices.add(new Vertex<>(cur));
+            }
+            int edgeLen = Integer.parseInt(br.readLine());
+            for (int i = 0; i < edgeLen; i++) {
+                String[] curArr = br.readLine().split(" ");
+                edges.add(new Edge<>(new Vertex<>(curArr[0]), new Vertex<>(curArr[1]), Integer.parseInt(curArr[2])));
+            }
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
 
         GraphAdjacencyList<String> graph = new GraphAdjacencyList<>(vertices, edges);
         graph.addVertex(new Vertex<>("F"));
@@ -60,26 +82,37 @@ public class MainTest {
                 new Edge<>(new Vertex<>("A"), new Vertex<>("F"), 11));
         graph.changeVertex(new Vertex<>("C"), new Vertex<>("D"));
 
-        StringBuilder result = graph.shortestPath(new Vertex<>("A"));
-        String expectedResult = "[A(0), F(11), D(30), B(infinity)]";
-        assertEquals(expectedResult, result.toString());
+        ArrayList<Vertex<String>> result = graph.shortestPath(new Vertex<>("A"));
+        ArrayList<Vertex<String>> expectedResult = new ArrayList<>();
+        expectedResult.add(new Vertex<>("A"));
+        expectedResult.add(new Vertex<>("F"));
+        expectedResult.add(new Vertex<>("D"));
+        expectedResult.add(new Vertex<>("B"));
+        assertArrayEquals(result.toArray(), expectedResult.toArray());
     }
 
     @Test
     public void graphIncidenceMatrixTest() {
         ArrayList<Vertex<String>> vertices = new ArrayList<>();
-        vertices.add(new Vertex<>("A"));
-        vertices.add(new Vertex<>("B"));
-        vertices.add(new Vertex<>("C"));
-        vertices.add(new Vertex<>("D"));
         ArrayList<Edge<String>> edges = new ArrayList<>();
-        edges.add(new Edge<>(new Vertex<>("A"), new Vertex<>("B"), 10));
-        edges.add(new Edge<>(new Vertex<>("B"), new Vertex<>("C"), 15));
-        edges.add(new Edge<>(new Vertex<>("A"), new Vertex<>("C"), 30));
-        edges.add(new Edge<>(new Vertex<>("C"), new Vertex<>("D"), 20));
-        edges.add(new Edge<>(new Vertex<>("D"), new Vertex<>("A"), 25));
+        try {
+            FileReader fr = new FileReader("src\\main\\resources\\data.txt");
+            BufferedReader br = new BufferedReader(fr);
+            int vertexLen = Integer.parseInt(br.readLine());
+            for (int i = 0; i < vertexLen; i++) {
+                String cur = br.readLine();
+                vertices.add(new Vertex<>(cur));
+            }
+            int edgeLen = Integer.parseInt(br.readLine());
+            for (int i = 0; i < edgeLen; i++) {
+                String[] curArr = br.readLine().split(" ");
+                edges.add(new Edge<>(new Vertex<>(curArr[0]), new Vertex<>(curArr[1]), Integer.parseInt(curArr[2])));
+            }
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
 
-        GraphIncidenceMatrix<String> graph = new GraphIncidenceMatrix<>(vertices, edges);
+        GraphAdjacencyMatrix<String> graph = new GraphAdjacencyMatrix<>(vertices, edges);
         graph.addVertex(new Vertex<>("F"));
         graph.addEdge(new Edge<>(new Vertex<>("A"), new Vertex<>("F"), 10));
         graph.removeEdge(new Edge<>(new Vertex<>("A"), new Vertex<>("B"), 10));
@@ -88,8 +121,12 @@ public class MainTest {
                 new Edge<>(new Vertex<>("A"), new Vertex<>("F"), 11));
         graph.changeVertex(new Vertex<>("C"), new Vertex<>("D"));
 
-        StringBuilder result = graph.shortestPath(new Vertex<>("A"));
-        String expectedResult = "[A(0), F(11), D(30), B(infinity)]";
-        assertEquals(expectedResult, result.toString());
+        ArrayList<Vertex<String>> result = graph.shortestPath(new Vertex<>("A"));
+        ArrayList<Vertex<String>> expectedResult = new ArrayList<>();
+        expectedResult.add(new Vertex<>("A"));
+        expectedResult.add(new Vertex<>("F"));
+        expectedResult.add(new Vertex<>("D"));
+        expectedResult.add(new Vertex<>("B"));
+        assertArrayEquals(result.toArray(), expectedResult.toArray());
     }
 }

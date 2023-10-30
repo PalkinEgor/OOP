@@ -27,9 +27,9 @@ public class GraphAdjacencyList<T> extends Graph<T> {
         }
         len = edgeList.size();
         for (int i = 0; i < len; i++) {
-            Vertex<T> src = edgeList.get(i).src;
-            Vertex<T> dest = edgeList.get(i).dest;
-            int weight = edgeList.get(i).weight;
+            Vertex<T> src = edgeList.get(i).getSrc();
+            Vertex<T> dest = edgeList.get(i).getDest();
+            int weight = edgeList.get(i).getWeight();
             int srcIndex = vertexList.indexOf(src);
             VertexDistance<T> cur = new VertexDistance<T>(dest, weight);
             this.graph.get(srcIndex).add(cur);
@@ -41,12 +41,15 @@ public class GraphAdjacencyList<T> extends Graph<T> {
      *
      * @param vertex - vertex
      */
-    public void addVertex(Vertex<T> vertex) {
+    @Override
+    public int addVertex(Vertex<T> vertex) {
         if (!this.vertexList.contains(vertex)) {
             this.vertexList.add(vertex);
             ArrayList<VertexDistance<T>> cur = new ArrayList<>();
             this.graph.add(cur);
+            return 1;
         }
+        return -1;
     }
 
     /**
@@ -54,11 +57,12 @@ public class GraphAdjacencyList<T> extends Graph<T> {
      *
      * @param vertex - vertex
      */
+    @Override
     public void removeVertex(Vertex<T> vertex) {
         if (this.vertexList.contains(vertex)) {
             for (int i = 0; i < this.edgeList.size(); i++) {
                 Edge<T> cur = this.edgeList.get(i);
-                if (cur.src.equals(vertex) || cur.dest.equals(vertex)) {
+                if (cur.getSrc().equals(vertex) || cur.getDest().equals(vertex)) {
                     this.edgeList.remove(i);
                     i--;
                 }
@@ -84,17 +88,18 @@ public class GraphAdjacencyList<T> extends Graph<T> {
      * @param oldVertex - old vertex
      * @param newVertex - new vertex
      */
+    @Override
     public void changeVertex(Vertex<T> oldVertex, Vertex<T> newVertex) {
         if (this.vertexList.contains(oldVertex) && !this.vertexList.contains(newVertex)) {
             int index = this.vertexList.indexOf(oldVertex);
             this.vertexList.set(index, newVertex);
             int len = this.edgeList.size();
             for (int i = 0; i < len; i++) {
-                if (this.edgeList.get(i).src.equals(oldVertex)) {
-                    this.edgeList.get(i).src = newVertex;
+                if (this.edgeList.get(i).getSrc().equals(oldVertex)) {
+                    this.edgeList.get(i).setSrc(newVertex);
                 }
-                if (this.edgeList.get(i).dest.equals(oldVertex)) {
-                    this.edgeList.get(i).dest = newVertex;
+                if (this.edgeList.get(i).getDest().equals(oldVertex)) {
+                    this.edgeList.get(i).setDest(newVertex);
                 }
             }
             len = this.vertexList.size();
@@ -115,11 +120,12 @@ public class GraphAdjacencyList<T> extends Graph<T> {
      *
      * @param edge - edge
      */
+    @Override
     public void addEdge(Edge<T> edge) {
-        if (this.vertexList.contains(edge.src) && this.vertexList.contains(edge.dest)) {
+        if (this.vertexList.contains(edge.getSrc()) && this.vertexList.contains(edge.getDest())) {
             this.edgeList.add(edge);
-            int index = this.vertexList.indexOf(edge.src);
-            this.graph.get(index).add(new VertexDistance<T>(edge.dest, edge.weight));
+            int index = this.vertexList.indexOf(edge.getSrc());
+            this.graph.get(index).add(new VertexDistance<T>(edge.getDest(), edge.getWeight()));
         }
     }
 
@@ -128,13 +134,14 @@ public class GraphAdjacencyList<T> extends Graph<T> {
      *
      * @param edge - edge
      */
+    @Override
     public void removeEdge(Edge<T> edge) {
         if (this.edgeList.contains(edge)) {
             this.edgeList.remove(edge);
-            int row = this.vertexList.indexOf(edge.src);
+            int row = this.vertexList.indexOf(edge.getSrc());
             int len = this.graph.get(row).size();
             for (int i = 0; i < len; i++) {
-                if (this.graph.get(row).get(i).vertex.equals(edge.dest)) {
+                if (this.graph.get(row).get(i).vertex.equals(edge.getDest())) {
                     this.graph.get(row).remove(i);
                     break;
                 }
@@ -148,16 +155,18 @@ public class GraphAdjacencyList<T> extends Graph<T> {
      * @param oldEdge - old edge
      * @param newEdge - new edge
      */
+    @Override
     public void changeEdge(Edge<T> oldEdge, Edge<T> newEdge) {
-        if (oldEdge.src.equals(newEdge.src) && oldEdge.dest.equals(newEdge.dest)) {
+        if (oldEdge.getSrc().equals(newEdge.getSrc())
+                && oldEdge.getDest().equals(newEdge.getDest())) {
             if (this.edgeList.contains(oldEdge)) {
                 int index = this.edgeList.indexOf(oldEdge);
                 this.edgeList.set(index, newEdge);
-                index = this.vertexList.indexOf(oldEdge.src);
+                index = this.vertexList.indexOf(oldEdge.getSrc());
                 int len = this.graph.get(index).size();
                 for (int i = 0; i < len; i++) {
-                    if (this.graph.get(index).get(i).vertex.equals(oldEdge.dest)) {
-                        this.graph.get(index).get(i).distance = newEdge.weight;
+                    if (this.graph.get(index).get(i).vertex.equals(oldEdge.getDest())) {
+                        this.graph.get(index).get(i).distance = newEdge.getWeight();
                         break;
                     }
                 }
