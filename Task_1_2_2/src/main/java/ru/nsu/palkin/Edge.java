@@ -38,6 +38,7 @@ public class Edge<T> {
             return false;
         }
         Edge<Vertex<T>> edge = (Edge<Vertex<T>>) obj;
-        return ((this.src.equals(edge.src)) && (this.dest.equals(edge.dest)) && (this.weight == edge.weight));
+        return ((this.src.equals(edge.src)) && (this.dest.equals(edge.dest))
+                && (this.weight == edge.weight));
     }
 }

@@ -77,7 +77,8 @@ public class GraphIncidenceMatrix<T> extends Graph<T> {
             for (int i = 0; i < this.edgeList.size(); i++) {
                 int count = 0;
                 for (int j = 0; j < lenVertex; j++) {
-                    if (this.graph.get(j).get(i).status == 1 || this.graph.get(j).get(i).status == -1) {
+                    if (this.graph.get(j).get(i).status == 1
+                            || this.graph.get(j).get(i).status == -1) {
                         count = count + 1;
                     }
                     if (this.graph.get(j).get(i).status == 2) {

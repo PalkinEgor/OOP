@@ -1,10 +1,9 @@
 package ru.nsu.palkin;
 
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
 
 /**
  * Class with tests.
@@ -29,7 +28,8 @@ public class MainTest {
         graph.addEdge(new Edge<>(new Vertex<>("A"), new Vertex<>("F"), 10));
         graph.removeEdge(new Edge<>(new Vertex<>("A"), new Vertex<>("B"), 10));
         graph.removeVertex(new Vertex<>("D"));
-        graph.changeEdge(new Edge<>(new Vertex<>("A"), new Vertex<>("F"), 10), new Edge<>(new Vertex<>("A"), new Vertex<>("F"), 11));
+        graph.changeEdge(new Edge<>(new Vertex<>("A"), new Vertex<>("F"), 10),
+                new Edge<>(new Vertex<>("A"), new Vertex<>("F"), 11));
         graph.changeVertex(new Vertex<>("C"), new Vertex<>("D"));
 
         StringBuilder result = graph.shortestPath(new Vertex<>("A"));
@@ -56,7 +56,8 @@ public class MainTest {
         graph.addEdge(new Edge<>(new Vertex<>("A"), new Vertex<>("F"), 10));
         graph.removeEdge(new Edge<>(new Vertex<>("A"), new Vertex<>("B"), 10));
         graph.removeVertex(new Vertex<>("D"));
-        graph.changeEdge(new Edge<>(new Vertex<>("A"), new Vertex<>("F"), 10), new Edge<>(new Vertex<>("A"), new Vertex<>("F"), 11));
+        graph.changeEdge(new Edge<>(new Vertex<>("A"), new Vertex<>("F"), 10),
+                new Edge<>(new Vertex<>("A"), new Vertex<>("F"), 11));
         graph.changeVertex(new Vertex<>("C"), new Vertex<>("D"));
 
         StringBuilder result = graph.shortestPath(new Vertex<>("A"));
@@ -83,7 +84,8 @@ public class MainTest {
         graph.addEdge(new Edge<>(new Vertex<>("A"), new Vertex<>("F"), 10));
         graph.removeEdge(new Edge<>(new Vertex<>("A"), new Vertex<>("B"), 10));
         graph.removeVertex(new Vertex<>("D"));
-        graph.changeEdge(new Edge<>(new Vertex<>("A"), new Vertex<>("F"), 10), new Edge<>(new Vertex<>("A"), new Vertex<>("F"), 11));
+        graph.changeEdge(new Edge<>(new Vertex<>("A"), new Vertex<>("F"), 10),
+                new Edge<>(new Vertex<>("A"), new Vertex<>("F"), 11));
         graph.changeVertex(new Vertex<>("C"), new Vertex<>("D"));
 
         StringBuilder result = graph.shortestPath(new Vertex<>("A"));
