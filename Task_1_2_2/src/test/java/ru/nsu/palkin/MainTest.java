@@ -1,9 +1,10 @@
 package ru.nsu.palkin;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
-import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Class with tests.
@@ -11,85 +12,82 @@ import org.junit.jupiter.api.Test;
 public class MainTest {
     @Test
     public void graphAdjacencyMatrixTest() {
-        ArrayList<String> vertices = new ArrayList<>();
-        vertices.add("A");
-        vertices.add("B");
-        vertices.add("C");
-        vertices.add("D");
+        ArrayList<Vertex<String>> vertices = new ArrayList<>();
+        vertices.add(new Vertex<>("A"));
+        vertices.add(new Vertex<>("B"));
+        vertices.add(new Vertex<>("C"));
+        vertices.add(new Vertex<>("D"));
         ArrayList<Edge<String>> edges = new ArrayList<>();
-        edges.add(new Edge<>("A", "B", 10));
-        edges.add(new Edge<>("B", "C", 15));
-        edges.add(new Edge<>("A", "C", 30));
-        edges.add(new Edge<>("C", "D", 20));
-        edges.add(new Edge<>("D", "A", 25));
+        edges.add(new Edge<>(new Vertex<>("A"), new Vertex<>("B"), 10));
+        edges.add(new Edge<>(new Vertex<>("B"), new Vertex<>("C"), 15));
+        edges.add(new Edge<>(new Vertex<>("A"), new Vertex<>("C"), 30));
+        edges.add(new Edge<>(new Vertex<>("C"), new Vertex<>("D"), 20));
+        edges.add(new Edge<>(new Vertex<>("D"), new Vertex<>("A"), 25));
 
         GraphAdjacencyMatrix<String> graph = new GraphAdjacencyMatrix<>(vertices, edges);
-        graph.addVertice("F");
-        graph.addEdge(new Edge<>("A", "F", 10));
-        graph.removeEdge(new Edge<>("A", "B", 10));
-        graph.removeVertice("D");
-        graph.changeEdge(new Edge<>("A", "F", 10),
-                new Edge<>("A", "F", 11));
-        graph.changeVertice("C", "D");
+        graph.addVertex(new Vertex<>("F"));
+        graph.addEdge(new Edge<>(new Vertex<>("A"), new Vertex<>("F"), 10));
+        graph.removeEdge(new Edge<>(new Vertex<>("A"), new Vertex<>("B"), 10));
+        graph.removeVertex(new Vertex<>("D"));
+        graph.changeEdge(new Edge<>(new Vertex<>("A"), new Vertex<>("F"), 10), new Edge<>(new Vertex<>("A"), new Vertex<>("F"), 11));
+        graph.changeVertex(new Vertex<>("C"), new Vertex<>("D"));
 
+        StringBuilder result = graph.shortestPath(new Vertex<>("A"));
         String expectedResult = "[A(0), F(11), D(30), B(infinity)]";
-        StringBuilder result = graph.shortestPaths("A");
         assertEquals(expectedResult, result.toString());
     }
 
     @Test
     public void graphAdjacencyListTest() {
-        ArrayList<String> vertices = new ArrayList<>();
-        vertices.add("A");
-        vertices.add("B");
-        vertices.add("C");
-        vertices.add("D");
+        ArrayList<Vertex<String>> vertices = new ArrayList<>();
+        vertices.add(new Vertex<>("A"));
+        vertices.add(new Vertex<>("B"));
+        vertices.add(new Vertex<>("C"));
+        vertices.add(new Vertex<>("D"));
         ArrayList<Edge<String>> edges = new ArrayList<>();
-        edges.add(new Edge<>("A", "B", 10));
-        edges.add(new Edge<>("B", "C", 15));
-        edges.add(new Edge<>("A", "C", 30));
-        edges.add(new Edge<>("C", "D", 20));
-        edges.add(new Edge<>("D", "A", 25));
+        edges.add(new Edge<>(new Vertex<>("A"), new Vertex<>("B"), 10));
+        edges.add(new Edge<>(new Vertex<>("B"), new Vertex<>("C"), 15));
+        edges.add(new Edge<>(new Vertex<>("A"), new Vertex<>("C"), 30));
+        edges.add(new Edge<>(new Vertex<>("C"), new Vertex<>("D"), 20));
+        edges.add(new Edge<>(new Vertex<>("D"), new Vertex<>("A"), 25));
 
         GraphAdjacencyList<String> graph = new GraphAdjacencyList<>(vertices, edges);
-        graph.addVertice("F");
-        graph.addEdge(new Edge<>("A", "F", 10));
-        graph.removeEdge(new Edge<>("A", "B", 10));
-        graph.removeVertice("D");
-        graph.changeEdge(new Edge<>("A", "F", 10),
-                new Edge<>("A", "F", 11));
-        graph.changeVertice("C", "D");
+        graph.addVertex(new Vertex<>("F"));
+        graph.addEdge(new Edge<>(new Vertex<>("A"), new Vertex<>("F"), 10));
+        graph.removeEdge(new Edge<>(new Vertex<>("A"), new Vertex<>("B"), 10));
+        graph.removeVertex(new Vertex<>("D"));
+        graph.changeEdge(new Edge<>(new Vertex<>("A"), new Vertex<>("F"), 10), new Edge<>(new Vertex<>("A"), new Vertex<>("F"), 11));
+        graph.changeVertex(new Vertex<>("C"), new Vertex<>("D"));
 
+        StringBuilder result = graph.shortestPath(new Vertex<>("A"));
         String expectedResult = "[A(0), F(11), D(30), B(infinity)]";
-        StringBuilder result = graph.shortestPaths("A");
         assertEquals(expectedResult, result.toString());
     }
 
     @Test
-    public void graphIncidenceMatrix() {
-        ArrayList<String> vertices = new ArrayList<>();
-        vertices.add("A");
-        vertices.add("B");
-        vertices.add("C");
-        vertices.add("D");
+    public void graphIncidenceMatrixTest() {
+        ArrayList<Vertex<String>> vertices = new ArrayList<>();
+        vertices.add(new Vertex<>("A"));
+        vertices.add(new Vertex<>("B"));
+        vertices.add(new Vertex<>("C"));
+        vertices.add(new Vertex<>("D"));
         ArrayList<Edge<String>> edges = new ArrayList<>();
-        edges.add(new Edge<>("A", "B", 10));
-        edges.add(new Edge<>("B", "C", 15));
-        edges.add(new Edge<>("A", "C", 30));
-        edges.add(new Edge<>("C", "D", 20));
-        edges.add(new Edge<>("D", "A", 25));
+        edges.add(new Edge<>(new Vertex<>("A"), new Vertex<>("B"), 10));
+        edges.add(new Edge<>(new Vertex<>("B"), new Vertex<>("C"), 15));
+        edges.add(new Edge<>(new Vertex<>("A"), new Vertex<>("C"), 30));
+        edges.add(new Edge<>(new Vertex<>("C"), new Vertex<>("D"), 20));
+        edges.add(new Edge<>(new Vertex<>("D"), new Vertex<>("A"), 25));
 
         GraphIncidenceMatrix<String> graph = new GraphIncidenceMatrix<>(vertices, edges);
-        graph.addVertice("F");
-        graph.addEdge(new Edge<>("A", "F", 10));
-        graph.removeEdge(new Edge<>("A", "B", 10));
-        graph.removeVertice("D");
-        graph.changeEdge(new Edge<>("A", "F", 10),
-                new Edge<>("A", "F", 11));
-        graph.changeVertice("C", "D");
+        graph.addVertex(new Vertex<>("F"));
+        graph.addEdge(new Edge<>(new Vertex<>("A"), new Vertex<>("F"), 10));
+        graph.removeEdge(new Edge<>(new Vertex<>("A"), new Vertex<>("B"), 10));
+        graph.removeVertex(new Vertex<>("D"));
+        graph.changeEdge(new Edge<>(new Vertex<>("A"), new Vertex<>("F"), 10), new Edge<>(new Vertex<>("A"), new Vertex<>("F"), 11));
+        graph.changeVertex(new Vertex<>("C"), new Vertex<>("D"));
 
+        StringBuilder result = graph.shortestPath(new Vertex<>("A"));
         String expectedResult = "[A(0), F(11), D(30), B(infinity)]";
-        StringBuilder result = graph.shortestPaths("A");
         assertEquals(expectedResult, result.toString());
     }
 }

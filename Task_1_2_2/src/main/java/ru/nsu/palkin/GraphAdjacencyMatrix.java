@@ -1,231 +1,149 @@
 package ru.nsu.palkin;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 
 /**
  * Class GraphAdjacencyMatrix.
  *
- * @param <T> - objects in vertices
+ * @param <T> - type of class
  */
-public class GraphAdjacencyMatrix<T> implements Graphable<T> {
+public class GraphAdjacencyMatrix<T> extends Graph<T> {
     private ArrayList<ArrayList<Integer>> graph;
-    private ArrayList<T> verticesList;
-    private static final int inf = Integer.MAX_VALUE;
 
     /**
      * Class constructor.
      *
-     * @param vertices - list of vertices
-     * @param edges    - list of edges
+     * @param vertexList - list of vertexes
+     * @param edgeList   - list of edges
      */
-    GraphAdjacencyMatrix(ArrayList<T> vertices, ArrayList<Edge<T>> edges) {
+    GraphAdjacencyMatrix(ArrayList<Vertex<T>> vertexList, ArrayList<Edge<T>> edgeList) {
         this.graph = new ArrayList<>();
-        this.verticesList = vertices;
-        int len = vertices.size();
+        this.vertexList = vertexList;
+        this.edgeList = edgeList;
+        int len = vertexList.size();
         for (int i = 0; i < len; i++) {
-            ArrayList<Integer> t = new ArrayList<>();
+            ArrayList<Integer> cur = new ArrayList<>();
             for (int j = 0; j < len; j++) {
-                t.add(-1);
+                cur.add(0);
             }
-            this.graph.add(t);
+            graph.add(cur);
         }
-        len = edges.size();
+        len = edgeList.size();
         for (int i = 0; i < len; i++) {
-            int row = this.verticesList.indexOf(edges.get(i).src);
-            int col = this.verticesList.indexOf(edges.get(i).dest);
-            this.graph.get(row).set(col, edges.get(i).weight);
+            int row = vertexList.indexOf(edgeList.get(i).src);
+            int col = vertexList.indexOf(edgeList.get(i).dest);
+            this.graph.get(row).set(col, edgeList.get(i).weight);
         }
     }
 
     /**
-     * Add a vertice to the graph.
+     * Add vertex to the graph.
      *
-     * @param vert - vertice
+     * @param vertex - vertex
      */
-    @Override
-    public void addVertice(T vert) {
-        if (!this.verticesList.contains(vert)) {
+    public void addVertex(Vertex<T> vertex) {
+        if (!this.vertexList.contains(vertex)) {
+            int len = this.vertexList.size();
             ArrayList<Integer> newRow = new ArrayList<>();
-            int len = this.verticesList.size();
             for (int i = 0; i < len; i++) {
-                graph.get(i).add(-1);
-                newRow.add(-1);
+                this.graph.get(i).add(0);
+                newRow.add(0);
             }
-            newRow.add(-1);
+            newRow.add(0);
             this.graph.add(newRow);
-            this.verticesList.add(vert);
+            this.vertexList.add(vertex);
         }
     }
 
     /**
-     * Remove a vertice from the graph.
+     * Remove vertex from the graph.
      *
-     * @param vert - vertice
+     * @param vertex - vertex
      */
-    @Override
-    public void removeVertice(T vert) {
-        if (this.verticesList.contains(vert)) {
-            int index = this.verticesList.indexOf(vert);
-            int len = this.verticesList.size();
+    public void removeVertex(Vertex<T> vertex) {
+        if (this.vertexList.contains(vertex)) {
+            int index = this.vertexList.indexOf(vertex);
+            int len = this.vertexList.size();
             for (int i = 0; i < len; i++) {
                 this.graph.get(i).remove(index);
             }
             this.graph.remove(index);
-            this.verticesList.remove(index);
+            this.vertexList.remove(index);
+            for (int i = 0; i < this.edgeList.size(); i++) {
+                Edge<T> cur = this.edgeList.get(i);
+                if (cur.src.equals(vertex) || cur.dest.equals(vertex)) {
+                    this.edgeList.remove(i);
+                    i = i - 1;
+                }
+            }
         }
     }
 
     /**
-     * Rename vertice in the graph.
+     * Change vertex in the graph.
      *
-     * @param oldVert - old name
-     * @param newVert - new name
+     * @param oldVertex - old vertex
+     * @param newVertex - new vertex
      */
-    @Override
-    public void changeVertice(T oldVert, T newVert) {
-        if (this.verticesList.contains(oldVert)) {
-            int index = this.verticesList.indexOf(oldVert);
-            this.verticesList.set(index, newVert);
+    public void changeVertex(Vertex<T> oldVertex, Vertex<T> newVertex) {
+        if (this.vertexList.contains(oldVertex) && !this.vertexList.contains(newVertex)) {
+            int index = this.vertexList.indexOf(oldVertex);
+            this.vertexList.set(index, newVertex);
+            int len = this.edgeList.size();
+            for (int i = 0; i < len; i++) {
+                if (this.edgeList.get(i).src.equals(oldVertex)) {
+                    this.edgeList.get(i).src = newVertex;
+                }
+                if (this.edgeList.get(i).dest.equals(oldVertex)) {
+                    this.edgeList.get(i).dest = newVertex;
+                }
+            }
         }
     }
 
     /**
-     * Add an edge to the graph.
+     * Add edge to the graph.
      *
      * @param edge - edge
      */
-    @Override
     public void addEdge(Edge<T> edge) {
-        if (this.verticesList.contains(edge.src) && this.verticesList.contains(edge.dest)) {
-            int row = this.verticesList.indexOf(edge.src);
-            int col = this.verticesList.indexOf(edge.dest);
+        if (this.vertexList.contains(edge.src) && this.vertexList.contains(edge.dest)) {
+            int row = this.vertexList.indexOf(edge.src);
+            int col = this.vertexList.indexOf(edge.dest);
             this.graph.get(row).set(col, edge.weight);
+            this.edgeList.add(edge);
         }
     }
 
     /**
-     * Remove an edge from the graph.
+     * Remove edge from the graph.
      *
      * @param edge - edge
      */
-    @Override
     public void removeEdge(Edge<T> edge) {
-        if (this.verticesList.contains(edge.src) && this.verticesList.contains(edge.dest)) {
-            int row = this.verticesList.indexOf(edge.src);
-            int col = this.verticesList.indexOf(edge.dest);
-            this.graph.get(row).set(col, -1);
+        if (this.edgeList.contains(edge)) {
+            int row = this.vertexList.indexOf(edge.src);
+            int col = this.vertexList.indexOf(edge.dest);
+            this.graph.get(row).set(col, 0);
+            this.edgeList.remove(edge);
         }
     }
 
     /**
-     * Change weight of the edge.
+     * Change edge in the graph.
      *
-     * @param oldEdge - old weight
-     * @param newEdge - new weight
+     * @param oldEdge - old edge
+     * @param newEdge - new edge
      */
-    @Override
     public void changeEdge(Edge<T> oldEdge, Edge<T> newEdge) {
-        if (this.verticesList.contains(oldEdge.src) && this.verticesList.contains(oldEdge.dest)) {
-            int row = this.verticesList.indexOf(oldEdge.src);
-            int col = this.verticesList.indexOf(oldEdge.dest);
-            this.graph.get(row).set(col, newEdge.weight);
-        }
-    }
-
-    /**
-     * Find the shortest paths from a vertice.
-     *
-     * @param vert - vertice
-     * @return string with distances
-     */
-    @Override
-    public StringBuilder shortestPaths(T vert) {
-        int len = this.verticesList.size();
-        int[] distance = new int[len];
-        boolean[] marks = new boolean[len];
-        Arrays.fill(marks, false);
-        Arrays.fill(distance, inf);
-        int index = this.verticesList.indexOf(vert);
-        distance[index] = 0;
-        for (int i = 0; i < len; i++) {
-            int shortest = -1;
-            for (int j = 0; j < len; j++) {
-                if (!marks[j] && (shortest == -1 || distance[shortest] > distance[j])) {
-                    shortest = j;
-                }
+        if (oldEdge.src.equals(newEdge.src) && oldEdge.dest.equals(newEdge.dest)) {
+            if (this.edgeList.contains(oldEdge)) {
+                int row = this.vertexList.indexOf(oldEdge.src);
+                int col = this.vertexList.indexOf(oldEdge.dest);
+                this.graph.get(row).set(col, newEdge.weight);
+                int index = this.edgeList.indexOf(oldEdge);
+                this.edgeList.set(index, newEdge);
             }
-            if (distance[shortest] == inf) {
-                break;
-            }
-            marks[shortest] = true;
-            for (int j = 0; j < len; j++) {
-                if (this.graph.get(shortest).get(j) != -1) {
-                    if (distance[shortest] + this.graph.get(shortest).get(j) < distance[j]) {
-                        distance[j] = distance[shortest] + this.graph.get(shortest).get(j);
-                    }
-                }
-            }
-        }
-
-        ArrayList<VerticeDistance<T>> map = new ArrayList<>();
-        for (int i = 0; i < len; i++) {
-            map.add(new VerticeDistance<>(this.verticesList.get(i), distance[i]));
-        }
-        Collections.sort(map);
-        StringBuilder result = new StringBuilder("[");
-        for (int i = 0; i < len; i++) {
-            if (i != len - 1) {
-                if (map.get(i).distance != inf) {
-                    result.append(map.get(i).vertice).append("(")
-                            .append(map.get(i).distance).append("), ");
-                } else {
-                    result.append(map.get(i).vertice).append("(")
-                            .append("infinity").append("), ");
-                }
-            } else {
-                if (map.get(i).distance != inf) {
-                    result.append(map.get(i).vertice).append("(")
-                            .append(map.get(i).distance).append(")]");
-                } else {
-                    result.append(map.get(i).vertice).append("(")
-                            .append("infinity").append(")]");
-                }
-            }
-        }
-        return result;
-    }
-
-    /**
-     * Class with vertice and distance.
-     *
-     * @param <T> - objects in vertices
-     */
-    private class VerticeDistance<T> implements Comparable<VerticeDistance> {
-        private T vertice;
-        private int distance;
-
-        /**
-         * Class constructor.
-         *
-         * @param vertice  - vertice
-         * @param distance - distance
-         */
-        VerticeDistance(T vertice, int distance) {
-            this.vertice = vertice;
-            this.distance = distance;
-        }
-
-        /**
-         * Comparator.
-         *
-         * @param verticeDistance - object verticeDistance
-         * @return distance difference
-         */
-        @Override
-        public int compareTo(VerticeDistance verticeDistance) {
-            return this.distance - verticeDistance.distance;
         }
     }
 }

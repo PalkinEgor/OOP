@@ -1,23 +1,23 @@
 package ru.nsu.palkin;
 
 /**
- * Class edge.
+ * Edge class.
  *
- * @param <T> - objects in edge
+ * @param <T> - type of edge
  */
 public class Edge<T> {
-    public T src;
-    public T dest;
+    public Vertex<T> src;
+    public Vertex<T> dest;
     public int weight;
 
     /**
      * Class constructor.
      *
-     * @param src    - begin of the edge
-     * @param dest   - end of the edge
-     * @param weight - weight of the edge
+     * @param src    - first vertex
+     * @param dest   - second vertex
+     * @param weight - weight of vertex
      */
-    Edge(T src, T dest, int weight) {
+    Edge(Vertex<T> src, Vertex<T> dest, int weight) {
         this.src = src;
         this.dest = dest;
         this.weight = weight;
@@ -37,7 +37,7 @@ public class Edge<T> {
         if (obj == null || getClass() != obj.getClass()) {
             return false;
         }
-        Edge<T> edge = (Edge<T>) obj;
-        return (this.src == edge.src) && (this.dest == edge.dest) && (this.weight == edge.weight);
+        Edge<Vertex<T>> edge = (Edge<Vertex<T>>) obj;
+        return ((this.src.equals(edge.src)) && (this.dest.equals(edge.dest)) && (this.weight == edge.weight));
     }
 }
