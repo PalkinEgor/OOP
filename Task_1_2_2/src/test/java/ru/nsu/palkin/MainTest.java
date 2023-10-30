@@ -3,6 +3,7 @@ package ru.nsu.palkin;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -18,7 +19,8 @@ public class MainTest {
         ArrayList<Vertex<String>> vertices = new ArrayList<>();
         ArrayList<Edge<String>> edges = new ArrayList<>();
         try {
-            FileReader fr = new FileReader("src\\main\\resources\\data.txt");
+            File file = new File("src\\main\\resources\\data.txt");
+            FileReader fr = new FileReader(file);
             BufferedReader br = new BufferedReader(fr);
             int vertexLen = Integer.parseInt(br.readLine());
             for (int i = 0; i < vertexLen; i++) {
@@ -28,7 +30,8 @@ public class MainTest {
             int edgeLen = Integer.parseInt(br.readLine());
             for (int i = 0; i < edgeLen; i++) {
                 String[] curArr = br.readLine().split(" ");
-                edges.add(new Edge<>(new Vertex<>(curArr[0]), new Vertex<>(curArr[1]), Integer.parseInt(curArr[2])));
+                edges.add(new Edge<>(new Vertex<>(curArr[0]), new Vertex<>(curArr[1]),
+                        Integer.parseInt(curArr[2])));
             }
         } catch (IOException e) {
             System.out.println(e.getMessage());
@@ -43,12 +46,12 @@ public class MainTest {
                 new Edge<>(new Vertex<>("A"), new Vertex<>("F"), 11));
         graph.changeVertex(new Vertex<>("C"), new Vertex<>("D"));
 
-        ArrayList<Vertex<String>> result = graph.shortestPath(new Vertex<>("A"));
         ArrayList<Vertex<String>> expectedResult = new ArrayList<>();
         expectedResult.add(new Vertex<>("A"));
         expectedResult.add(new Vertex<>("F"));
         expectedResult.add(new Vertex<>("D"));
         expectedResult.add(new Vertex<>("B"));
+        ArrayList<Vertex<String>> result = graph.shortestPath(new Vertex<>("A"));
         assertArrayEquals(result.toArray(), expectedResult.toArray());
     }
 
@@ -57,7 +60,8 @@ public class MainTest {
         ArrayList<Vertex<String>> vertices = new ArrayList<>();
         ArrayList<Edge<String>> edges = new ArrayList<>();
         try {
-            FileReader fr = new FileReader("src\\main\\resources\\data.txt");
+            File file = new File("src\\main\\resources\\data.txt");
+            FileReader fr = new FileReader(file);
             BufferedReader br = new BufferedReader(fr);
             int vertexLen = Integer.parseInt(br.readLine());
             for (int i = 0; i < vertexLen; i++) {
@@ -67,7 +71,8 @@ public class MainTest {
             int edgeLen = Integer.parseInt(br.readLine());
             for (int i = 0; i < edgeLen; i++) {
                 String[] curArr = br.readLine().split(" ");
-                edges.add(new Edge<>(new Vertex<>(curArr[0]), new Vertex<>(curArr[1]), Integer.parseInt(curArr[2])));
+                edges.add(new Edge<>(new Vertex<>(curArr[0]), new Vertex<>(curArr[1]),
+                        Integer.parseInt(curArr[2])));
             }
         } catch (IOException e) {
             System.out.println(e.getMessage());
@@ -82,12 +87,12 @@ public class MainTest {
                 new Edge<>(new Vertex<>("A"), new Vertex<>("F"), 11));
         graph.changeVertex(new Vertex<>("C"), new Vertex<>("D"));
 
-        ArrayList<Vertex<String>> result = graph.shortestPath(new Vertex<>("A"));
         ArrayList<Vertex<String>> expectedResult = new ArrayList<>();
         expectedResult.add(new Vertex<>("A"));
         expectedResult.add(new Vertex<>("F"));
         expectedResult.add(new Vertex<>("D"));
         expectedResult.add(new Vertex<>("B"));
+        ArrayList<Vertex<String>> result = graph.shortestPath(new Vertex<>("A"));
         assertArrayEquals(result.toArray(), expectedResult.toArray());
     }
 
@@ -96,7 +101,8 @@ public class MainTest {
         ArrayList<Vertex<String>> vertices = new ArrayList<>();
         ArrayList<Edge<String>> edges = new ArrayList<>();
         try {
-            FileReader fr = new FileReader("src\\main\\resources\\data.txt");
+            File file = new File("src\\main\\resources\\data.txt");
+            FileReader fr = new FileReader(file);
             BufferedReader br = new BufferedReader(fr);
             int vertexLen = Integer.parseInt(br.readLine());
             for (int i = 0; i < vertexLen; i++) {
@@ -106,7 +112,8 @@ public class MainTest {
             int edgeLen = Integer.parseInt(br.readLine());
             for (int i = 0; i < edgeLen; i++) {
                 String[] curArr = br.readLine().split(" ");
-                edges.add(new Edge<>(new Vertex<>(curArr[0]), new Vertex<>(curArr[1]), Integer.parseInt(curArr[2])));
+                edges.add(new Edge<>(new Vertex<>(curArr[0]), new Vertex<>(curArr[1]),
+                        Integer.parseInt(curArr[2])));
             }
         } catch (IOException e) {
             System.out.println(e.getMessage());
@@ -121,12 +128,12 @@ public class MainTest {
                 new Edge<>(new Vertex<>("A"), new Vertex<>("F"), 11));
         graph.changeVertex(new Vertex<>("C"), new Vertex<>("D"));
 
-        ArrayList<Vertex<String>> result = graph.shortestPath(new Vertex<>("A"));
         ArrayList<Vertex<String>> expectedResult = new ArrayList<>();
         expectedResult.add(new Vertex<>("A"));
         expectedResult.add(new Vertex<>("F"));
         expectedResult.add(new Vertex<>("D"));
         expectedResult.add(new Vertex<>("B"));
+        ArrayList<Vertex<String>> result = graph.shortestPath(new Vertex<>("A"));
         assertArrayEquals(result.toArray(), expectedResult.toArray());
     }
 }

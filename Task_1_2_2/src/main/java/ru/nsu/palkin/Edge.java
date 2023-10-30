@@ -24,7 +24,7 @@ public class Edge<T> {
     }
 
     /**
-     * getter for first vertex.
+     * Getter for first vertex.
      *
      * @return first vertex
      */
@@ -33,7 +33,7 @@ public class Edge<T> {
     }
 
     /**
-     * setter for first vertex.
+     * Setter for first vertex.
      *
      * @param src - new first vertex
      */
@@ -42,7 +42,7 @@ public class Edge<T> {
     }
 
     /**
-     * getter for second vertex.
+     * Getter for second vertex.
      *
      * @return second vertex
      */
@@ -51,7 +51,7 @@ public class Edge<T> {
     }
 
     /**
-     * setter for second vertex.
+     * Setter for second vertex.
      *
      * @param dest - new second vertex
      */
@@ -60,7 +60,7 @@ public class Edge<T> {
     }
 
     /**
-     * getter for weight
+     * Getter for weight.
      *
      * @return weight
      */
@@ -69,7 +69,7 @@ public class Edge<T> {
     }
 
     /**
-     * setter for weight
+     * Setter for weight.
      *
      * @param weight - new weight
      */

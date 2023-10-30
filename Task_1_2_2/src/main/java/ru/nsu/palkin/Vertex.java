@@ -18,7 +18,7 @@ public class Vertex<T> {
     }
 
     /**
-     * getter for object.
+     * Getter for object.
      *
      * @return object value
      */
@@ -27,7 +27,7 @@ public class Vertex<T> {
     }
 
     /**
-     * setter for object.
+     * Setter for object.
      *
      * @param object - new object value
      */
