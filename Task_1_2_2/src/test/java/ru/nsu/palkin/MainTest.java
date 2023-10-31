@@ -18,7 +18,7 @@ public class MainTest {
         ArrayList<Vertex<String>> vertices = new ArrayList<>();
         ArrayList<Edge<String>> edges = new ArrayList<>();
         try {
-            File file = new File("src\\data.txt");
+            File file = new File("data.txt");
             FileReader fr = new FileReader(file);
             BufferedReader br = new BufferedReader(fr);
             int vertexLen = Integer.parseInt(br.readLine());
@@ -59,7 +59,7 @@ public class MainTest {
         ArrayList<Vertex<String>> vertices = new ArrayList<>();
         ArrayList<Edge<String>> edges = new ArrayList<>();
         try {
-            File file = new File("src\\data.txt");
+            File file = new File("data.txt");
             FileReader fr = new FileReader(file);
             BufferedReader br = new BufferedReader(fr);
             int vertexLen = Integer.parseInt(br.readLine());
@@ -100,7 +100,7 @@ public class MainTest {
         ArrayList<Vertex<String>> vertices = new ArrayList<>();
         ArrayList<Edge<String>> edges = new ArrayList<>();
         try {
-            File file = new File("src\\data.txt");
+            File file = new File("data.txt");
             FileReader fr = new FileReader(file);
             BufferedReader br = new BufferedReader(fr);
             int vertexLen = Integer.parseInt(br.readLine());
