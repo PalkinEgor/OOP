@@ -1,6 +1,7 @@
 package ru.nsu.palkin;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -134,5 +135,41 @@ public class MainTest {
         expectedResult.add(new Vertex<>("B"));
         ArrayList<Vertex<String>> result = graph.shortestPath(new Vertex<>("A"));
         assertArrayEquals(result.toArray(), expectedResult.toArray());
+    }
+
+    @Test
+    public void getVertexTest() {
+        Vertex<String> vertex = new Vertex<>("A");
+        assertEquals(vertex.getObject(), "A");
+    }
+
+    @Test
+    public void setVertexTest() {
+        Vertex<String> vertex = new Vertex<>("B");
+        Vertex<String> expectedResult = new Vertex<>("A");
+        vertex.setObject("A");
+        assertEquals(vertex, expectedResult);
+    }
+
+    @Test
+    public void setWeightEdgeTest() {
+        Edge<String> edge = new Edge<>(new Vertex<>("A"), new Vertex<>("B"), 10);
+        Edge<String> expectedResult = new Edge<>(new Vertex<>("A"), new Vertex<>("B"), 15);
+        edge.setWeight(15);
+        assertEquals(edge, expectedResult);
+    }
+
+    @Test
+    public void vertexHashCodeTest() {
+        Vertex<String> vertex1 = new Vertex<>("A");
+        Vertex<String> vertex2 = new Vertex<>("A");
+        assertEquals(vertex1.hashCode(), vertex2.hashCode());
+    }
+
+    @Test
+    public void edgeHashCodeTest() {
+        Edge<String> edge1 = new Edge<>(new Vertex<>("A"), new Vertex<>("B"), 10);
+        Edge<String> edge2 = new Edge<>(new Vertex<>("A"), new Vertex<>("B"), 10);
+        assertEquals(edge1.hashCode(), edge2.hashCode());
     }
 }
