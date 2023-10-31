@@ -118,7 +118,7 @@ public class MainTest {
             System.out.println(e.getMessage());
         }
 
-        GraphAdjacencyMatrix<String> graph = new GraphAdjacencyMatrix<>(vertices, edges);
+        GraphIncidenceMatrix<String> graph = new GraphIncidenceMatrix<>(vertices, edges);
         graph.addVertex(new Vertex<>("F"));
         graph.addEdge(new Edge<>(new Vertex<>("A"), new Vertex<>("F"), 10));
         graph.removeEdge(new Edge<>(new Vertex<>("A"), new Vertex<>("B"), 10));
