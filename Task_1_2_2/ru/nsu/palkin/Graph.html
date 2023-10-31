@@ -193,7 +193,7 @@ extends java.lang.Object</pre>
 </tr>
 <tr class="rowColor">
 <td class="colFirst"><code>protected static int</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#inf">inf</a></span></code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#INF">INF</a></span></code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr class="altColor">
@@ -248,7 +248,7 @@ extends java.lang.Object</pre>
 </td>
 </tr>
 <tr id="i1" class="rowColor">
-<td class="colFirst"><code>abstract void</code></td>
+<td class="colFirst"><code>abstract int</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#addVertex(ru.nsu.palkin.Vertex)">addVertex</a></span>&#8203;(<a href="Vertex.html" title="class in ru.nsu.palkin">Vertex</a>&lt;<a href="Graph.html" title="type parameter in Graph">T</a>&gt;&nbsp;vertex)</code></th>
 <td class="colLast">
 <div class="block">Add vertex to the graph.</div>
@@ -292,7 +292,7 @@ extends java.lang.Object</pre>
 </td>
 </tr>
 <tr id="i7" class="rowColor">
-<td class="colFirst"><code>java.lang.StringBuilder</code></td>
+<td class="colFirst"><code>java.util.ArrayList&lt;<a href="Vertex.html" title="class in ru.nsu.palkin">Vertex</a>&lt;<a href="Graph.html" title="type parameter in Graph">T</a>&gt;&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#shortestPath(ru.nsu.palkin.Vertex)">shortestPath</a></span>&#8203;(<a href="Vertex.html" title="class in ru.nsu.palkin">Vertex</a>&lt;<a href="Graph.html" title="type parameter in Graph">T</a>&gt;&nbsp;vertex)</code></th>
 <td class="colLast">
 <div class="block">Get the shortest paths from the vertex.</div>
@@ -340,16 +340,16 @@ extends java.lang.Object</pre>
 <pre>protected&nbsp;java.util.ArrayList&lt;<a href="Edge.html" title="class in ru.nsu.palkin">Edge</a>&lt;<a href="Graph.html" title="type parameter in Graph">T</a>&gt;&gt; edgeList</pre>
 </li>
 </ul>
-<a id="inf">
+<a id="INF">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
-<h4>inf</h4>
-<pre>protected static final&nbsp;int inf</pre>
+<h4>INF</h4>
+<pre>protected static final&nbsp;int INF</pre>
 <dl>
 <dt><span class="seeLabel">See Also:</span></dt>
-<dd><a href="../../../constant-values.html#ru.nsu.palkin.Graph.inf">Constant Field Values</a></dd>
+<dd><a href="../../../constant-values.html#ru.nsu.palkin.Graph.INF">Constant Field Values</a></dd>
 </dl>
 </li>
 </ul>
@@ -388,7 +388,7 @@ extends java.lang.Object</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>addVertex</h4>
-<pre class="methodSignature">public abstract&nbsp;void&nbsp;addVertex&#8203;(<a href="Vertex.html" title="class in ru.nsu.palkin">Vertex</a>&lt;<a href="Graph.html" title="type parameter in Graph">T</a>&gt;&nbsp;vertex)</pre>
+<pre class="methodSignature">public abstract&nbsp;int&nbsp;addVertex&#8203;(<a href="Vertex.html" title="class in ru.nsu.palkin">Vertex</a>&lt;<a href="Graph.html" title="type parameter in Graph">T</a>&gt;&nbsp;vertex)</pre>
 <div class="block">Add vertex to the graph.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -492,13 +492,13 @@ extends java.lang.Object</pre>
 <ul class="blockListLast">
 <li class="blockList">
 <h4>shortestPath</h4>
-<pre class="methodSignature">public&nbsp;java.lang.StringBuilder&nbsp;shortestPath&#8203;(<a href="Vertex.html" title="class in ru.nsu.palkin">Vertex</a>&lt;<a href="Graph.html" title="type parameter in Graph">T</a>&gt;&nbsp;vertex)</pre>
+<pre class="methodSignature">public&nbsp;java.util.ArrayList&lt;<a href="Vertex.html" title="class in ru.nsu.palkin">Vertex</a>&lt;<a href="Graph.html" title="type parameter in Graph">T</a>&gt;&gt;&nbsp;shortestPath&#8203;(<a href="Vertex.html" title="class in ru.nsu.palkin">Vertex</a>&lt;<a href="Graph.html" title="type parameter in Graph">T</a>&gt;&nbsp;vertex)</pre>
 <div class="block">Get the shortest paths from the vertex.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>vertex</code> - - vertex</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>string with vertexes and path length for each vertex</dd>
+<dd>list of vertexes</dd>
 </dl>
 </li>
 </ul>
