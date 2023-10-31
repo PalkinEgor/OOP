@@ -40,9 +40,10 @@ public class GraphAdjacencyMatrix<T> extends Graph<T> {
      * Add vertex to the graph.
      *
      * @param vertex - vertex
+     * @return true if there is no vertex in list before, otherwise false
      */
     @Override
-    public int addVertex(Vertex<T> vertex) {
+    public boolean addVertex(Vertex<T> vertex) {
         if (!this.vertexList.contains(vertex)) {
             int len = this.vertexList.size();
             ArrayList<Integer> newRow = new ArrayList<>();
@@ -53,9 +54,9 @@ public class GraphAdjacencyMatrix<T> extends Graph<T> {
             newRow.add(0);
             this.graph.add(newRow);
             this.vertexList.add(vertex);
-            return 1;
+            return true;
         }
-        return -1;
+        return false;
     }
 
     /**

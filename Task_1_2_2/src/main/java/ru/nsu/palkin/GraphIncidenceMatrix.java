@@ -46,9 +46,10 @@ public class GraphIncidenceMatrix<T> extends Graph<T> {
      * Add vertex to the graph.
      *
      * @param vertex - vertex
+     * @return true if there is no vertex in list before, otherwise false
      */
     @Override
-    public int addVertex(Vertex<T> vertex) {
+    public boolean addVertex(Vertex<T> vertex) {
         if (!this.vertexList.contains(vertex)) {
             this.vertexList.add(vertex);
             ArrayList<EdgeStatus<T>> cur = new ArrayList<>();
@@ -57,9 +58,9 @@ public class GraphIncidenceMatrix<T> extends Graph<T> {
                 cur.add(new EdgeStatus<>(null, 0));
             }
             this.graph.add(cur);
-            return 1;
+            return true;
         }
-        return -1;
+        return false;
     }
 
     /**

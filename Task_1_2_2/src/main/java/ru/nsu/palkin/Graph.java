@@ -19,7 +19,7 @@ public abstract class Graph<T> {
      *
      * @param vertex - vertex
      */
-    public abstract int addVertex(Vertex<T> vertex);
+    public abstract boolean addVertex(Vertex<T> vertex);
 
     /**
      * Remove vertex from the graph.
