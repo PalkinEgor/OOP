@@ -59,7 +59,7 @@ public class Search {
      * @param fileName - file name
      * @return list of indexes
      */
-    public ArrayList<Integer> Solution(String fileName) {
+    public ArrayList<Integer> solution(String fileName) {
         ArrayList<Integer> result = new ArrayList<>();
         int globalPos = 0;
         try {
@@ -69,9 +69,9 @@ public class Search {
 
             int patternSize = this.pattern.length();
             int bufferSize = patternSize * 8;
-            if (bufferSize < 8192) {
+            /*if (bufferSize < 8192) {
                 bufferSize = 8192;
-            }
+            }*/
 
             char[] buffer = null;
             char[] remains = null;
@@ -84,16 +84,16 @@ public class Search {
                         break;
                     }
                 } else {
-                    int tBufferSize = (bufferSize / 8) * 7;
-                    char[] tBuffer = new char[tBufferSize];
-                    charCount = reader.read(tBuffer);
+                    int newBufferSize = (bufferSize / 8) * 7;
+                    char[] newBuffer = new char[newBufferSize];
+                    charCount = reader.read(newBuffer);
                     if (charCount == -1) {
                         break;
                     }
                     charCount = charCount + remains.length;
                     buffer = new char[bufferSize];
                     System.arraycopy(remains, 0, buffer, 0, remains.length);
-                    System.arraycopy(tBuffer, 0, buffer, remains.length, tBufferSize);
+                    System.arraycopy(newBuffer, 0, buffer, remains.length, newBufferSize);
                     System.out.println(buffer);
                 }
                 int localOffset = 0;
