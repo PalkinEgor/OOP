@@ -29,4 +29,20 @@ public class MainTest {
         expectedResult.add(8);
         assertArrayEquals(expectedResult.toArray(), search.Solution("data1.txt").toArray());
     }
+
+    @Test
+    public void longStringTest(){
+        Search search = new Search("бра");
+        ArrayList<Integer> expectedResult = new ArrayList<>();
+        expectedResult.add(0);
+        expectedResult.add(3);
+        expectedResult.add(6);
+        expectedResult.add(9);
+        expectedResult.add(12);
+        expectedResult.add(15);
+        expectedResult.add(18);
+        expectedResult.add(21);
+        expectedResult.add(24);
+        assertArrayEquals(expectedResult.toArray(), search.Solution("data2.txt").toArray());
+    }
 }
