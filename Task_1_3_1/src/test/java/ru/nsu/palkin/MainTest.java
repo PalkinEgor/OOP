@@ -2,8 +2,8 @@ package ru.nsu.palkin;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
-import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
+import org.junit.jupiter.api.Test;
 
 /**
  * Class with tests.
@@ -66,7 +66,7 @@ public class MainTest {
     }
 
     @Test
-    public void mediumTest(){
+    public void mediumTest() {
         Search search = new Search("+", "data9.txt");
         ArrayList<Integer> expectedResult = new ArrayList<>();
         long fileLen = 10000;
