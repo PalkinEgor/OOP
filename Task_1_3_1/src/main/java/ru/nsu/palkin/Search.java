@@ -1,84 +1,49 @@
 package ru.nsu.palkin;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 
 /**
  * Class Search.
  */
 public class Search {
-    public String pattern;
-    public HashMap<Character, Integer> offset;
-    public int otherElemOffset;
+    private String subString;
+    private String fileName;
+    private int bufferSize;
 
     /**
      * Class constructor.
      *
-     * @param pattern - search string
+     * @param subString - search string
+     * @param fileName  - name of file
      */
-    Search(String pattern) {
-        this.pattern = pattern;
-        this.offset = new HashMap<>();
-        int len = pattern.length();
-        this.otherElemOffset = len;
-        int[] offset = new int[len];
-        for (int i = len - 2; i >= 0; i--) {
-            int flag = 0;
-            for (int j = i + 1; j < len - 1; j++) {
-                if (pattern.charAt(i) == pattern.charAt(j)) {
-                    offset[i] = offset[j];
-                    flag = 1;
-                    break;
-                }
-            }
-            if (flag == 0) {
-                offset[i] = len - 1 - i;
-            }
-        }
-        offset[len - 1] = len;
-        for (int i = 0; i < len - 1; i++) {
-            if (pattern.charAt(i) == pattern.charAt(len - 1)) {
-                offset[len - 1] = offset[i];
-                break;
-            }
-        }
-        for (int i = 0; i < len; i++) {
-            this.offset.put(pattern.charAt(i), offset[i]);
-        }
+    Search(String subString, String fileName) {
+        this.subString = subString;
+        this.fileName = fileName;
+        this.bufferSize = Math.max(subString.length() * 8, 8192);
     }
 
     /**
      * Solution search method.
      *
-     * @param fileName - file name
      * @return list of indexes
      */
-    public ArrayList<Integer> solution(String fileName) {
+    public ArrayList<Integer> solution() {
         ArrayList<Integer> result = new ArrayList<>();
-        int globalPos = 0;
         try {
             InputStream fis = getClass().getClassLoader().getResourceAsStream(fileName);
-            InputStreamReader isr = new InputStreamReader(fis, StandardCharsets.UTF_8);
-            BufferedReader reader = new BufferedReader(isr);
-
-            int patternSize = this.pattern.length();
-            int bufferSize = patternSize * 8;
-            /*if (bufferSize < 8192) {
-                bufferSize = 8192;
-            }*/
-
+            InputStreamReader reader = new InputStreamReader(fis, StandardCharsets.UTF_8);
             char[] buffer = null;
             char[] remains = null;
+            int globalPos = 0;
             int charCount = 0;
             while (true) {
                 if (globalPos == 0) {
-                    buffer = new char[bufferSize];
+                    buffer = new char[this.bufferSize];
                     charCount = reader.read(buffer);
                     if (charCount == -1) {
                         break;
@@ -91,43 +56,28 @@ public class Search {
                         break;
                     }
                     charCount = charCount + remains.length;
-                    buffer = new char[bufferSize];
+                    buffer = new char[this.bufferSize];
                     System.arraycopy(remains, 0, buffer, 0, remains.length);
                     System.arraycopy(newBuffer, 0, buffer, remains.length, newBufferSize);
-                    System.out.println(buffer);
                 }
-                int localOffset = 0;
-                while (localOffset + patternSize <= charCount) {
-                    if (buffer[localOffset + patternSize - 1] == this.pattern.charAt(patternSize - 1)) {
-                        int flag = 1;
-                        for (int i = patternSize - 1; i >= 0; i--) {
-                            if (this.pattern.charAt(i) != buffer[localOffset + i]) {
-                                flag = 0;
-                                break;
-                            }
-                        }
-                        if (flag == 1) {
-                            if (!result.contains(globalPos + localOffset)) {
-                                result.add(globalPos + localOffset);
-                            }
-                        }
-                        localOffset = localOffset + this.offset.get(this.pattern.charAt(patternSize - 1));
-                    } else {
-                        if (this.offset.containsKey(buffer[localOffset + patternSize - 1])) {
-                            localOffset = localOffset + this.offset.get(buffer[localOffset + patternSize - 1]);
-                        } else {
-                            localOffset = localOffset + this.otherElemOffset;
-                        }
+                String batch = new String(buffer);
+                int pos = -1;
+                while (true) {
+                    pos = batch.indexOf(this.subString, pos + 1);
+                    if (pos == -1) {
+                        break;
+                    }
+                    if (!result.contains(pos + globalPos)) {
+                        result.add(pos + globalPos);
                     }
                 }
                 if (charCount == bufferSize) {
-                    remains = Arrays.copyOfRange(buffer, (bufferSize / 8) * 7, bufferSize);
-                    globalPos = globalPos + (bufferSize / 8) * 7;
+                    remains = Arrays.copyOfRange(buffer, (this.bufferSize / 8) * 7, bufferSize);
+                    globalPos = globalPos + ((bufferSize / 8) * 7);
                 } else {
                     globalPos = globalPos + charCount - 1;
                 }
             }
-
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
