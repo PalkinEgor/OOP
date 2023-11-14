@@ -3,6 +3,7 @@ package ru.nsu.palkin;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
 import org.junit.jupiter.api.Test;
+import java.util.ArrayList;
 
 /**
  * Class with tests.
@@ -62,6 +63,17 @@ public class MainTest {
         Search search = new Search("+", "data7.txt");
         Integer[] expectedResult = {4, 12, 26};
         assertArrayEquals(expectedResult, search.solution().toArray());
+    }
+
+    @Test
+    public void mediumTest(){
+        Search search = new Search("+", "data9.txt");
+        ArrayList<Integer> expectedResult = new ArrayList<>();
+        long fileLen = 10000;
+        for (int i = 0; i < fileLen; i += 100) {
+            expectedResult.add(i);
+        }
+        assertArrayEquals(expectedResult.toArray(), search.solution().toArray());
     }
 
     /*@Test
