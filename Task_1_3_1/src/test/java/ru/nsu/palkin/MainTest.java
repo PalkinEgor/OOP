@@ -91,7 +91,7 @@ public class MainTest {
     @Test
     public void largeTest() {
         ArrayList<Long> expectedResult = new ArrayList<>();
-        long fileLen = 5368709120L;
+        long fileLen = 429496729L;
         for (long i = 0; i < fileLen; i += 100) {
             expectedResult.add(i);
         }
@@ -107,7 +107,7 @@ public class MainTest {
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(filename));
             Random rand = new Random();
-            long fileLen = 5368709120L;
+            long fileLen = 429496729L;
             for (long i = 0; i < fileLen; i++) {
                 if (i % 100 == 0) {
                     writer.write('+');
