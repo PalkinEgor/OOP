@@ -1,12 +1,16 @@
 package ru.nsu.palkin;
 
-import java.io.FileInputStream;
-import java.io.IOException;
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Class Search.
@@ -35,16 +39,16 @@ public class Search {
      *
      * @return list of indexes
      */
-    public ArrayList<Integer> solution() {
-        ArrayList<Integer> result = new ArrayList<>();
+    public ArrayList<Long> solution() {
+        Set<Long> resultSet = new HashSet<>();
         try {
-            InputStreamReader reader;
+            BufferedReader reader;
             if (resources) {
                 InputStream fis = getClass().getClassLoader().getResourceAsStream(fileName);
-                reader = new InputStreamReader(fis, StandardCharsets.UTF_8);
+                InputStreamReader isr = new InputStreamReader(fis, StandardCharsets.UTF_8);
+                reader = new BufferedReader(isr);
             } else {
-                FileInputStream input = new FileInputStream(this.fileName);
-                reader = new InputStreamReader(input);
+                reader = new BufferedReader(new FileReader(this.fileName));
             }
             char[] buffer = null;
             char[] remains = null;
@@ -76,9 +80,7 @@ public class Search {
                     if (pos == -1) {
                         break;
                     }
-                    if (!result.contains(pos + globalPos)) {
-                        result.add(pos + globalPos);
-                    }
+                    resultSet.add((long) (pos + globalPos));
                 }
                 if (charCount == bufferSize) {
                     remains = Arrays.copyOfRange(buffer, (this.bufferSize / 8) * 7, bufferSize);
@@ -89,8 +91,10 @@ public class Search {
             }
             reader.close();
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            System.out.println("Error when reading to a file");
         }
-        return result;
+        ArrayList<Long> resultArr = new ArrayList<>(resultSet);
+        Collections.sort(resultArr);
+        return resultArr;
     }
 }
