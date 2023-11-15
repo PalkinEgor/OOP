@@ -1,5 +1,6 @@
 package ru.nsu.palkin;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -14,6 +15,7 @@ public class Search {
     private String subString;
     private String fileName;
     private int bufferSize;
+    private boolean resources;
 
     /**
      * Class constructor.
@@ -21,10 +23,11 @@ public class Search {
      * @param subString - search string
      * @param fileName  - name of file
      */
-    Search(String subString, String fileName) {
+    Search(String subString, String fileName, boolean resources) {
         this.subString = subString;
         this.fileName = fileName;
         this.bufferSize = Math.max(subString.length() * 8, 8192);
+        this.resources = resources;
     }
 
     /**
@@ -35,8 +38,14 @@ public class Search {
     public ArrayList<Integer> solution() {
         ArrayList<Integer> result = new ArrayList<>();
         try {
-            InputStream fis = getClass().getClassLoader().getResourceAsStream(fileName);
-            InputStreamReader reader = new InputStreamReader(fis, StandardCharsets.UTF_8);
+            InputStreamReader reader;
+            if (resources) {
+                InputStream fis = getClass().getClassLoader().getResourceAsStream(fileName);
+                reader = new InputStreamReader(fis, StandardCharsets.UTF_8);
+            } else {
+                FileInputStream input = new FileInputStream(this.fileName);
+                reader = new InputStreamReader(input);
+            }
             char[] buffer = null;
             char[] remains = null;
             int globalPos = 0;
@@ -78,6 +87,7 @@ public class Search {
                     globalPos = globalPos + charCount - 1;
                 }
             }
+            reader.close();
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
