@@ -2,8 +2,8 @@ package ru.nsu.palkin;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.io.InputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -52,8 +52,8 @@ public class Search {
             }
             char[] buffer = null;
             char[] remains = null;
-            int globalPos = 0;
-            int charCount = 0;
+            long globalPos = 0L;
+            long charCount = 0L;
             while (true) {
                 if (globalPos == 0) {
                     buffer = new char[this.bufferSize];
