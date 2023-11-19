@@ -169,7 +169,7 @@ public class CreditBook {
      * @param mark         - mark for the credit
      * @param term         - term when the credit is taking
      */
-    private record Record(String typeOfCredit, String subject, int mark, int term) {
+    public record Record(String typeOfCredit, String subject, int mark, int term) {
 
         /**
          * Class constructor.
@@ -179,7 +179,7 @@ public class CreditBook {
          * @param mark         - mark for the credit
          * @param term         - term when the credit is taking
          */
-        private Record(String typeOfCredit, String subject, int mark, int term) {
+        public Record {
             if (!(typeOfCredit.equals("exam") || typeOfCredit.equals("credit"))) {
                 throw new IllegalArgumentException("wrong type of credit");
             }
@@ -189,10 +189,6 @@ public class CreditBook {
             if (term < 1 || term > 8) {
                 throw new IllegalArgumentException("wrong term");
             }
-            this.typeOfCredit = typeOfCredit;
-            this.subject = subject;
-            this.mark = mark;
-            this.term = term;
         }
     }
 }
