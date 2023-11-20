@@ -47,15 +47,6 @@ public class CreditBook {
      * @param term         - term when the credit is taking
      */
     public void addRecord(String typeOfCredit, String subject, int mark, int term) {
-        if (!(typeOfCredit.equals("exam") || typeOfCredit.equals("credit"))) {
-            throw new IllegalArgumentException("wrong type of credit");
-        }
-        if (mark < 2 || mark > 5) {
-            throw new IllegalArgumentException("wrong mark");
-        }
-        if (term < 1 || term > 8) {
-            throw new IllegalArgumentException("wrong term");
-        }
         this.records.add(new Record(typeOfCredit, subject, mark, term));
     }
 
@@ -172,12 +163,35 @@ public class CreditBook {
 
     /**
      * Subclass for the record in the credit book.
-     *
-     * @param typeOfCredit - credit or exam
-     * @param subject      - subject
-     * @param mark         - mark for the credit
-     * @param term         - term when the credit is taking
      */
-    public record Record(String typeOfCredit, String subject, int mark, int term) {
+    private static class Record {
+        private String typeOfCredit;
+        private String subject;
+        private int mark;
+        private int term;
+
+        /**
+         * Class constructor.
+         *
+         * @param typeOfCredit - credit or exam
+         * @param subject      - subject
+         * @param mark         - mark for the credit
+         * @param term         - term when the credit is taking
+         */
+        private Record(String typeOfCredit, String subject, int mark, int term) {
+            if (!(typeOfCredit.equals("exam") || typeOfCredit.equals("credit"))) {
+                throw new IllegalArgumentException("wrong type of credit");
+            }
+            if (mark < 2 || mark > 5) {
+                throw new IllegalArgumentException("wrong mark");
+            }
+            if (term < 1 || term > 8) {
+                throw new IllegalArgumentException("wrong term");
+            }
+            this.typeOfCredit = typeOfCredit;
+            this.subject = subject;
+            this.mark = mark;
+            this.term = term;
+        }
     }
 }
