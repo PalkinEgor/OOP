@@ -178,6 +178,6 @@ public class CreditBook {
      * @param mark         - mark for the credit
      * @param term         - term when the credit is taking
      */
-    private record Record(String typeOfCredit, String subject, int mark, int term) {
+    public record Record(String typeOfCredit, String subject, int mark, int term) {
     }
 }
