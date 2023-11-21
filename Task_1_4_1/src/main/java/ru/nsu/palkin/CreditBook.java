@@ -105,8 +105,8 @@ public class CreditBook {
         if (this.records.stream().anyMatch(item -> item.mark.getMark() < 4)) {
             return false;
         }
-        Map<String, List<Record>> groupedRecords = this.records.stream().collect(Collectors.
-                groupingBy(Record::getSubjectMark));
+        Map<String, List<Record>> groupedRecords = this.records.stream().collect(Collectors
+                .groupingBy(Record::getSubjectMark));
         int excellentMarks = 0;
         int allMarks = 0;
         for (List<Record> current : groupedRecords.values()) {
@@ -183,10 +183,53 @@ public class CreditBook {
 }
 
 /**
- * Type of credit enum type.
+ * Number of term enum type.
  */
-enum TypeOfCredit {
-    EXAM, CREDIT
+enum Term {
+    FIRST(1), SECOND(2), THIRD(3), FOURTH(4), FIFTH(5), SIXTH(6), SEVENTH(7), EIGHTH(8);
+
+    private final int term;
+
+    Term(int term) {
+        this.term = term;
+    }
+
+    public int getTerm() {
+        return term;
+    }
+
+    public Term getTerm(int n) {
+        Term result = null;
+        switch (n) {
+            case 1:
+                result = FIRST;
+                break;
+            case 2:
+                result = SECOND;
+                break;
+            case 3:
+                result = THIRD;
+                break;
+            case 4:
+                result = FOURTH;
+                break;
+            case 5:
+                result = FIFTH;
+                break;
+            case 6:
+                result = SIXTH;
+                break;
+            case 7:
+                result = SEVENTH;
+                break;
+            case 8:
+                result = EIGHTH;
+                break;
+            default:
+                break;
+        }
+        return result;
+    }
 }
 
 /**
@@ -207,32 +250,8 @@ enum Mark {
 }
 
 /**
- * Number of term enum type.
+ * Type of credit enum type.
  */
-enum Term {
-    FIRST(1), SECOND(2), THIRD(3), FOURTH(4), FIFTH(5), SIXTH(6), SEVENTH(7), EIGHTH(8);
-
-    private final int term;
-
-    Term(int term) {
-        this.term = term;
-    }
-
-    public int getTerm() {
-        return term;
-    }
-
-    public Term getTerm(int n) {
-        return switch (n) {
-            case 1 -> FIRST;
-            case 2 -> SECOND;
-            case 3 -> THIRD;
-            case 4 -> FOURTH;
-            case 5 -> FIFTH;
-            case 6 -> SIXTH;
-            case 7 -> SEVENTH;
-            case 8 -> EIGHTH;
-            default -> null;
-        };
-    }
+enum TypeOfCredit {
+    EXAM, CREDIT
 }
