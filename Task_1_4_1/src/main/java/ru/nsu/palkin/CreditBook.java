@@ -1,15 +1,16 @@
 package ru.nsu.palkin;
 
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * Class CreditBook.
  */
 public class CreditBook {
     private Student student;
-    private int currentTerm;
+    private Term currentTerm;
     private ArrayList<Record> records;
     private Integer finalWorkMark;
 
@@ -19,7 +20,7 @@ public class CreditBook {
      * @param student     - info about the student
      * @param currentTerm - term of the student
      */
-    CreditBook(Student student, int currentTerm) {
+    CreditBook(Student student, Term currentTerm) {
         this.student = student;
         this.currentTerm = currentTerm;
         this.records = new ArrayList<>();
@@ -33,7 +34,7 @@ public class CreditBook {
      */
     CreditBook(Student student) {
         this.student = student;
-        this.currentTerm = 1;
+        this.currentTerm = Term.FIRST;
         this.records = new ArrayList<>();
         this.finalWorkMark = null;
     }
@@ -46,7 +47,7 @@ public class CreditBook {
      * @param mark         - mark for the credit
      * @param term         - term when the credit is taking
      */
-    public void addRecord(String typeOfCredit, String subject, int mark, int term) {
+    public void addRecord(TypeOfCredit typeOfCredit, String subject, Mark mark, Term term) {
         this.records.add(new Record(typeOfCredit, subject, mark, term));
     }
 
@@ -54,7 +55,7 @@ public class CreditBook {
      * Update value of the current term.
      */
     public void updateTerm() {
-        this.currentTerm++;
+        this.currentTerm = this.currentTerm.getTerm(this.currentTerm.getTerm() + 1);
     }
 
     /**
@@ -63,12 +64,7 @@ public class CreditBook {
      * @return mean mark.
      */
     public double currentMeanMark() {
-        double result = 0;
-        int len = this.records.size();
-        for (Record record : this.records) {
-            result = result + record.mark;
-        }
-        return result / len;
+        return this.records.stream().mapToInt(item -> item.mark.getMark()).average().orElse(0);
     }
 
     /**
@@ -79,8 +75,8 @@ public class CreditBook {
     public boolean increasedStudentShip() {
         int len = this.records.size();
         for (Record record : this.records) {
-            if ((this.currentTerm - 1) == record.term) {
-                if (record.mark < 4) {
+            if ((this.currentTerm.getTerm() - 1) == record.term.getTerm()) {
+                if (record.mark.getMark() < 4) {
                     return false;
                 }
             }
@@ -106,32 +102,22 @@ public class CreditBook {
      * @return true or false
      */
     public boolean redCertificate() {
+        if (this.records.stream().anyMatch(item -> item.mark.getMark() < 4)) {
+            return false;
+        }
+        Map<String, List<Record>> groupedRecords = this.records.stream().collect(Collectors.
+                groupingBy(Record::getSubjectMark));
         int excellentMarks = 0;
-        int len = this.records.size();
-        for (int i = 0; i < len; i++) {
-            Record current = this.records.get(i);
-            int lastMark = current.mark;
-            int lastTerm = current.term;
-            if (lastMark < 4) {
-                return false;
-            }
-            for (int j = i; j < len; j++) {
-                if (this.records.get(j).subject.equals(current.subject)
-                        && this.records.get(j).term > lastTerm) {
-                    lastTerm = this.records.get(j).term;
-                    lastMark = this.records.get(j).mark;
-                }
-            }
-            if (lastMark == 5) {
+        int allMarks = 0;
+        for (List<Record> current : groupedRecords.values()) {
+            Record maxRec = current.stream().max((o1, o2) -> Integer.compare(o1.term.getTerm(),
+                    o2.term.getTerm())).orElse(null);
+            if (maxRec.mark == Mark.FIVE) {
                 excellentMarks++;
             }
+            allMarks++;
         }
-        Set<String> uniqueSubject = new HashSet<>();
-        for (Record record : this.records) {
-            uniqueSubject.add(record.subject);
-        }
-        return (((double) excellentMarks / uniqueSubject.size() >= 0.75)
-                && (this.finalWorkMark == 5));
+        return (((double) excellentMarks / allMarks) >= 0.75) && (this.finalWorkMark == 5);
     }
 
     /**
@@ -148,7 +134,7 @@ public class CreditBook {
      *
      * @return current term
      */
-    public int getCurrentTerm() {
+    public Term getCurrentTerm() {
         return this.currentTerm;
     }
 
@@ -165,10 +151,10 @@ public class CreditBook {
      * Subclass for the record in the credit book.
      */
     private static class Record {
-        private String typeOfCredit;
+        private TypeOfCredit typeOfCredit;
         private String subject;
-        private int mark;
-        private int term;
+        private Mark mark;
+        private Term term;
 
         /**
          * Class constructor.
@@ -178,20 +164,75 @@ public class CreditBook {
          * @param mark         - mark for the credit
          * @param term         - term when the credit is taking
          */
-        private Record(String typeOfCredit, String subject, int mark, int term) {
-            if (!(typeOfCredit.equals("exam") || typeOfCredit.equals("credit"))) {
-                throw new IllegalArgumentException("wrong type of credit");
-            }
-            if (mark < 2 || mark > 5) {
-                throw new IllegalArgumentException("wrong mark");
-            }
-            if (term < 1 || term > 8) {
-                throw new IllegalArgumentException("wrong term");
-            }
+        private Record(TypeOfCredit typeOfCredit, String subject, Mark mark, Term term) {
             this.typeOfCredit = typeOfCredit;
             this.subject = subject;
             this.mark = mark;
             this.term = term;
         }
+
+        /**
+         * Method for 'group by' by two fields.
+         *
+         * @return string containing subject and mark
+         */
+        public String getSubjectMark() {
+            return this.subject + this.mark.getMark();
+        }
+    }
+}
+
+/**
+ * Type of credit enum type.
+ */
+enum TypeOfCredit {
+    EXAM, CREDIT
+}
+
+/**
+ * Mark enum type.
+ */
+enum Mark {
+    TWO(2), THREE(3), FOUR(4), FIVE(5);
+
+    private final int mark;
+
+    Mark(int mark) {
+        this.mark = mark;
+    }
+
+    public int getMark() {
+        return mark;
+    }
+}
+
+/**
+ * Number of term enum type.
+ */
+enum Term {
+    FIRST(1), SECOND(2), THIRD(3), FOURTH(4), FIFTH(5), SIXTH(6), SEVENTH(7), EIGHTH(8);
+
+    private final int term;
+
+    Term(int term) {
+        this.term = term;
+    }
+
+    public int getTerm() {
+        return term;
+    }
+
+    public Term getTerm(int n) {
+        return switch (n) {
+            case 1 -> FIRST;
+            case 2 -> SECOND;
+            case 3 -> THIRD;
+            case 4 -> FOURTH;
+            case 5 -> FIFTH;
+            case 6 -> SIXTH;
+            case 7 -> SEVENTH;
+            case 8 -> EIGHTH;
+            default -> null;
+        };
     }
 }
