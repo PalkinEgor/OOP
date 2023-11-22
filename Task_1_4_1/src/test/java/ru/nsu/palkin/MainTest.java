@@ -75,7 +75,7 @@ public class MainTest {
     }
 
     @Test
-    public void redCertificateFalse2Test() {
+    public void redCertificateFalseThreeMarkTest() {
         Student student = new Student("Egor", "Palkin", "Sergeevich");
         CreditBook myCreditBook = new CreditBook(student, Term.FIRST);
         myCreditBook.addRecord(TypeOfCredit.EXAM, "math", Mark.FIVE, Term.FIRST);

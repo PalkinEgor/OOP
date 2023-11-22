@@ -1,8 +1,8 @@
 package ru.nsu.palkin;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -105,18 +105,12 @@ public class CreditBook {
         if (this.records.stream().anyMatch(item -> item.mark.getMark() < 4)) {
             return false;
         }
-        Map<String, List<Record>> groupedRecords = this.records.stream().collect(Collectors
-                .groupingBy(Record::getSubjectMark));
-        int excellentMarks = 0;
-        int allMarks = 0;
-        for (List<Record> current : groupedRecords.values()) {
-            Record maxRec = current.stream().max((o1, o2) -> Integer.compare(o1.term.getTerm(),
-                    o2.term.getTerm())).orElse(null);
-            if (maxRec.mark == Mark.FIVE) {
-                excellentMarks++;
-            }
-            allMarks++;
-        }
+        Map<String, Optional<Record>> groupedRecords = this.records.stream().collect(Collectors
+                .groupingBy(Record::getSubjectMark, Collectors.maxBy((o1, o2) -> Integer
+                        .compare(o1.term.getTerm(), o2.term.getTerm()))));
+        int excellentMarks = (int) groupedRecords.values().stream().map(Optional::get)
+                .map(item -> item.mark.getMark()).filter(item -> item == 5).count();
+        int allMarks = groupedRecords.size();
         return (((double) excellentMarks / allMarks) >= 0.75) && (this.finalWorkMark == 5);
     }
 
@@ -199,36 +193,12 @@ enum Term {
     }
 
     public Term getTerm(int n) {
-        Term result = null;
-        switch (n) {
-            case 1:
-                result = FIRST;
-                break;
-            case 2:
-                result = SECOND;
-                break;
-            case 3:
-                result = THIRD;
-                break;
-            case 4:
-                result = FOURTH;
-                break;
-            case 5:
-                result = FIFTH;
-                break;
-            case 6:
-                result = SIXTH;
-                break;
-            case 7:
-                result = SEVENTH;
-                break;
-            case 8:
-                result = EIGHTH;
-                break;
-            default:
-                break;
+        for (Term term : Term.values()) {
+            if (term.getTerm() == n) {
+                return term;
+            }
         }
-        return result;
+        return null;
     }
 }
 
