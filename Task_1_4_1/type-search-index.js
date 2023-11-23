@@ -1,1 +1,1 @@
-typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"ru.nsu.palkin","l":"CreditBook"},{"p":"ru.nsu.palkin","l":"Main"},{"p":"ru.nsu.palkin","l":"Student"}]
+typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"ru.nsu.palkin","l":"CreditBook"},{"p":"ru.nsu.palkin","l":"Main"},{"p":"ru.nsu.palkin","l":"Mark"},{"p":"ru.nsu.palkin","l":"Student"},{"p":"ru.nsu.palkin","l":"Term"},{"p":"ru.nsu.palkin","l":"TypeOfCredit"}]
