@@ -8,14 +8,30 @@ public enum Term {
 
     private final int term;
 
+    /**
+     * Class constructor.
+     *
+     * @param term - term
+     */
     Term(int term) {
         this.term = term;
     }
 
+    /**
+     * Getter for term.
+     *
+     * @return term
+     */
     public int getTerm() {
         return term;
     }
 
+    /**
+     * Get enum value by number.
+     *
+     * @param n - number
+     * @return enum value
+     */
     public Term getTerm(int n) {
         for (Term term : Term.values()) {
             if (term.getTerm() == n) {

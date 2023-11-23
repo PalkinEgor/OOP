@@ -8,10 +8,20 @@ public enum Mark {
 
     private final int mark;
 
+    /**
+     * Class constructor.
+     *
+     * @param mark - mark
+     */
     Mark(int mark) {
         this.mark = mark;
     }
 
+    /**
+     * Getter for mark.
+     *
+     * @return mark
+     */
     public int getMark() {
         return mark;
     }
