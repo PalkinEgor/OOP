@@ -24,6 +24,13 @@ public class MainTest {
     }
 
     @Test
+    public void powerTest(){
+        Calculator calc = new Calculator(new OperatorFactory());
+        String expression = "^ 2 3";
+        assertEquals(calc.calculate(expression), 8);
+    }
+
+    @Test
     public void cosTest() {
         Calculator calc = new Calculator(new OperatorFactory());
         String expression = "cos 0";
