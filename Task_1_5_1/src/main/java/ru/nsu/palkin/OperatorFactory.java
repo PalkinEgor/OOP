@@ -40,6 +40,8 @@ public class OperatorFactory {
             case "cos":
                 operator = new Cos();
                 break;
+            default:
+                throw new RuntimeException("Wrong operator");
         }
         return operator;
     }

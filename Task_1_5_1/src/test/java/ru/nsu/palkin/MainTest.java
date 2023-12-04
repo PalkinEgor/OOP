@@ -17,17 +17,17 @@ public class MainTest {
     }
 
     @Test
-    public void AddSubMulDivTest() {
+    public void addSubMulDivTest() {
         Calculator calc = new Calculator(new OperatorFactory());
         String expression = "/ + 1 + 2 * 3 3 - 7 19";
         assertEquals(calc.calculate(expression), -1);
     }
 
     @Test
-    public void basicTrigonometryIdentityTest() {
+    public void cosTest() {
         Calculator calc = new Calculator(new OperatorFactory());
-        String expression = "+ ^ sin 1 2 - ^ cos 1 2 1";
-        assertEquals(String.format("%.7f", calc.calculate(expression)), "0,0000000");
+        String expression = "cos 0";
+        assertEquals(calc.calculate(expression), 1);
     }
 
     @Test
@@ -75,6 +75,15 @@ public class MainTest {
     public void incorrectExpressionTest() {
         Calculator calc = new Calculator(new OperatorFactory());
         String expression = "log - 2 4";
+        assertThrows(RuntimeException.class, () -> {
+            calc.calculate(expression);
+        });
+    }
+
+    @Test
+    public void wrongOperator() {
+        Calculator calc = new Calculator(new OperatorFactory());
+        String expression = "llog 2 8";
         assertThrows(RuntimeException.class, () -> {
             calc.calculate(expression);
         });

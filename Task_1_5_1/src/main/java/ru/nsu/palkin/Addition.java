@@ -21,4 +21,4 @@ public class Addition implements Operator {
             throw new RuntimeException("Stack is empty");
         }
     }
-};
+}

@@ -5,7 +5,7 @@ import java.util.Stack;
 /**
  * Power class.
  */
-public class Power implements Operator{
+public class Power implements Operator {
     /**
      * Override apply method.
      *
@@ -15,13 +15,13 @@ public class Power implements Operator{
     public void apply(Stack<Double> stack) {
         double first;
         double second;
-        try{
+        try {
             first = stack.pop();
             second = stack.pop();
-        } catch (RuntimeException e){
+        } catch (RuntimeException e) {
             throw new RuntimeException("Stack is empty");
         }
-        if (!Double.isFinite(Math.pow(first, second))){
+        if (!Double.isFinite(Math.pow(first, second))) {
             throw new ArithmeticException("Invalid argument");
         }
         stack.push(Math.pow(first, second));
