@@ -11,5 +11,7 @@ public interface Operator {
      *
      * @param stack - stack with numbers
      */
-    void apply(Stack<Double> stack);
+    void apply(Stack<Double> stack) throws DivisionByZeroException,
+            InvalidBaseOfLogException, InvalidIndOfLogException,
+            InvalidSqrtArgException, InvalidPowArgException;
 }

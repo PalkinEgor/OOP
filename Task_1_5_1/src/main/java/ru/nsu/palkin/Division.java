@@ -12,7 +12,7 @@ public class Division implements Operator {
      * @param stack - stack with numbers
      */
     @Override
-    public void apply(Stack<Double> stack) {
+    public void apply(Stack<Double> stack) throws DivisionByZeroException {
         double first;
         double second;
         try {
@@ -21,8 +21,8 @@ public class Division implements Operator {
         } catch (RuntimeException e) {
             throw new RuntimeException("Stack is empty");
         }
-        if (!Double.isFinite(first / second)) {
-            throw new ArithmeticException("Invalid argument");
+        if (second == 0) {
+            throw new DivisionByZeroException("Division by zero");
         }
         stack.push(first / second);
     }

@@ -12,7 +12,7 @@ public class Sqrt implements Operator {
      * @param stack - stack with numbers
      */
     @Override
-    public void apply(Stack<Double> stack) {
+    public void apply(Stack<Double> stack) throws InvalidSqrtArgException {
         double first;
         try {
             first = stack.pop();
@@ -20,7 +20,7 @@ public class Sqrt implements Operator {
             throw new RuntimeException("Stack is empty");
         }
         if (first < 0) {
-            throw new ArithmeticException("The root expression is less than zero");
+            throw new InvalidSqrtArgException("The root expression is less than zero");
         }
         stack.push(Math.sqrt(first));
     }

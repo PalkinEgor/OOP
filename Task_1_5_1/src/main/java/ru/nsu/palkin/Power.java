@@ -12,7 +12,7 @@ public class Power implements Operator {
      * @param stack - stack with numbers
      */
     @Override
-    public void apply(Stack<Double> stack) {
+    public void apply(Stack<Double> stack) throws InvalidPowArgException {
         double first;
         double second;
         try {
@@ -22,7 +22,7 @@ public class Power implements Operator {
             throw new RuntimeException("Stack is empty");
         }
         if (!Double.isFinite(Math.pow(first, second))) {
-            throw new ArithmeticException("Invalid argument");
+            throw new InvalidPowArgException("Invalid argument");
         }
         stack.push(Math.pow(first, second));
     }

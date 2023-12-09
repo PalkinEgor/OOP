@@ -25,7 +25,9 @@ public class Calculator {
      * @param expression - expression
      * @return result of the expression
      */
-    public double calculate(String expression) {
+    public double calculate(String expression) throws InvalidPowArgException,
+            InvalidBaseOfLogException, InvalidIndOfLogException,
+            InvalidSqrtArgException, DivisionByZeroException {
         String[] part = expression.split(" ");
         int len = part.length;
         for (int i = len - 1; i >= 0; i--) {
