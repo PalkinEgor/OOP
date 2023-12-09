@@ -178,11 +178,22 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <ul class="blockListLast">
 <li class="blockList">
 <h4>apply</h4>
-<pre class="methodSignature">void&nbsp;apply&#8203;(java.util.Stack&lt;java.lang.Double&gt;&nbsp;stack)</pre>
+<pre class="methodSignature">void&nbsp;apply&#8203;(java.util.Stack&lt;java.lang.Double&gt;&nbsp;stack)
+    throws <a href="DivisionByZeroException.html" title="class in ru.nsu.palkin">DivisionByZeroException</a>,
+           <a href="InvalidBaseOfLogException.html" title="class in ru.nsu.palkin">InvalidBaseOfLogException</a>,
+           <a href="InvalidIndOfLogException.html" title="class in ru.nsu.palkin">InvalidIndOfLogException</a>,
+           <a href="InvalidSqrtArgException.html" title="class in ru.nsu.palkin">InvalidSqrtArgException</a>,
+           <a href="InvalidPowArgException.html" title="class in ru.nsu.palkin">InvalidPowArgException</a></pre>
 <div class="block">Method for calculation.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>stack</code> - - stack with numbers</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code><a href="DivisionByZeroException.html" title="class in ru.nsu.palkin">DivisionByZeroException</a></code></dd>
+<dd><code><a href="InvalidBaseOfLogException.html" title="class in ru.nsu.palkin">InvalidBaseOfLogException</a></code></dd>
+<dd><code><a href="InvalidIndOfLogException.html" title="class in ru.nsu.palkin">InvalidIndOfLogException</a></code></dd>
+<dd><code><a href="InvalidSqrtArgException.html" title="class in ru.nsu.palkin">InvalidSqrtArgException</a></code></dd>
+<dd><code><a href="InvalidPowArgException.html" title="class in ru.nsu.palkin">InvalidPowArgException</a></code></dd>
 </dl>
 </li>
 </ul>
