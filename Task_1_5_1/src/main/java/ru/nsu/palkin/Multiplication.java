@@ -18,7 +18,7 @@ public class Multiplication implements Operator {
             double second = stack.pop();
             stack.push(first * second);
         } catch (RuntimeException e) {
-            throw new RuntimeException();
+            throw new RuntimeException("Stack is empty");
         }
     }
 }
