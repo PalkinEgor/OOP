@@ -3,7 +3,7 @@ package ru.nsu.palkin;
 /**
  * Class of the parallel solution.
  */
-public class ParallelExecution {
+public class ParallelExecution implements Prime {
     private int[] array;
     private int threadNumber;
 
@@ -22,7 +22,6 @@ public class ParallelExecution {
      * Solution method.
      *
      * @return true or false
-     * @throws InterruptedException if something goes wrong
      */
     public boolean hasNotPrime() throws InterruptedException {
         int subArrLen = this.array.length / this.threadNumber;
@@ -60,7 +59,7 @@ public class ParallelExecution {
         private int begin;
         private int end;
         private int[] array;
-        private boolean result = false;
+        private volatile boolean result = false;
 
         /**
          * Class constructor.
@@ -81,12 +80,9 @@ public class ParallelExecution {
         @Override
         public void run() {
             for (int i = begin; i < end; i++) {
-                int sqrt = (int) Math.sqrt(this.array[i]);
-                for (int j = 2; j <= sqrt; j++) {
-                    if (this.array[i] % j == 0) {
-                        this.result = true;
-                        return;
-                    }
+                if (isNotPrime(this.array[i])) {
+                    this.result = true;
+                    return;
                 }
             }
         }
