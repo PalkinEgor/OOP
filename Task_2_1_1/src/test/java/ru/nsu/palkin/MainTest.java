@@ -13,29 +13,31 @@ import org.junit.jupiter.api.Test;
  */
 public class MainTest {
 
-    @Test
-    public void largeTest() throws InterruptedException {
-        int[] array = new int[100000];
-        Arrays.fill(array, Integer.MAX_VALUE);
+    public void supFunc(int[] array, boolean flag) throws InterruptedException {
         List<Prime> objectList = new ArrayList<>();
         objectList.add(new SequntialExecution(array));
         objectList.add(new ParallelExecution(array, 6));
         objectList.add(new ParallelStreamExecution(array));
         for (Prime obj : objectList) {
-            assertFalse(obj.hasNotPrime());
+            if (flag) {
+                assertTrue(obj.hasNotPrime());
+            } else {
+                assertFalse(obj.hasNotPrime());
+            }
         }
+    }
+
+    @Test
+    public void largeTest() throws InterruptedException {
+        int[] array = new int[100000];
+        Arrays.fill(array, Integer.MAX_VALUE);
+        supFunc(array, false);
     }
 
     @Test
     public void trueTest() throws InterruptedException {
         int[] array = new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-        List<Prime> objectList = new ArrayList<>();
-        objectList.add(new SequntialExecution(array));
-        objectList.add(new ParallelExecution(array, 6));
-        objectList.add(new ParallelStreamExecution(array));
-        for (Prime obj : objectList) {
-            assertTrue(obj.hasNotPrime());
-        }
+        supFunc(array, true);
     }
 
     @Test
@@ -43,13 +45,7 @@ public class MainTest {
         int[] array = new int[100000];
         Arrays.fill(array, Integer.MAX_VALUE);
         array[99999] = 4;
-        List<Prime> objectList = new ArrayList<>();
-        objectList.add(new SequntialExecution(array));
-        objectList.add(new ParallelExecution(array, 6));
-        objectList.add(new ParallelStreamExecution(array));
-        for (Prime obj : objectList) {
-            assertTrue(obj.hasNotPrime());
-        }
+        supFunc(array, true);
     }
 
     @Test

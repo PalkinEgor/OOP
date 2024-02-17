@@ -59,7 +59,7 @@ public class ParallelExecution implements Prime {
         private int begin;
         private int end;
         private int[] array;
-        private volatile boolean result = false;
+        private boolean result = false;
 
         /**
          * Class constructor.
