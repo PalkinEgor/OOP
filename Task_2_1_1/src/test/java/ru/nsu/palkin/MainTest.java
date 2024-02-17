@@ -13,6 +13,12 @@ import org.junit.jupiter.api.Test;
  */
 public class MainTest {
 
+    /**
+     * Support method for tests.
+     *
+     * @param array - array of numbers
+     * @param flag  - true or false flag for assert
+     */
     public void supFunc(int[] array, boolean flag) throws InterruptedException {
         List<Prime> objectList = new ArrayList<>();
         objectList.add(new SequntialExecution(array));
