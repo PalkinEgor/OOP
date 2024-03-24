@@ -4,8 +4,14 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.net.*;
-import java.util.*;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.net.DatagramPacket;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Objects;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingDeque;
@@ -58,7 +64,8 @@ public class Boss {
         int previousPos = 0;
         for (int i = 0; i < this.chunks; i++) {
             if (i < residual) {
-                result.put(Arrays.copyOfRange(this.array, previousPos, previousPos + subArrLen + 1));
+                result.put(Arrays.copyOfRange(this.array, previousPos, previousPos
+                        + subArrLen + 1));
                 previousPos = previousPos + subArrLen + 1;
             } else {
                 result.put(Arrays.copyOfRange(this.array, previousPos, previousPos + subArrLen));
@@ -134,7 +141,8 @@ public class Boss {
             while (counter != this.chunks) {
                 try {
                     Socket workerSocket = this.workers.take();
-                    BufferedReader in = new BufferedReader(new InputStreamReader(workerSocket.getInputStream()));
+                    BufferedReader in = new BufferedReader(new
+                            InputStreamReader(workerSocket.getInputStream()));
                     String result = in.readLine();
                     if (Objects.equals(result, "true")) {
                         this.results.put(true);

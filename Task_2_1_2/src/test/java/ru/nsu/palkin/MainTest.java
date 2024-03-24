@@ -77,7 +77,8 @@ public class MainTest {
      * @param chunks       - chunks
      * @param result       - expected result
      */
-    public void testConstructor(int[] array, int workersCount, int chunks, boolean result) throws InterruptedException {
+    public void testConstructor(int[] array, int workersCount, int chunks, boolean result)
+            throws InterruptedException {
         Boss boss = new Boss("230.0.0.0", 8000, 8001, array, chunks);
         BossTask bossTask = new BossTask(boss);
         Thread bossThread = new Thread(bossTask);
