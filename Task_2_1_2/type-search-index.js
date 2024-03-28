@@ -1,1 +1,1 @@
-typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"ru.nsu.palkin","l":"Boss"},{"p":"ru.nsu.palkin","l":"Main"},{"p":"ru.nsu.palkin","l":"Worker"}]
+typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"ru.nsu.palkin","l":"Boss"},{"p":"ru.nsu.palkin","l":"DataCalculator"},{"p":"ru.nsu.palkin","l":"DataPreprocessor"},{"p":"ru.nsu.palkin","l":"DataTransporter"},{"p":"ru.nsu.palkin","l":"Main"},{"p":"ru.nsu.palkin","l":"Worker"}]
