@@ -45,14 +45,16 @@ public class MainTest {
      */
     private class WorkerTask implements Runnable {
         private Worker worker;
+        private boolean interrupt;
 
         /**
          * Class constructor.
          *
          * @param worker - object worker
          */
-        private WorkerTask(Worker worker) {
+        private WorkerTask(Worker worker, boolean interrupt) {
             this.worker = worker;
+            this.interrupt = interrupt;
         }
 
         /**
@@ -62,10 +64,10 @@ public class MainTest {
         public void run() {
             try {
                 this.worker.receiveSignal();
-                this.worker.calculateTask();
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
+            this.worker.calculateTask(interrupt);
         }
     }
 
@@ -77,7 +79,8 @@ public class MainTest {
      * @param chunks       - chunks
      * @param result       - expected result
      */
-    public void testConstructor(int[] array, int workersCount, int chunks, boolean result)
+    public void testConstructor(int[] array, int workersCount, int chunks,
+                                boolean result, boolean interrupt)
             throws InterruptedException {
         Boss boss = new Boss("230.0.0.0", 8000, 8001, array, chunks);
         BossTask bossTask = new BossTask(boss);
@@ -86,7 +89,11 @@ public class MainTest {
         Thread[] workerThread = new Thread[workersCount];
         for (int i = 0; i < workersCount; i++) {
             Worker worker = new Worker("230.0.0.0", 8000);
-            workerTasks[i] = new WorkerTask(worker);
+            if (interrupt && i == 0) {
+                workerTasks[i] = new WorkerTask(worker, true);
+            } else {
+                workerTasks[i] = new WorkerTask(worker, false);
+            }
             workerThread[i] = new Thread(workerTasks[i]);
             workerThread[i].start();
         }
@@ -109,34 +116,51 @@ public class MainTest {
         int[] array = new int[10000];
         Arrays.fill(array, Integer.MAX_VALUE);
         array[10] = 4;
-        testConstructor(array, 5, 10, true);
+        testConstructor(array, 5, 10, true, false);
     }
 
     @Test
     public void falseTest() throws InterruptedException {
         int[] array = new int[10000];
         Arrays.fill(array, Integer.MAX_VALUE);
-        testConstructor(array, 5, 10, false);
+        testConstructor(array, 5, 10, false, false);
     }
 
     @Test
     public void oneWorkerTest() throws InterruptedException {
         int[] array = new int[10000];
         Arrays.fill(array, Integer.MAX_VALUE);
-        testConstructor(array, 1, 10, false);
+        testConstructor(array, 1, 10, false, false);
     }
 
     @Test
     public void notMultipleNumberOfChunksTest() throws InterruptedException {
         int[] array = new int[10000];
         Arrays.fill(array, Integer.MAX_VALUE);
-        testConstructor(array, 5, 13, false);
+        testConstructor(array, 5, 13, false, false);
     }
 
     @Test
     public void equalNumberOfWorkersAndChunksTest() throws InterruptedException {
         int[] array = new int[10000];
         Arrays.fill(array, Integer.MAX_VALUE);
-        testConstructor(array, 5, 5, false);
+        testConstructor(array, 5, 5, false, false);
+    }
+
+    @Test
+    public void interruptTest() throws InterruptedException {
+        int[] array = new int[10000];
+        Arrays.fill(array, Integer.MAX_VALUE);
+        array[10] = 4;
+        testConstructor(array, 5, 5, true, true);
+    }
+
+    @Test
+    public void isPrimeTest() {
+        int[] array = new int[1000];
+        Arrays.fill(array, Integer.MAX_VALUE);
+        array[10] = 4;
+        DataCalculator calculator = new DataCalculator(array);
+        assertTrue(calculator.getResult());
     }
 }

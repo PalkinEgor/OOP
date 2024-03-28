@@ -45,71 +45,28 @@ public class Worker {
     }
 
     /**
-     * Method to make array from the string.
-     *
-     * @param value - string
-     * @return array
-     */
-    private int[] makeArray(String value) {
-        String[] values = value.split(" ");
-        int[] result = new int[values.length];
-        for (int i = 0; i < values.length; i++) {
-            result[i] = Integer.parseInt(values[i]);
-        }
-        return result;
-    }
-
-    /**
-     * Method to check number is prime or not.
-     *
-     * @param number - number
-     * @return true or false
-     */
-    private boolean isPrime(int number) {
-        int sqrt = (int) Math.sqrt(number);
-        for (int i = 2; i <= sqrt; i++) {
-            if (number % i == 0) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    /**
-     * Method to check is there a not prime number or not.
-     *
-     * @param array - array
-     * @return true or false
-     */
-    private boolean hasNotPrime(int[] array) {
-        for (int j : array) {
-            if (!isPrime(j)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /**
      * Main method.
      */
-    public void calculateTask() {
+    public void calculateTask(boolean interrupt) {
         while (true) {
             try {
                 Socket workerSocket = new Socket("localhost", this.port2);
                 BufferedReader in = new BufferedReader(new
                         InputStreamReader(workerSocket.getInputStream()));
                 PrintWriter out = new PrintWriter(workerSocket.getOutputStream(), true);
-
+                if (interrupt) {
+                    workerSocket.close();
+                    break;
+                }
                 String bossMessage = in.readLine();
-                int[] array = makeArray(bossMessage);
-                boolean result = hasNotPrime(array);
+                int[] array = DataPreprocessor.makeArray(bossMessage);
+                DataCalculator calculator = new DataCalculator(array);
+                boolean result = calculator.getResult();
                 if (result) {
                     out.println("true");
                 } else {
                     out.println("false");
                 }
-
                 in.close();
                 out.close();
                 workerSocket.close();
