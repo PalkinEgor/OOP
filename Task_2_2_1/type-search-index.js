@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"ru.nsu.palkin","l":"Baker"},{"p":"ru.nsu.palkin","l":"Courier"},{"p":"ru.nsu.palkin","l":"Main"},{"p":"ru.nsu.palkin","l":"MyBlockingQueue"},{"p":"ru.nsu.palkin","l":"Order"},{"p":"ru.nsu.palkin","l":"Pizzeria"}]
