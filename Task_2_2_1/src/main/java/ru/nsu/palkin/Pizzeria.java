@@ -89,7 +89,9 @@ public class Pizzeria {
      */
     private Thread bakerTask(Baker baker) {
         Runnable task = () -> {
-            while (baker.bakerTask(this.orderQueue, this.vaultQueue, this.logger)) ;
+            while (baker.bakerTask(this.orderQueue, this.vaultQueue, this.logger)) {
+            }
+            ;
         };
         Thread bakerThread = new Thread(task);
         bakerThread.start();
@@ -104,7 +106,9 @@ public class Pizzeria {
      */
     private Thread courierTask(Courier courier) {
         Runnable task = () -> {
-            while (courier.courierTask(this.vaultQueue, this.remainingOrders, this.logger)) ;
+            while (courier.courierTask(this.vaultQueue, this.remainingOrders, this.logger)) {
+            }
+            ;
         };
         Thread courierThread = new Thread(task);
         courierThread.start();
@@ -125,7 +129,9 @@ public class Pizzeria {
         }
         Thread addOrderThread = addOrderTask();
         addOrderThread.join();
-        while (this.remainingOrders.size() != 0) ;
+        while (this.remainingOrders.size() != 0) {
+        }
+        ;
         for (int i = 0; i < this.bakerList.size(); i++) {
             bakerThreads[i].interrupt();
         }

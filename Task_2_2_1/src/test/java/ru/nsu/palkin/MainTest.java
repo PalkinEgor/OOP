@@ -41,6 +41,13 @@ public class MainTest {
     }
 
     @Test
+    public void hashCodeTest() {
+        Order order1 = new Order(10);
+        Order order2 = new Order(10);
+        assertEquals(order1.hashCode(), order2.hashCode());
+    }
+
+    @Test
     public void myBlockingQueueGetTest() throws InterruptedException {
         MyBlockingQueue<Integer> queue = new MyBlockingQueue<>(10);
         queue.put(10);
