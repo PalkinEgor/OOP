@@ -179,8 +179,9 @@ extends java.lang.Object</pre>
 </tr>
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>boolean</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#courierTask(ru.nsu.palkin.MyBlockingQueue,ru.nsu.palkin.MyBlockingQueue)">courierTask</a></span>&#8203;(<a href="MyBlockingQueue.html" title="class in ru.nsu.palkin">MyBlockingQueue</a>&lt;<a href="Order.html" title="class in ru.nsu.palkin">Order</a>&gt;&nbsp;vault,
-           <a href="MyBlockingQueue.html" title="class in ru.nsu.palkin">MyBlockingQueue</a>&lt;<a href="Order.html" title="class in ru.nsu.palkin">Order</a>&gt;&nbsp;remainingOrders)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#courierTask(ru.nsu.palkin.MyBlockingQueue,ru.nsu.palkin.MyBlockingQueue,java.util.logging.Logger)">courierTask</a></span>&#8203;(<a href="MyBlockingQueue.html" title="class in ru.nsu.palkin">MyBlockingQueue</a>&lt;<a href="Order.html" title="class in ru.nsu.palkin">Order</a>&gt;&nbsp;vault,
+           <a href="MyBlockingQueue.html" title="class in ru.nsu.palkin">MyBlockingQueue</a>&lt;<a href="Order.html" title="class in ru.nsu.palkin">Order</a>&gt;&nbsp;remainingOrders,
+           java.util.logging.Logger&nbsp;logger)</code></th>
 <td class="colLast">
 <div class="block">Courier task.</div>
 </td>
@@ -235,14 +236,15 @@ extends java.lang.Object</pre>
 <!--   -->
 </a>
 <h3>Method Detail</h3>
-<a id="courierTask(ru.nsu.palkin.MyBlockingQueue,ru.nsu.palkin.MyBlockingQueue)">
+<a id="courierTask(ru.nsu.palkin.MyBlockingQueue,ru.nsu.palkin.MyBlockingQueue,java.util.logging.Logger)">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
 <h4>courierTask</h4>
 <pre class="methodSignature">public&nbsp;boolean&nbsp;courierTask&#8203;(<a href="MyBlockingQueue.html" title="class in ru.nsu.palkin">MyBlockingQueue</a>&lt;<a href="Order.html" title="class in ru.nsu.palkin">Order</a>&gt;&nbsp;vault,
-                           <a href="MyBlockingQueue.html" title="class in ru.nsu.palkin">MyBlockingQueue</a>&lt;<a href="Order.html" title="class in ru.nsu.palkin">Order</a>&gt;&nbsp;remainingOrders)</pre>
+                           <a href="MyBlockingQueue.html" title="class in ru.nsu.palkin">MyBlockingQueue</a>&lt;<a href="Order.html" title="class in ru.nsu.palkin">Order</a>&gt;&nbsp;remainingOrders,
+                           java.util.logging.Logger&nbsp;logger)</pre>
 <div class="block">Courier task.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
