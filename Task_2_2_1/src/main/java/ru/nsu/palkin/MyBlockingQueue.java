@@ -81,11 +81,15 @@ public class MyBlockingQueue<T> {
 
     /**
      * Get size method.
+     * Using only in synchronized block!
      *
      * @return size
      */
-    public synchronized int size() {
-        return this.queue.size();
+    public int size() {
+        this.lock.lock();
+        int result = this.queue.size();
+        this.lock.unlock();
+        return result;
     }
 
     /**
@@ -93,7 +97,9 @@ public class MyBlockingQueue<T> {
      *
      * @param object - object
      */
-    public synchronized void remove(T object) {
+    public void remove(T object) {
+        this.lock.lock();
         this.queue.remove(object);
+        this.lock.unlock();
     }
 }

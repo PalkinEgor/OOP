@@ -1,5 +1,7 @@
 package ru.nsu.palkin;
 
+import java.util.logging.Logger;
+
 /**
  * Courier class.
  */
@@ -26,25 +28,28 @@ public class Courier {
      * @return true or false
      */
     public boolean courierTask(MyBlockingQueue<Order> vault,
-                               MyBlockingQueue<Order> remainingOrders) {
+                               MyBlockingQueue<Order> remainingOrders, Logger logger) {
         try {
-            int pizzaCount = Math.min(this.capacity, vault.size());
+            int pizzaCount = 0;
+            synchronized (vault) {
+                pizzaCount = Math.min(this.capacity, vault.size());
+            }
             if (pizzaCount != 0) {
                 Order[] orders = new Order[pizzaCount];
                 for (int i = 0; i < pizzaCount; i++) {
                     orders[i] = vault.get();
-                    System.out.println("Order " + orders[i].getId() + " is on the way");
+                    logger.info("Order " + orders[i].getId() + " is on the way");
                 }
                 Thread.sleep((long) pizzaCount * this.time);
                 for (int i = 0; i < pizzaCount; i++) {
-                    System.out.println("Order " + orders[i].getId() + " has been delivered");
+                    logger.info("Order " + orders[i].getId() + " has been delivered");
                     remainingOrders.remove(orders[i]);
                 }
             } else {
                 Order currentOrder = vault.get();
-                System.out.println("Order " + currentOrder.getId() + " is on the way");
+                logger.info("Order " + currentOrder.getId() + " is on the way");
                 Thread.sleep(this.time);
-                System.out.println("Order " + currentOrder.getId() + " has been delivered");
+                logger.info("Order " + currentOrder.getId() + " has been delivered");
                 remainingOrders.remove(currentOrder);
             }
             return true;

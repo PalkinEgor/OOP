@@ -1,7 +1,11 @@
 package ru.nsu.palkin;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.logging.FileHandler;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
 
 /**
  * Pizzeria class.
@@ -14,6 +18,8 @@ public class Pizzeria {
     private ArrayList<Baker> bakerList;
     private ArrayList<Courier> courierList;
     private long workingTime;
+    private Logger logger = Logger.getLogger(Pizzeria.class.getName());
+    private FileHandler fileHandler;
 
     /**
      * Class constructor.
@@ -40,6 +46,13 @@ public class Pizzeria {
         }
         for (int i = 0; i < courierNumber; i++) {
             this.courierList.add(new Courier(courierCapacity[i], courierSpeed[i]));
+        }
+        try {
+            this.fileHandler = new FileHandler("logs.log");
+            this.fileHandler.setFormatter(new SimpleFormatter());
+            logger.addHandler(this.fileHandler);
+        } catch (IOException e) {
+            System.out.println("Error while creating handler: " + e.getMessage());
         }
     }
 
@@ -76,7 +89,7 @@ public class Pizzeria {
      */
     private Thread bakerTask(Baker baker) {
         Runnable task = () -> {
-            while (baker.bakerTask(this.orderQueue, this.vaultQueue)) ;
+            while (baker.bakerTask(this.orderQueue, this.vaultQueue, this.logger)) ;
         };
         Thread bakerThread = new Thread(task);
         bakerThread.start();
@@ -91,7 +104,7 @@ public class Pizzeria {
      */
     private Thread courierTask(Courier courier) {
         Runnable task = () -> {
-            while (courier.courierTask(this.vaultQueue, this.remainingOrders)) ;
+            while (courier.courierTask(this.vaultQueue, this.remainingOrders, this.logger)) ;
         };
         Thread courierThread = new Thread(task);
         courierThread.start();

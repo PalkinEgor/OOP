@@ -1,6 +1,7 @@
 package ru.nsu.palkin;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.Test;
 
 /**
@@ -13,12 +14,16 @@ public class MainTest {
         int bakerNumber = 5;
         int[] bakerSpeed = new int[]{100, 150, 200, 250, 300};
         int courierNumber = 2;
-        int[] courierCapacity = new int[]{2, 2};
         int[] courierSpeed = new int[]{300, 400};
+        int[] courierCapacity = new int[]{2, 2};
         int vaultCapacity = 4;
         long workingTime = 5000;
-        Pizzeria pizzeria = new Pizzeria(bakerNumber, bakerSpeed,
-                courierNumber, courierCapacity, courierSpeed, vaultCapacity, workingTime);
+
+        PizzeriaJson pizzeriaJson = new PizzeriaJson(bakerNumber, bakerSpeed, courierNumber,
+                courierSpeed, courierCapacity, vaultCapacity, workingTime);
+        JsonConverter jsonConverter = new JsonConverter(pizzeriaJson, "file.json");
+        jsonConverter.serialization();
+        Pizzeria pizzeria = jsonConverter.deserialization();
         pizzeria.startPizzeria();
     }
 

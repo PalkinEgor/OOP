@@ -41,4 +41,14 @@ public class Order {
         Order order = (Order) object;
         return this.id == order.id;
     }
+
+    /**
+     * Override hashCode method.
+     *
+     * @return hash
+     */
+    @Override
+    public int hashCode() {
+        return 17 + 31 * this.id + this.id;
+    }
 }
