@@ -2,7 +2,6 @@ package ru.nsu.palkin;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Random;
 import java.util.logging.FileHandler;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
@@ -57,31 +56,6 @@ public class Pizzeria {
     }
 
     /**
-     * Making orders thread.
-     *
-     * @return thread
-     */
-    private Thread addOrderTask() {
-        Runnable task = () -> {
-            long startTime = System.currentTimeMillis();
-            while (System.currentTimeMillis() - startTime < this.workingTime) {
-                try {
-                    Random rand = new Random();
-                    Thread.sleep(100 + rand.nextInt(150));
-                    this.orderQueue.put(new Order(this.orderNumber));
-                    this.remainingOrders.put(new Order(this.orderNumber));
-                    this.orderNumber = this.orderNumber + 1;
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        };
-        Thread thread = new Thread(task);
-        thread.start();
-        return thread;
-    }
-
-    /**
      * Baker thread.
      *
      * @param baker - baker
@@ -116,27 +90,96 @@ public class Pizzeria {
     }
 
     /**
-     * Start method.
+     * Start bakers method.
+     *
+     * @return array of baker's threads
      */
-    public void startPizzeria() throws InterruptedException {
+    private Thread[] startBakers() {
         Thread[] bakerThreads = new Thread[this.bakerList.size()];
-        Thread[] courierThreads = new Thread[this.courierList.size()];
         for (int i = 0; i < this.bakerList.size(); i++) {
             bakerThreads[i] = bakerTask(this.bakerList.get(i));
         }
+        return bakerThreads;
+    }
+
+    /**
+     * Add order method.
+     */
+    public void addOrder() throws InterruptedException {
+        this.orderQueue.put(new Order(this.orderNumber));
+        this.remainingOrders.put(new Order(this.orderNumber));
+        this.orderNumber = this.orderNumber + 1;
+    }
+
+    /**
+     * Start couriers method.
+     *
+     * @return array of courier's threads
+     */
+    private Thread[] startCouriers() {
+        Thread[] courierThreads = new Thread[this.courierList.size()];
         for (int i = 0; i < this.courierList.size(); i++) {
             courierThreads[i] = courierTask(this.courierList.get(i));
         }
-        Thread addOrderThread = addOrderTask();
-        addOrderThread.join();
-        while (this.remainingOrders.size() != 0) {
+        return courierThreads;
+    }
+
+    /**
+     * Close pizzeria method.
+     *
+     * @param bakerThreads   - baker's threads
+     * @param courierThreads - courier's threads
+     */
+    private void closePizzeria(Thread[] bakerThreads, Thread[] courierThreads)
+            throws InterruptedException {
+        SharedObject sharedObject = new SharedObject();
+        Runnable task = () -> {
+            while (this.remainingOrders.size() != 0) {
+            }
+            ;
+            synchronized (sharedObject) {
+                sharedObject.setStatus(true);
+                sharedObject.notify();
+            }
+        };
+        Thread thread = new Thread(task);
+        thread.start();
+        synchronized (sharedObject) {
+            while (!sharedObject.status) {
+                sharedObject.wait();
+            }
         }
-        ;
         for (int i = 0; i < this.bakerList.size(); i++) {
             bakerThreads[i].interrupt();
         }
         for (int i = 0; i < this.courierList.size(); i++) {
             courierThreads[i].interrupt();
+        }
+    }
+
+    /**
+     * Start pizzeria method.
+     */
+    public void startPizzeria() throws InterruptedException {
+        Thread[] bakerThreads = startBakers();
+        Thread[] courierThreads = startCouriers();
+        Thread.sleep(this.workingTime);
+        closePizzeria(bakerThreads, courierThreads);
+    }
+
+    /**
+     * Shared object class.
+     */
+    private static class SharedObject {
+        private boolean status = false;
+
+        /**
+         * Set status method.
+         *
+         * @param status - status
+         */
+        public void setStatus(boolean status) {
+            this.status = status;
         }
     }
 }
