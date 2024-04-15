@@ -132,23 +132,16 @@ public class Pizzeria {
      */
     private void closePizzeria(Thread[] bakerThreads, Thread[] courierThreads)
             throws InterruptedException {
-        SharedObject sharedObject = new SharedObject();
         Runnable task = () -> {
-            while (this.remainingOrders.size() != 0) {
-            }
-            ;
-            synchronized (sharedObject) {
-                sharedObject.setStatus(true);
-                sharedObject.notify();
+            try {
+                this.remainingOrders.check();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
             }
         };
         Thread thread = new Thread(task);
         thread.start();
-        synchronized (sharedObject) {
-            while (!sharedObject.status) {
-                sharedObject.wait();
-            }
-        }
+        thread.join();
         for (int i = 0; i < this.bakerList.size(); i++) {
             bakerThreads[i].interrupt();
         }
@@ -165,21 +158,5 @@ public class Pizzeria {
         Thread[] courierThreads = startCouriers();
         Thread.sleep(this.workingTime);
         closePizzeria(bakerThreads, courierThreads);
-    }
-
-    /**
-     * Shared object class.
-     */
-    private static class SharedObject {
-        private boolean status = false;
-
-        /**
-         * Set status method.
-         *
-         * @param status - status
-         */
-        public void setStatus(boolean status) {
-            this.status = status;
-        }
     }
 }

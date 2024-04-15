@@ -16,6 +16,8 @@ public class MyBlockingQueue<T> {
     private Lock lock;
     private Condition notFull;
     private Condition notEmpty;
+    private Condition isEmpty;
+    private boolean isEmptyStatus;
 
     /**
      * Class constructor.
@@ -28,6 +30,8 @@ public class MyBlockingQueue<T> {
         this.lock = new ReentrantLock();
         this.notFull = this.lock.newCondition();
         this.notEmpty = this.lock.newCondition();
+        this.isEmpty = this.lock.newCondition();
+        this.isEmptyStatus = false;
     }
 
     /**
@@ -39,6 +43,8 @@ public class MyBlockingQueue<T> {
         this.lock = new ReentrantLock();
         this.notFull = this.lock.newCondition();
         this.notEmpty = this.lock.newCondition();
+        this.isEmpty = this.lock.newCondition();
+        this.isEmptyStatus = false;
     }
 
     /**
@@ -80,6 +86,18 @@ public class MyBlockingQueue<T> {
     }
 
     /**
+     * Check method.
+     */
+    public void check() throws InterruptedException {
+        this.lock.lock();
+        this.isEmptyStatus = true;
+        while (!this.queue.isEmpty()) {
+            this.isEmpty.await();
+        }
+        this.lock.unlock();
+    }
+
+    /**
      * Get size method.
      * Using only in synchronized block!
      *
@@ -100,6 +118,9 @@ public class MyBlockingQueue<T> {
     public void remove(T object) {
         this.lock.lock();
         this.queue.remove(object);
+        if (this.queue.isEmpty() && this.isEmptyStatus) {
+            this.isEmpty.signal();
+        }
         this.lock.unlock();
     }
 }
