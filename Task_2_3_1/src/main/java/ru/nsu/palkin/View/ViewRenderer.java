@@ -1,11 +1,11 @@
-package ru.nsu.palkin.task_2_3_1.View;
+package ru.nsu.palkin.View;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import ru.nsu.palkin.task_2_3_1.Model.BodyPart;
-import ru.nsu.palkin.task_2_3_1.Model.Food;
-import ru.nsu.palkin.task_2_3_1.Model.Snake;
+import ru.nsu.palkin.Model.BodyPart;
+import ru.nsu.palkin.Model.Food;
+import ru.nsu.palkin.Model.Snake;
 
 import java.util.ArrayList;
 

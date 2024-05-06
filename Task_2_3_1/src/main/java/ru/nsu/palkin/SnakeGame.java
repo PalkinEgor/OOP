@@ -1,4 +1,4 @@
-package ru.nsu.palkin.task_2_3_1;
+package ru.nsu.palkin;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
@@ -7,9 +7,9 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import ru.nsu.palkin.task_2_3_1.Controller.Controller;
-import ru.nsu.palkin.task_2_3_1.Model.Game;
-import ru.nsu.palkin.task_2_3_1.View.ViewRenderer;
+import ru.nsu.palkin.Controller.Controller;
+import ru.nsu.palkin.Model.Game;
+import ru.nsu.palkin.View.ViewRenderer;
 
 /**
  * Main class.

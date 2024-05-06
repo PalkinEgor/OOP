@@ -1,7 +1,7 @@
-package ru.nsu.palkin.task_2_3_1;
+package ru.nsu.palkin;
 
 import org.junit.jupiter.api.Test;
-import ru.nsu.palkin.task_2_3_1.Model.Point;
+import ru.nsu.palkin.Model.Point;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

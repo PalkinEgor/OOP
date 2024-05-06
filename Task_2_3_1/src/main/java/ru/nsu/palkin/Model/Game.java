@@ -1,6 +1,6 @@
-package ru.nsu.palkin.task_2_3_1.Model;
+package ru.nsu.palkin.Model;
 
-import ru.nsu.palkin.task_2_3_1.View.ViewRenderer;
+import ru.nsu.palkin.View.ViewRenderer;
 
 import java.util.ArrayList;
 

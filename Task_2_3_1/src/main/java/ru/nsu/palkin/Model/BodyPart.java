@@ -1,4 +1,4 @@
-package ru.nsu.palkin.task_2_3_1.Model;
+package ru.nsu.palkin.Model;
 
 /**
  * Body part class.
