@@ -18,11 +18,12 @@ ext {
     junitVersion = '5.9.2'
 }
 
-sourceCompatibility = '17'
-targetCompatibility = '17'
+sourceCompatibility = '11'
+targetCompatibility = '11'
 
 application {
-    mainModule = 'ru.nsu.palkin.task_2_3_1'
+    mainModule = 'ru.nsu.palkin'
+    mainClass = 'ru.nsu.palkin.SnakeGame'
 }
 
 javafx {
