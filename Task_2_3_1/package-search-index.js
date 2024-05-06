@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"m":"ru.nsu.palkin.task_2_3_1","l":"ru.nsu.palkin"},{"m":"ru.nsu.palkin.task_2_3_1","l":"ru.nsu.palkin.Controller"},{"m":"ru.nsu.palkin.task_2_3_1","l":"ru.nsu.palkin.Model"},{"m":"ru.nsu.palkin.task_2_3_1","l":"ru.nsu.palkin.View"}]
