@@ -27,7 +27,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10,"i1":10,"i2":10};
+var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -192,13 +192,27 @@ extends java.lang.Object</pre>
 </td>
 </tr>
 <tr id="i1" class="rowColor">
+<td class="colFirst"><code>boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getGameOverStatus()">getGameOverStatus</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Getter for game over status.</div>
+</td>
+</tr>
+<tr id="i2" class="altColor">
+<td class="colFirst"><code><a href="Snake.html" title="class in ru.nsu.palkin.model">Snake</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getSnake()">getSnake</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Getter for snake object.</div>
+</td>
+</tr>
+<tr id="i3" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#loopGame()">loopGame</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Game loop method.</div>
 </td>
 </tr>
-<tr id="i2" class="altColor">
+<tr id="i4" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setDirection(ru.nsu.palkin.model.Direction)">setDirection</a></span>&#8203;(<a href="Direction.html" title="enum in ru.nsu.palkin.model">Direction</a>&nbsp;direction)</code></th>
 <td class="colLast">
@@ -273,6 +287,34 @@ extends java.lang.Object</pre>
 <h4>loopGame</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;loopGame()</pre>
 <div class="block">Game loop method.</div>
+</li>
+</ul>
+<a id="getSnake()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getSnake</h4>
+<pre class="methodSignature">public&nbsp;<a href="Snake.html" title="class in ru.nsu.palkin.model">Snake</a>&nbsp;getSnake()</pre>
+<div class="block">Getter for snake object.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>snake</dd>
+</dl>
+</li>
+</ul>
+<a id="getGameOverStatus()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getGameOverStatus</h4>
+<pre class="methodSignature">public&nbsp;boolean&nbsp;getGameOverStatus()</pre>
+<div class="block">Getter for game over status.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>true or false</dd>
+</dl>
 </li>
 </ul>
 <a id="getDirection()">
