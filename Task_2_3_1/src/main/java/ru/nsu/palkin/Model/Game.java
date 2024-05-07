@@ -1,8 +1,7 @@
-package ru.nsu.palkin.Model;
-
-import ru.nsu.palkin.View.ViewRenderer;
+package ru.nsu.palkin.model;
 
 import java.util.ArrayList;
+import ru.nsu.palkin.view.ViewRenderer;
 
 /**
  * Game class.

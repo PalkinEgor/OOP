@@ -5,10 +5,10 @@ module ru.nsu.palkin.task_2_3_1 {
 
     opens ru.nsu.palkin to javafx.fxml;
     exports ru.nsu.palkin;
-    exports ru.nsu.palkin.View;
-    opens ru.nsu.palkin.View to javafx.fxml;
-    exports ru.nsu.palkin.Controller;
-    opens ru.nsu.palkin.Controller to javafx.fxml;
-    exports ru.nsu.palkin.Model;
-    opens ru.nsu.palkin.Model to javafx.fxml;
+    exports ru.nsu.palkin.view;
+    opens ru.nsu.palkin.view to javafx.fxml;
+    exports ru.nsu.palkin.controller;
+    opens ru.nsu.palkin.controller to javafx.fxml;
+    exports ru.nsu.palkin.model;
+    opens ru.nsu.palkin.model to javafx.fxml;
 }

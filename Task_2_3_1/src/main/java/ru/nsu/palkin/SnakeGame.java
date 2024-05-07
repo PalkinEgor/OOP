@@ -7,9 +7,9 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import ru.nsu.palkin.Controller.Controller;
-import ru.nsu.palkin.Model.Game;
-import ru.nsu.palkin.View.ViewRenderer;
+import ru.nsu.palkin.controller.Controller;
+import ru.nsu.palkin.model.Game;
+import ru.nsu.palkin.view.ViewRenderer;
 
 /**
  * Main class.

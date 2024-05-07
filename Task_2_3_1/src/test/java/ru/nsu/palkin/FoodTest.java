@@ -1,13 +1,15 @@
 package ru.nsu.palkin;
 
-import org.junit.jupiter.api.Test;
-import ru.nsu.palkin.Model.Point;
-import ru.nsu.palkin.Model.Food;
-
 import java.util.ArrayList;
+import org.junit.jupiter.api.Test;
+import ru.nsu.palkin.model.Point;
+import ru.nsu.palkin.model.Food;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * Food class test.
+ */
 public class FoodTest {
     @Test
     public void foodGenerateFoodTest() {

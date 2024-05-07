@@ -1,10 +1,13 @@
 package ru.nsu.palkin;
 
 import org.junit.jupiter.api.Test;
-import ru.nsu.palkin.Model.Snake;
+import ru.nsu.palkin.model.Snake;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * Snake class test.
+ */
 public class SnakeTest {
     @Test
     public void snakeGetSnakeTest() {

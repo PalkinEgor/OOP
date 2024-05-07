@@ -1,9 +1,9 @@
-package ru.nsu.palkin.Controller;
+package ru.nsu.palkin.controller;
 
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import ru.nsu.palkin.Model.Direction;
-import ru.nsu.palkin.Model.Game;
+import ru.nsu.palkin.model.Direction;
+import ru.nsu.palkin.model.Game;
 
 /**
  * Controller class.

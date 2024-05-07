@@ -1,10 +1,13 @@
 package ru.nsu.palkin;
 
 import org.junit.jupiter.api.Test;
-import ru.nsu.palkin.Model.Point;
+import ru.nsu.palkin.model.Point;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * Point class test.
+ */
 public class PointTest {
     @Test
     public void pointGetXTest() {

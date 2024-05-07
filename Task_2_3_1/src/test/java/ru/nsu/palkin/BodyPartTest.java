@@ -1,10 +1,13 @@
 package ru.nsu.palkin;
 
 import org.junit.jupiter.api.Test;
-import ru.nsu.palkin.Model.BodyPart;
+import ru.nsu.palkin.model.BodyPart;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * Body part test class.
+ */
 public class BodyPartTest {
     @Test
     public void moveBodyPartXTest() {

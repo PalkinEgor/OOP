@@ -1,4 +1,4 @@
-package ru.nsu.palkin.Model;
+package ru.nsu.palkin.model;
 
 /**
  * Type of directions class.
