@@ -81,8 +81,9 @@ public class Game {
      */
     private void loseChecker() {
         for (int i = 1; i < this.snake.getSnake().size(); i++) {
-            if (this.snake.getSnake().get(0).getX() == this.snake.getSnake().get(i).getX() &&
-                    this.snake.getSnake().get(0).getY() == this.snake.getSnake().get(i).getY()) {
+            if (this.snake.getSnake().get(0).getX() == this.snake.getSnake().get(i).getX()
+                    && this.snake.getSnake().get(0).getY()
+                    == this.snake.getSnake().get(i).getY()) {
                 this.gameOverStatus = true;
                 break;
             }
