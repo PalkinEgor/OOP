@@ -1,37 +1,37 @@
 package ru.nsu.palkin;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.Test;
 import ru.nsu.palkin.model.BodyPart;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Body part test class.
  */
 public class BodyPartTest {
     @Test
-    public void moveBodyPartXTest() {
+    public void moveBodyPartTestX() {
         BodyPart bodyPart = new BodyPart(0, 0, 10, 10);
         bodyPart.moveBodyPart(1, 0);
         assertEquals(bodyPart.getX(), 1);
     }
 
     @Test
-    public void moveBodyPartYTest() {
+    public void moveBodyPartTestY() {
         BodyPart bodyPart = new BodyPart(0, 0, 10, 10);
         bodyPart.moveBodyPart(0, 1);
         assertEquals(bodyPart.getY(), 1);
     }
 
     @Test
-    public void moveBodyPartExtraXTest() {
+    public void moveBodyPartExtraTestX() {
         BodyPart bodyPart = new BodyPart(0, 0, 10, 10);
         bodyPart.moveBodyPart(10, 0);
         assertEquals(bodyPart.getX(), 0);
     }
 
     @Test
-    public void moveBodyPartExtraYTest() {
+    public void moveBodyPartExtraTestY() {
         BodyPart bodyPart = new BodyPart(0, 0, 10, 10);
         bodyPart.moveBodyPart(0, 10);
         assertEquals(bodyPart.getY(), 0);
@@ -39,14 +39,14 @@ public class BodyPartTest {
     }
 
     @Test
-    public void moveBodyPartSetXTest() {
+    public void moveBodyPartSetTestX() {
         BodyPart bodyPart = new BodyPart(0, 0, 10, 10);
         bodyPart.setX(1);
         assertEquals(bodyPart.getX(), 1);
     }
 
     @Test
-    public void moveBodyPartSetYTest() {
+    public void moveBodyPartSetTestY() {
         BodyPart bodyPart = new BodyPart(0, 0, 10, 10);
         bodyPart.setY(1);
         assertEquals(bodyPart.getY(), 1);

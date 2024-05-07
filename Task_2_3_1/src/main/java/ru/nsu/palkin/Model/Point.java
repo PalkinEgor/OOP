@@ -4,18 +4,18 @@ package ru.nsu.palkin.model;
  * Point class.
  */
 public class Point {
-    private final int xPosition;
-    private final int yPosition;
+    private final int xp;
+    private final int yp;
 
     /**
      * Point constructor.
      *
-     * @param xPosition - x
-     * @param yPosition - y
+     * @param xp - x
+     * @param yp - y
      */
-    public Point(int xPosition, int yPosition) {
-        this.xPosition = xPosition;
-        this.yPosition = yPosition;
+    public Point(int xp, int yp) {
+        this.xp = xp;
+        this.yp = yp;
     }
 
     /**
@@ -24,7 +24,7 @@ public class Point {
      * @return x position
      */
     public int getX() {
-        return this.xPosition;
+        return this.xp;
     }
 
     /**
@@ -33,6 +33,6 @@ public class Point {
      * @return y position
      */
     public int getY() {
-        return this.yPosition;
+        return this.yp;
     }
 }

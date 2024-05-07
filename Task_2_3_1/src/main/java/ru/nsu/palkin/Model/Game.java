@@ -54,8 +54,8 @@ public class Game {
             this.viewRenderer.drawWord("You Win!");
             return;
         }
-        foodChecker();
-        moveSnake();
+        foodHandler();
+        this.snake.moveSnake(this.direction);
         loseChecker();
         this.viewRenderer.clearField();
         this.viewRenderer.drawField();
@@ -77,30 +77,6 @@ public class Game {
     }
 
     /**
-     * Move snake method.
-     */
-    private void moveSnake() {
-        for (int i = this.snake.getSnake().size() - 1; i >= 1; i--) {
-            this.snake.getSnake().get(i).setX(this.snake.getSnake().get(i - 1).getX());
-            this.snake.getSnake().get(i).setY(this.snake.getSnake().get(i - 1).getY());
-        }
-        switch (this.direction) {
-            case UP:
-                this.snake.getSnake().get(0).moveBodyPart(0, -1);
-                break;
-            case DOWN:
-                this.snake.getSnake().get(0).moveBodyPart(0, 1);
-                break;
-            case LEFT:
-                this.snake.getSnake().get(0).moveBodyPart(-1, 0);
-                break;
-            case RIGHT:
-                this.snake.getSnake().get(0).moveBodyPart(1, 0);
-                break;
-        }
-    }
-
-    /**
      * Lose checking method.
      */
     private void loseChecker() {
@@ -116,13 +92,16 @@ public class Game {
     /**
      * Food checking method.
      */
-    private void foodChecker() {
+    private void foodHandler() {
         for (int i = 0; i < this.foodCount; i++) {
             if (this.snake.getSnake().get(0).getX() == foods.get(i).getFoodX()
                     && this.snake.getSnake().get(0).getY() == foods.get(i).getFoodY()) {
                 this.snake.getSnake().add(new BodyPart(-1, -1, this.width, this.height));
                 this.foods.remove(foods.get(i));
                 ArrayList<Point> badPoints = getBadPoints();
+                if (badPoints.size() == this.width * this.height) {
+                    break;
+                }
                 this.foods.add(new Food(this.width, this.height));
                 this.foods.get(this.foods.size() - 1).generateFood(badPoints);
             }
@@ -144,6 +123,24 @@ public class Game {
                     this.snake.getSnake().get(i).getY()));
         }
         return badPoints;
+    }
+
+    /**
+     * Getter for snake object.
+     *
+     * @return snake
+     */
+    public Snake getSnake() {
+        return this.snake;
+    }
+
+    /**
+     * Getter for game over status.
+     *
+     * @return true or false
+     */
+    public boolean getGameOverStatus() {
+        return this.gameOverStatus;
     }
 
     /**

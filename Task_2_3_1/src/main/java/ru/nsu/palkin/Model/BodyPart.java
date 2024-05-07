@@ -4,22 +4,22 @@ package ru.nsu.palkin.model;
  * Body part class.
  */
 public class BodyPart {
-    private int x;
-    private int y;
+    private int xp;
+    private int yp;
     private final int width;
     private final int height;
 
     /**
      * Body part constructor.
      *
-     * @param x      - x
-     * @param y      - y
+     * @param xp     - x
+     * @param yp     - y
      * @param width  - width of window
      * @param height - height of window
      */
-    public BodyPart(int x, int y, int width, int height) {
-        this.x = x;
-        this.y = y;
+    public BodyPart(int xp, int yp, int width, int height) {
+        this.xp = xp;
+        this.yp = yp;
         this.width = width;
         this.height = height;
     }
@@ -31,19 +31,19 @@ public class BodyPart {
      * @param dy - y offset
      */
     public void moveBodyPart(int dx, int dy) {
-        this.x = this.x + dx;
-        this.y = this.y + dy;
-        if (this.x < 0) {
-            this.x = width - 1;
+        this.xp = this.xp + dx;
+        this.yp = this.yp + dy;
+        if (this.xp < 0) {
+            this.xp = width - 1;
         }
-        if (this.x == width) {
-            this.x = 0;
+        if (this.xp == width) {
+            this.xp = 0;
         }
-        if (this.y < 0) {
-            this.y = height - 1;
+        if (this.yp < 0) {
+            this.yp = height - 1;
         }
-        if (this.y == height) {
-            this.y = 0;
+        if (this.yp == height) {
+            this.yp = 0;
         }
     }
 
@@ -53,7 +53,7 @@ public class BodyPart {
      * @return x
      */
     public int getX() {
-        return x;
+        return xp;
     }
 
     /**
@@ -62,24 +62,24 @@ public class BodyPart {
      * @return y
      */
     public int getY() {
-        return y;
+        return yp;
     }
 
     /**
      * X setter.
      *
-     * @param x - x
+     * @param xp - x
      */
-    public void setX(int x) {
-        this.x = x;
+    public void setX(int xp) {
+        this.xp = xp;
     }
 
     /**
      * Y setter.
      *
-     * @param y - y
+     * @param yp - y
      */
-    public void setY(int y) {
-        this.y = y;
+    public void setY(int yp) {
+        this.yp = yp;
     }
 }

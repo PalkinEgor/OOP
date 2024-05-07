@@ -3,11 +3,10 @@ package ru.nsu.palkin.view;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import java.util.ArrayList;
 import ru.nsu.palkin.model.BodyPart;
 import ru.nsu.palkin.model.Food;
 import ru.nsu.palkin.model.Snake;
-
-import java.util.ArrayList;
 
 /**
  * View renderer class.

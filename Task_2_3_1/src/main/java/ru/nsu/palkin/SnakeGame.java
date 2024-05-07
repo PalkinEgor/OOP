@@ -39,7 +39,8 @@ public class SnakeGame extends Application {
         Pane root = new Pane();
         root.getChildren().add(canvas);
         ViewRenderer viewRenderer = new ViewRenderer(width, height, cellSize, context);
-        Game game = new Game(width, height, foodCount, conditionOfVictory, startX, startY, viewRenderer);
+        Game game = new Game(width, height, foodCount, conditionOfVictory,
+                startX, startY, viewRenderer);
         Controller controller = new Controller(game);
         new AnimationTimer() {
             long lastTick = 0;
