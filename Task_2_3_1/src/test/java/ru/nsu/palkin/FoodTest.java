@@ -4,9 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
 import org.junit.jupiter.api.Test;
-import ru.nsu.palkin.model.Point;
 import ru.nsu.palkin.model.Food;
-
+import ru.nsu.palkin.model.Point;
 
 /**
  * Food class test.
