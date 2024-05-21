@@ -1,0 +1,30 @@
+plugins {
+    id 'java'
+    id 'jacoco'
+}
+
+group = 'ru.nsu.palkin'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+    maven { url 'https://repo.gradle.org/gradle/libs-releases' }
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:${junitVersion}'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:${junitVersion}'
+    implementation 'org.codehaus.groovy:groovy-all:3.0.9'
+    implementation 'org.gradle:gradle-tooling-api:8.2.1'
+    implementation 'org.jsoup:jsoup:1.15.4'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+jacocoTestReport {
+    reports {
+        xml.required = true
+    }
+}
