@@ -1,6 +1,7 @@
 package ru.nsu.palkin.view;
 
 import java.util.ArrayList;
+
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -65,12 +66,26 @@ public class ViewRenderer {
      *
      * @param snake - snake object
      */
-    public void drawSnake(Snake snake) {
-        this.context.setFill(Color.GREEN);
+    public void drawSnake(Snake snake, Snake botSnake, boolean botStatus) {
         ArrayList<BodyPart> bodyParts = snake.getSnake();
-        for (BodyPart bodyPart : bodyParts) {
-            this.context.fillOval(bodyPart.getX() * this.cellSize,
-                    bodyPart.getY() * this.cellSize, this.cellSize, this.cellSize);
+        this.context.setFill(Color.rgb(0, 60, 0));
+        this.context.fillOval(bodyParts.get(0).getX() * this.cellSize,
+                bodyParts.get(0).getY() * this.cellSize, this.cellSize, this.cellSize);
+        this.context.setFill(Color.GREEN);
+        for (int i = 1; i < bodyParts.size(); i++) {
+            this.context.fillOval(bodyParts.get(i).getX() * this.cellSize,
+                    bodyParts.get(i).getY() * this.cellSize, this.cellSize, this.cellSize);
+        }
+        if (!botStatus) {
+            ArrayList<BodyPart> botBodyParts = botSnake.getSnake();
+            this.context.setFill(Color.rgb(25, 25, 112));
+            this.context.fillOval(botBodyParts.get(0).getX() * this.cellSize,
+                    botBodyParts.get(0).getY() * this.cellSize, this.cellSize, this.cellSize);
+            this.context.setFill(Color.rgb(65, 105, 225));
+            for (int i = 1; i < botBodyParts.size(); i++) {
+                this.context.fillOval(botBodyParts.get(i).getX() * this.cellSize,
+                        botBodyParts.get(i).getY() * this.cellSize, this.cellSize, this.cellSize);
+            }
         }
     }
 

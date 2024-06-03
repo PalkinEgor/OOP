@@ -3,7 +3,7 @@ package ru.nsu.palkin.model;
 /**
  * Body part class.
  */
-public class BodyPart {
+public class BodyPart implements Cloneable {
     private int xp;
     private int yp;
     private final int width;
@@ -81,5 +81,14 @@ public class BodyPart {
      */
     public void setY(int yp) {
         this.yp = yp;
+    }
+
+    @Override
+    public BodyPart clone() {
+        try {
+            return (BodyPart) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError();
+        }
     }
 }
