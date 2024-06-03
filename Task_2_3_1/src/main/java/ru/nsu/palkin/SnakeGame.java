@@ -9,6 +9,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import ru.nsu.palkin.controller.Controller;
 import ru.nsu.palkin.model.Game;
+import ru.nsu.palkin.model.Strategy;
 import ru.nsu.palkin.view.ViewRenderer;
 
 /**
@@ -22,6 +23,9 @@ public class SnakeGame extends Application {
     private static final int conditionOfVictory = 50;
     private static final int startX = 15;
     private static final int startY = 10;
+    private static final int startBotX = 25;
+    private static final int startBotY = 10;
+    private static final Strategy botStrategy = Strategy.BFS;
     private static final long speed = 100000000;
 
     /**
@@ -40,7 +44,7 @@ public class SnakeGame extends Application {
         root.getChildren().add(canvas);
         ViewRenderer viewRenderer = new ViewRenderer(width, height, cellSize, context);
         Game game = new Game(width, height, foodCount, conditionOfVictory,
-                startX, startY, viewRenderer);
+                startX, startY, startBotX, startBotY, botStrategy, viewRenderer);
         Controller controller = new Controller(game);
         new AnimationTimer() {
             long lastTick = 0;

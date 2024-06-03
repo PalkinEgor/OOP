@@ -4,8 +4,8 @@ package ru.nsu.palkin.model;
  * Point class.
  */
 public class Point {
-    private final int xp;
-    private final int yp;
+    private int xp;
+    private int yp;
 
     /**
      * Point constructor.
