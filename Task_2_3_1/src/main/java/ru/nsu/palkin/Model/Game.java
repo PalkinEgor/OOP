@@ -102,7 +102,7 @@ public class Game {
     }
 
     /**
-     * Calculate Manhattan distance
+     * Calculate Manhattan distance.
      *
      * @param first  - first point
      * @param second - second point
@@ -155,8 +155,8 @@ public class Game {
             }
             boolean flag = false;
             for (int j = 1; j < this.botSnake.getSnake().size(); j++) {
-                if (current.getX() == this.botSnake.getSnake().get(j).getX() &&
-                        current.getY() == this.botSnake.getSnake().get(j).getY()) {
+                if (current.getX() == this.botSnake.getSnake().get(j).getX()
+                        && current.getY() == this.botSnake.getSnake().get(j).getY()) {
                     flag = true;
                     break;
                 }
@@ -165,8 +165,8 @@ public class Game {
                 continue;
             }
             for (int j = 0; j < this.snake.getSnake().size(); j++) {
-                if (current.getX() == this.snake.getSnake().get(j).getX() &&
-                        current.getY() == this.snake.getSnake().get(j).getY()) {
+                if (current.getX() == this.snake.getSnake().get(j).getX()
+                        && current.getY() == this.snake.getSnake().get(j).getY()) {
                     flag = true;
                     break;
                 }
@@ -221,12 +221,13 @@ public class Game {
         }
         try {
             while (!(parents[destination.getY()][destination.getX()].getX()
-                    == this.botSnake.getSnake().get(0).getX() &&
-                    parents[destination.getY()][destination.getX()].getY()
-                            == this.botSnake.getSnake().get(0).getY())) {
+                    == this.botSnake.getSnake().get(0).getX()
+                    && parents[destination.getY()][destination.getX()].getY()
+                    == this.botSnake.getSnake().get(0).getY())) {
                 destination = parents[destination.getY()][destination.getX()].clone();
             }
-        } catch (NullPointerException ignored) {
+        } catch (NullPointerException e) {
+            System.out.println(e.getMessage());
         }
         for (Direction dir : Direction.values()) {
             BodyPart current = this.botSnake.getSnake().get(0).clone();
@@ -287,8 +288,8 @@ public class Game {
                 }
                 boolean flag = false;
                 for (int j = 1; j < this.botSnake.getSnake().size(); j++) {
-                    if (current.getX() == this.botSnake.getSnake().get(j).getX() &&
-                            current.getY() == this.botSnake.getSnake().get(j).getY()) {
+                    if (current.getX() == this.botSnake.getSnake().get(j).getX()
+                            && current.getY() == this.botSnake.getSnake().get(j).getY()) {
                         flag = true;
                         break;
                     }
@@ -297,8 +298,8 @@ public class Game {
                     continue;
                 }
                 for (int j = 0; j < this.snake.getSnake().size(); j++) {
-                    if (current.getX() == this.snake.getSnake().get(j).getX() &&
-                            current.getY() == this.snake.getSnake().get(j).getY()) {
+                    if (current.getX() == this.snake.getSnake().get(j).getX()
+                            && current.getY() == this.snake.getSnake().get(j).getY()) {
                         flag = true;
                         break;
                     }
