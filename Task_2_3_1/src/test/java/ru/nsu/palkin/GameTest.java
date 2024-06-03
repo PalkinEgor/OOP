@@ -13,6 +13,7 @@ import ru.nsu.palkin.model.Direction;
 import ru.nsu.palkin.model.Game;
 import ru.nsu.palkin.model.Point;
 import ru.nsu.palkin.model.Snake;
+import ru.nsu.palkin.model.Strategy;
 
 
 /**
