@@ -8,7 +8,12 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
-import ru.nsu.palkin.model.*;
+import ru.nsu.palkin.model.BodyPart;
+import ru.nsu.palkin.model.Direction;
+import ru.nsu.palkin.model.Game;
+import ru.nsu.palkin.model.Point;
+import ru.nsu.palkin.model.Snake;
+
 
 /**
  * Game test class.
